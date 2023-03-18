@@ -7,15 +7,37 @@ import ArtCard from "../components/ArticleCard"
 import ArtList from '../components/ArticleList';
 import CusFooter from '../components/CusFooter';
 import CusHeader from '../components/CusHeader';
-import { useRef } from 'react';
+import { useRef,useState,useEffect } from 'react';
+import axios from "axios";
 
 const { Header, Content, Footer } = Layout;
+const PATH_LOGIN = '/login/validUser';
 
-function LoginPage() {
+const PARAM_USERNAME = 'UserName=';
+const PARAM_PASSWORD = 'Password=';
+
+export default function LoginPage() {
+  const [data, setData] = useState("");
+  const [success, setSuccess] = useState(false);
+
   const formRef = useRef(null);
-
+  
   const onFinish = (values) => {
-    console.log('Success:', values);
+    console.log('values:', values);
+
+    axios.post(`${PATH_LOGIN}`,{
+      "UserName" : values.username,
+      "Password" : values.password
+    })
+    .then(response=>{
+      console.log('response',response.data);
+      setData(response.data);
+      if(response.data.code == 200){
+        setSuccess(true);
+      }else{
+        setSuccess(false);
+      }
+    });
   };
   
   const onFinishFailed = (errorInfo) => {
@@ -34,10 +56,10 @@ function LoginPage() {
   return (
     <Layout>
         {/* 自定义头部 */}
-        <CusHeader prop="login" />
+        <CusHeader prop="login" isLogin={success}/>
       
         <Content className="site-layout" style={{ padding: '30px 150px' }}>
-        <Form
+          <Form
             name="basic"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
@@ -76,10 +98,16 @@ function LoginPage() {
                 Reset
               </Button>
               <Button type="link" htmlType="button" onClick={onRegis}>
-                Fill form
+                Regis
               </Button>
             </Form.Item>
           </Form>
+
+          {!success && (
+          <div className="mt-2 text-xs italic text-gray-500">
+              {data.message}
+          </div>
+          )}
         </Content>
       
       <CusFooter />
@@ -90,5 +118,3 @@ function LoginPage() {
     
   );
 }
-
-export default LoginPage;

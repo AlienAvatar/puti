@@ -1,4 +1,4 @@
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Breadcrumb, Layout, Menu, theme, Avatar, Space } from 'antd';
 import { AppstoreOutlined, HomeOutlined, UserOutlined,EditOutlined } from '@ant-design/icons';
 import TitleBg from '../assets/header/header_title.png';
 import {useState, setCurrent} from 'react'
@@ -24,12 +24,22 @@ const items = [
       value: '/login',
       icon: <UserOutlined />,
     },
+    // {
+    //   label: (
+    //     <Space size={16}>
+    //       <Avatar src='https://overwatch.nosdn.127.net/1/images/heroes/dva/icon-portrait.png' />
+    //       <span>nickname</span>
+    //     </Space>
+    //     ),
+    //   key:'user'
+    // }
 ];
 
 export default function CusHeader(prop) {
-    console.log('prop',prop.prop);
+    console.log('prop',prop);
 
     const [current, setCurrent] = useState(prop.prop);
+    const {nickName,setNickName} = useState("nick");
 
     const onClickHandle = (e) => {
       console.log('click',e);
@@ -39,17 +49,26 @@ export default function CusHeader(prop) {
 
     return (
         <Header style={{ position: 'sticky', top: 0, zIndex: 1, width: '100%' }}>
-        <div
-            style={{
-            float: 'left',
-            width: 120,
-            height: 31,
-            margin: '16px 24px 16px 0',
-            backgroundImage: `url(${TitleBg})`,
-            }}
-        />
+          <div
+              style={{
+              float: 'left',
+              width: 128,
+              height: 31,
+              margin: '16px 24px 16px 0',
+              backgroundImage: `url(${TitleBg})`,
+              }}
+          />
 
-        <Menu theme="dark" onClick={onClickHandle} selectedKeys={[current]} mode="horizontal" items={items} /> 
+
+          {prop.isLogin && (
+          <Space style={{float:'right'}} size={16}>
+              <Avatar src='https://overwatch.nosdn.127.net/1/images/heroes/dva/icon-portrait.png' />
+              <span>nickname</span>
+          </Space>
+          )}
+
+          <Menu style={{float:'right'}} theme="dark" onClick={onClickHandle} selectedKeys={[current]} mode="horizontal" items={items} /> 
+          
         </Header>
     );
 }

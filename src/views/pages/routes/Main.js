@@ -6,6 +6,7 @@ import ArtCard from "../components/ArticleCard"
 import ArtList from '../components/ArticleList';
 import CusFooter from '../components/CusFooter';
 import CusHeader from '../components/CusHeader'
+import { useLocation } from 'react-router';
 
 const { Header, Content, Footer } = Layout;
 
@@ -30,6 +31,8 @@ function MainPage() {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  
+  
   return (
     <div className="App">
       <Layout>
