@@ -2,55 +2,50 @@ import { Button, Checkbox, Form, Input, Avatar, Space } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { BackgroundGradient } from '../components/BackgroundGradient';
 import { AppstoreOutlined, HomeOutlined, UserOutlined, CheckCircleTwoTone, CheckCircleOutlined} from '@ant-design/icons';
-import ImgSrc  from "../assets/main/main.jpg";
-import ArtCard from "../components/ArticleCard"
-import ArtList from '../components/ArticleList';
-import CusFooter from '../components/CusFooter';
-import CusHeader from '../components/CusHeader';
-import { useRef,useState,useEffect, createContext } from 'react';
+import { useRef,useState,useEffect, createContext, useLayoutEffect } from 'react';
 import axios from "axios";
 import CusLayout from '../components/CusLayout';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { actionCreators as loginActionCreators } from '../../../store/login';
 
 const { Header, Content, Footer } = Layout;
 const PATH_LOGIN = '/login/validUser';
 const PATH_HOME = '/';
-const testContext = createContext();
 
 const backToHome = () =>{
   window.location.href = window.location.origin + PATH_HOME;
 }
 
-export default function LoginPage(props) {
+
+
+function LoginPage(props) {
   console.log('props', props);
-  const [data, setData] = useState("");
+  const [userData, setUserData] = useState("");
   const [success, setSuccess] = useState(false);
   
-
   const formRef = useRef(null);
   const dataRef = useRef(null);
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     //console.log('values:', values);
-
-    axios.post(`${PATH_LOGIN}`,{
+    const postParam = {
       "UserName" : values.username,
       "Password" : values.password
-    })
-    .then(response=>{
-      console.log('response',response.data);
+    };
+    const response = await props.userDataFn.loginAc(postParam);
+    if(typeof response !== 'undefined' && response.code === 200){
+      setSuccess(true);
+      setUserData(response);
       
-      if(response.data.code == 200){
-        setSuccess(true);
-        setData(response.data);
-        //window.sessionStorage.setItem('token',response.data.userBeanVo.token);
-        props.dataHandle(response.data);
-        dataRef.current = response.data;
-        //setTimeout(backToHome,3000);
-        
-      }else{
-        setSuccess(false);
-      }
-    });
+      window.sessionStorage.setItem('token',response.userBeanVo.token);
+      props.userDataFn.syncInfoAc(response);
+
+      dataRef.current = response.data;
+      //setTimeout(backToHome,3000);
+    }else{
+      setSuccess(false);
+    }
   };
   
   const onFinishFailed = (errorInfo) => {
@@ -113,7 +108,7 @@ export default function LoginPage(props) {
 
     {!success && (
     <div className="mt-2 text-xs italic text-gray-500">
-        {data.message}
+        {userData.message}
     </div>
     )}
   </Content>
@@ -124,12 +119,28 @@ export default function LoginPage(props) {
         <Avatar style={{ backgroundColor: '#87d068' }} icon={<CheckCircleOutlined />} />登录成功，正在跳转主页...
       </Space>
   </Content>
-
+  
   return (
-    <CusLayout children={success ? SuccessfulLogInDom : LoginRenderDom} data={data} isLogin={success} > 
+    <CusLayout children={success ? SuccessfulLogInDom : LoginRenderDom} userData={userData} isAuth={success} > 
 
     </CusLayout>
 
 
   );
 }
+
+//这个函数来指定如何把当前store state映射到展示组件的props中
+const mapStateToProps = state => {
+  return {
+    userData : state.loginReducer.userData
+  }
+}
+
+//接受dispatch()方法并返回期望注入到展示组件的props中的方法
+const mapDispatchToProps = dispatch => {
+  return{
+    userDataFn : bindActionCreators(loginActionCreators,dispatch),
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(LoginPage);

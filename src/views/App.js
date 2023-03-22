@@ -5,8 +5,10 @@ import MainPage from './pages/routes/Main';
 import ArticlePage from './pages/routes/Article';
 import CusHeader from './pages/components/CusHeader';
 import { Component, useState, React } from 'react';
-
+import store from '../store';
 //const basename = import.meta.env.BASE_URL
+
+
 
 class App extends Component{
   state = {
@@ -20,19 +22,20 @@ class App extends Component{
   };
 
   render() {
-      //const location = useLocation()
-      
-      console.log('App',this.state.data);
+      console.log('App',store.getState());
       return (
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<MainPage data={ this.state.data }/>}></Route>
-            <Route path="/login" element={<LoginPage dataHandle = {this.dataHandle}/>}></Route>
-            <Route path="/register" element={<RegisterPage />}></Route>
-            <Route path="/article" element={<ArticlePage />}></Route>
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        <>
+          
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" exact element={<MainPage />}></Route>
+              <Route path="/login" element={<LoginPage dataHandle = {this.dataHandle}/>}></Route>
+              <Route path="/register" element={<RegisterPage />}></Route>
+              <Route path="/article" element={<ArticlePage />}></Route>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </>
       );
   }
 }

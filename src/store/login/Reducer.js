@@ -1,17 +1,17 @@
-import * as actionTypes from './actionTypes';
+import * as actionTypes from './ActionTypes';
 import isEmpty from 'lodash/isEmpty';
 
 const initState = {
     isAuth: false,
-    user: {}
+    userData: {}
 };
 
 export default (state = initState, action) => {
     switch(action.type){
-        case actionTypes.SYNC_STATE_INFO:
+        case actionTypes.SYNC_USER_DATA:
             return {
-                isAuth: !isEmpty(action.payload),
-                user: action.payload
+                isAuth: !isEmpty(action.userData),
+                userData: action.userData
             };
         default:
             return state;
