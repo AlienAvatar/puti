@@ -42,7 +42,7 @@ function LoginPage(props) {
       props.userDataFn.syncInfoAc(response);
 
       dataRef.current = response.data;
-      //setTimeout(backToHome,3000);
+      setTimeout(backToHome,3000);
     }else{
       setSuccess(false);
     }
@@ -132,7 +132,7 @@ function LoginPage(props) {
 //这个函数来指定如何把当前store state映射到展示组件的props中
 const mapStateToProps = state => {
   return {
-    userData : state.loginReducer.userData
+    userData : state.loginReducer,
   }
 }
 

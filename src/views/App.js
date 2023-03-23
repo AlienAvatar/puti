@@ -22,10 +22,8 @@ class App extends Component{
   };
 
   render() {
-      console.log('App',store.getState());
       return (
         <>
-          
           <BrowserRouter>
             <Routes>
               <Route path="/" exact element={<MainPage />}></Route>

@@ -58,44 +58,29 @@ const AfterLoginInitems = [
 const token = window.sessionStorage.getItem('token');
 
 function CusHeader(props) {
-    console.log('CusHeader props', props)
-    let userData = '';
-    
-    //无法访问
-    /**
-     * Error: Actions must be plain objects. Use custom middleware for async actions.
-    at Object.performAction (<anonymous>:1:31530)
-    at $ (<anonymous>:1:33343)
-    at e (<anonymous>:1:37236)
-    at middleware.js:22:1
-    at index.js:20:1
-    at Object.dispatch (redux-logger.js:1:1)
-    at dispatch (<anonymous>:1:55003)
-    at Object.validToken (redux.js:578:1)
-    at decodeToken (CusHeader.js:65:1)
-    at CusHeader (CusHeader.js:71:1)
-     * @param {} token 
-     * @returns 
-     */
-    const decodeToken = async (token)=>{
-      const { response} = await props.userDataFn.validToken(token);
-      return response;
-    }
+    const [isAuth,setIsAuth]  = useState(false);
+    const [userData, setUserData] = useState(props.userData);
 
-    if(token){
-      try{
-        userData = decodeToken(token);
-      }catch{
-        sessionStorage.removeItem('token');
-        window.location.href = window.location.origin + '/login'
+    useEffect(()=>{
+      if(token){
+        try{
+          store.dispatch(validToken(token));
+        }catch{
+          sessionStorage.removeItem('token');
+          window.location.href = window.location.origin + '/login'
+        }
       }
-    }else{
-      userData = store.getState().loginReducer.userData;
-    }
-
+    },[]);
     
-    const isAuth = store.getState().loginReducer.isAuth;
+    store.subscribe(()=>{
+      const state = store.getState();
 
+      if(state.loginReducer.status == "received" || state.loginReducer.status == "sync"){
+        setUserData(state.loginReducer.userData);
+        setIsAuth(true);
+      }
+    });
+    
     const pathName = window.location.pathname;
     const [ current, setCurrent] = useState(pathName);
     
@@ -142,19 +127,15 @@ function CusHeader(props) {
           
         </Header>
     );
+
 }
 
 const mapStateToProps = state => {
-  //console.log('CusHeader mapStateToProps state',state);
+  console.log('CusHeader mapStateToProps state',state);
   return {
     userData: state.userData,
   };
 };
 
-//接受dispatch()方法并返回期望注入到展示组件的props中的方法
-const mapDispatchToProps = dispatch => {
-  return{
-    userDataFn : bindActionCreators(loginActionCreators,dispatch),
-  }
-}
-export default connect(mapStateToProps,mapDispatchToProps)(CusHeader);
+
+export default connect(mapStateToProps)(CusHeader);
