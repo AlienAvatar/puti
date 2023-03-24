@@ -3,9 +3,9 @@ import LoginPage from './pages/routes/Login';
 import RegisterPage from './pages/routes/Regis';
 import MainPage from './pages/routes/Main';
 import ArticlePage from './pages/routes/Article';
-import CusHeader from './pages/components/CusHeader';
 import { Component, useState, React } from 'react';
-import store from '../store';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
 //const basename = import.meta.env.BASE_URL
 
 

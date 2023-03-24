@@ -131,7 +131,6 @@ function CusHeader(props) {
 }
 
 const mapStateToProps = state => {
-  console.log('CusHeader mapStateToProps state',state);
   return {
     userData: state.userData,
   };
