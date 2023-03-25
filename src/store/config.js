@@ -6,3 +6,6 @@ export const PATH_HOME = '/';
 
 export const PATH_TEST = SERVER_ADDR + LOGIN + '/testConnection';
 export const PATH_VALIDTOKEN = SERVER_ADDR + LOGIN + '/validToken';
+
+const ARTICLE = '/article'
+export const PATH_SAVE_ARTICLE = SERVER_ADDR + ARTICLE + '/saveArticle'
