@@ -5,6 +5,7 @@ import MainPage from './pages/routes/Main';
 import ArticlePage from './pages/routes/Article';
 import { Component, useState, React } from 'react';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import DetailPage from './pages/routes/Detail';
 
 //const basename = import.meta.env.BASE_URL
 
@@ -30,6 +31,7 @@ class App extends Component{
               <Route path="/login" element={<LoginPage dataHandle = {this.dataHandle}/>}></Route>
               <Route path="/register" element={<RegisterPage />}></Route>
               <Route path="/article" element={<ArticlePage />}></Route>
+              <Route path="/detail/:num" element={<DetailPage />}></Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

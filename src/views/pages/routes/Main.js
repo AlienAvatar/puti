@@ -1,7 +1,6 @@
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { AppstoreOutlined, HomeOutlined, UserOutlined } from '@ant-design/icons';
 import ImgSrc  from "../assets/main/main.jpg";
-import ArtCard from "../components/ArticleCard"
 import ArtList from '../components/ArticleList';
 import CusLayout from '../components/CusLayout';
 import { useEffect, useState, useParams } from 'react';
@@ -18,6 +17,9 @@ function MainPage(props) {
   //登录的信息data需要传值到MainPage
   const [data, setData] = useState("");
 
+  useEffect(()=>{
+    
+  })
   const content = (<Content className="site-layout" style={{ padding: '30px 150px' }}>
                   <img style={{ width: '100%' }} src={ImgSrc} />
 
@@ -34,11 +36,9 @@ function MainPage(props) {
 
   return (
     <div className="App">
-      {/* 没有data值传递 */}
       <CusLayout children = {content} >
         
       </CusLayout>
-      {/* <CusLayout children={content} isLogin={isLogin}></CusLayout> */}
     </div>
   );
 }

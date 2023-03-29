@@ -1,9 +1,7 @@
 import { Button, Checkbox, Form, Input, Avatar, Space } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import { BackgroundGradient } from '../components/BackgroundGradient';
 import { AppstoreOutlined, HomeOutlined, UserOutlined, CheckCircleTwoTone, CheckCircleOutlined} from '@ant-design/icons';
 import { useRef,useState,useEffect, createContext, useLayoutEffect } from 'react';
-import axios from "axios";
 import CusLayout from '../components/CusLayout';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -17,10 +15,7 @@ const backToHome = () =>{
   window.location.href = window.location.origin + PATH_HOME;
 }
 
-
-
 function LoginPage(props) {
-  console.log('props', props);
   const [userData, setUserData] = useState("");
   const [success, setSuccess] = useState(false);
   
@@ -38,7 +33,7 @@ function LoginPage(props) {
       setSuccess(true);
       setUserData(response);
       
-      window.sessionStorage.setItem('token',response.userBeanVo.token);
+      window.sessionStorage.setItem('token',response.data.token);
       props.userDataFn.syncInfoAc(response);
 
       dataRef.current = response.data;

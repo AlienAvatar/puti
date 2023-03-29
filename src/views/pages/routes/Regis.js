@@ -1,8 +1,5 @@
 import { Button, Checkbox, Form, Input } from 'antd';
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import ImgSrc  from "../assets/main/main.jpg";
-import ArtCard from "../components/ArticleCard"
-import ArtList from '../components/ArticleList';
 import CusFooter from '../components/CusFooter';
 import CusHeader from '../components/CusHeader';
 import { useRef } from 'react';

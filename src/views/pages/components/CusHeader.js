@@ -7,6 +7,7 @@ import { validToken, syncInfoAc } from '../../../store/login/ActionCreators';
 import store from '../../../store';
 import { bindActionCreators } from 'redux';
 import { actionCreators as loginActionCreators } from '../../../store/login';
+import { useParams } from 'react-router';
 
 const { Header, Content, Footer } = Layout;
 
@@ -99,10 +100,14 @@ function CusHeader(props) {
 
     if(isAuth){
       itemMenu = AfterLoginInitems;
-      avatarSrc = userData.userBeanVo.avatar;
-      nickName = userData.userBeanVo.nickName;
+      avatarSrc = userData.data.avatar;
+      nickName = userData.data.nickName;
     }
 
+    const HeaderClickHandle = () => {
+      window.location.href = window.location.origin;
+    }
+    
     return (
         <Header style={{ position: 'sticky', top: 0, zIndex: 1, width: '100%' }}>
           <div
@@ -113,6 +118,8 @@ function CusHeader(props) {
               margin: '16px 24px 16px 0',
               backgroundImage: `url(${TitleBg})`,
               }}
+
+              onClick={HeaderClickHandle}
           />
 
 
