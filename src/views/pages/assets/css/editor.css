@@ -1,18 +1,28 @@
 .wrapper-class {
     padding: 1rem;
     border: 1px solid #ccc;
-  }
-  .editor-class {
-    background-color:lightgray;
-    padding: 1rem;
-    border: 1px solid #ccc;
-  }
-  .toolbar-class {
-    border: 1px solid #ccc;
-  }
+}
+.editor-class {
+  background-color:lightgray;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  min-height: 600px;
+}
+.toolbar-class {
+  border: 1px solid #ccc;
+}
 
+.preview {
+  padding: 1rem;
+  margin-top: 1rem;
+}
 
-  .preview {
-    padding: 1rem;
-    margin-top: 1rem;
-  }
+/* .editor-title{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+} */
+
+.rich-text-title{
+  width: 300px;
+}

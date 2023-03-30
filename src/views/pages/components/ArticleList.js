@@ -15,8 +15,8 @@ const DetailsClickHandle = (num) => {
 function ArtList(props) {
     const dispatch = useDispatch();
     const posts = useSelector(selectAllPosts);
-    const postStatus = useSelector((state) => state.articleReducer.status)
-    const error = useSelector((state) => state.articleReducer.error)
+    const postStatus = useSelector((state) => state.articleReducer.status);
+    const error = useSelector((state) => state.articleReducer.error);
 
     let defaultPageIndex = 1;
     //默认每页显示5条

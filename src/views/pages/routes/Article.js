@@ -4,12 +4,12 @@ import CusEditor from "../components/CusEditor";
 import '../assets/css/article.css'
 import DOMPurify from 'dompurify';
 import { useRef, useEffect, useState } from "react";
-import { connect } from 'react-redux';
-import { saveArticle } from '../../../store/article/';
+import { connect, useDispatch, useSelector  } from 'react-redux';
 import { actionCreators as articleActionCreators } from '../../../store/article';
 import { bindActionCreators } from 'redux';
-import { LoadingOutlined } from '@ant-design/icons';
-import Notification from "../components/Notification";
+import { CloseCircleOutlined, CheckCircleOutlined, LoadingOutlined } from '@ant-design/icons';
+import { Button, Menu, Dropdown, Space, Tooltip, Empty, Spin, notification, message, Skeleton, Typography, Divider, Alert } from 'antd';
+import { saveArticlePost } from '../../../store/article/Reducer';
 
 const token = window.sessionStorage.getItem('token');
 const antIcon = (
@@ -34,48 +34,79 @@ function ArticlePage(props) {
     //   }
     // },[]);
 
+    const dispatch = useDispatch();
+    const postStatus = useSelector((state) => state.articleReducer.status);
+
     const [ author, setAuthor ] = useState("匿名");
     const [ articleData, setArticleData ] = useState();
-    const [ notification, setNotification ] = useState();
     const [ isSave, setIsSave ] = useState(false);
     const [ num, setNum ] = useState();
 
-    //const [ content, setContent] = useState();
+    useEffect(()=>{
+      if(postStatus === "loading"){
+        const notificationParam = {
+          message : "保存中",
+          description : "",
+          icon : <LoadingOutlined />
+        }
+        openNotification('top',notificationParam);
 
-    const saveClick = async (contentJson) => {
-      const response = await props.articleDataFn.saveArticle(contentJson);
+      }else if(postStatus === "succeeded"){
+        const notificationParam = {
+          message : "保存成功",
+          description : "",
+          icon : <CheckCircleOutlined className="detail-notification-right-icon"/>
+        }
+        openNotification('top',notificationParam);
+        setIsSave(true);
+      }else if(postStatus === "failed"){
+        const notificationParam = {
+          message : "保存失败",
+          description : "",
+          icon : <CloseCircleOutlined className="detail-notification-error-icon"/>
+        }
+        openNotification('top',notificationParam);
+      }
+    },[postStatus,dispatch])
+    
+    //消息通知
+    const openNotification = (placement,notificationParam) => {
+      notification.open({
+        message: notificationParam.message,
+        description: notificationParam.description,
+        placement,
+        icon: notificationParam.icon
+      });
+    };
+
+    const saveClick = async (postParam)  => {
+      //const response = await props.articleDataFn.saveArticle(contentJson);
+      const response = await dispatch(saveArticlePost(postParam));
+      console.log('props', props);
+      console.log("response",response);
+      console.log("data",response.payload);
+      if(response.payload.code == 200){
+        setTimeout(()=>{
+          window.location.href = window.location.origin + "/detail/" + response.payload.data.num;
+        },1000);
+      }
     }
 
-    store.subscribe(()=>{
-      const state = store.getState();
-      console.log('state',state);
-      setArticleData(state.articleReducer.articleData);
-      
-      if(articleData.staus === "waiting"){
-        setNotification(<Notification props={"保存中"}></Notification>)
-      }else if(articleData.status === "received"){
-        setNotification(<Notification props={"保存成功"}></Notification>)
-        setIsSave(true);
-      }else{
-        setNotification(<Notification props={"保存失败"}></Notification>)
-      }
-    })
-
-    const content = <div className="rich-after-save-text">
-                          <header className="rich-header">
-                            文章
-                          </header>
+    // const content = <div className="rich-after-save-text">
+    //                       <header className="rich-header">
+    //                         文章
+    //                       </header>
                           
-                      </div>
-    // const content = <div className="rich-text">
-    //                     <header className="rich-header">
-    //                       Rich Text Editor
-    //                     </header>
-    //                     {notification}
-    //                     <CusEditor saveClick={saveClick}>
-    //                       <p>Article</p>
-    //                     </CusEditor>
     //                   </div>
+    const content = <div className="rich-text-content">
+                        <header className="rich-header">
+                          文本编辑器
+                        </header>
+                        
+                        <CusEditor saveClick={saveClick} postStatus={postStatus} openNotification={openNotification}>
+                          <p>Article</p>
+                        </CusEditor>
+                      </div>
     if(isSave){
       // setContent(beforeSave);
     }else{
@@ -94,7 +125,7 @@ function ArticlePage(props) {
 //这个函数来指定如何把当前store state映射到展示组件的props中
 const mapStateToProps = state => {
   return {
-    articleReducer : state.articleReducer,
+    articleData : state,
   }
 }
 
