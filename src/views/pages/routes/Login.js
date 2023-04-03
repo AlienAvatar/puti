@@ -1,5 +1,5 @@
 import { Button, Checkbox, Form, Input, Avatar, Space } from 'antd';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Breadcrumb, Layout, Menu, theme, Row, Col } from 'antd';
 import { AppstoreOutlined, HomeOutlined, UserOutlined, CheckCircleTwoTone, CheckCircleOutlined} from '@ant-design/icons';
 import { useRef,useState,useEffect, createContext, useLayoutEffect } from 'react';
 import CusLayout from '../components/CusLayout';
@@ -56,50 +56,58 @@ function LoginPage(props) {
   };
 
   const LoginRenderDom = 
-  <Content className="site-layout" style={{ padding: '30px 150px' }}>
-    <Form
-      name="basic"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
-      style={{ maxWidth: 600 }}
-      initialValues={{ remember: true }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
-      autoComplete="off"
-      ref={formRef}
-    >
-      <Form.Item
-        label="Username"
-        name="username"
-        rules={[{ required: true, message: 'Please input your username!' }]}
-      >
-        <Input />
-      </Form.Item>
+  <Content className="site-layout" style={{ paddingTop: '30px' }}>
+    <Row>
+        <Col span={6}></Col>
+        <Col span={12}>
+          <Form
+            name="basic"
+            labelCol={{ span: 8 }}
+            wrapperCol={{ span: 16 }}
+            style={{ maxWidth: 600 }}
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+            ref={formRef}
+          >
+            <Form.Item
+              label="用户名"
+              name="username"
+              rules={[{ required: true, message: '请输入用户名!' }]}
+            >
+              <Input />
+            </Form.Item>
 
-      <Form.Item
-        label="Password"
-        name="password"
-        rules={[{ required: true, message: 'Please input your password!' }]}
-      >
-        <Input.Password />
-      </Form.Item>
+            <Form.Item
+              label="密码"
+              name="password"
+              rules={[{ required: true, message: '请输入密码!' }]}
+            >
+              <Input.Password />
+            </Form.Item>
 
-      <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
-        <Checkbox>Remember me</Checkbox>
-      </Form.Item>
+            <Form.Item name="remember" valuePropName="checked" wrapperCol={{ offset: 8, span: 16 }}>
+              <Checkbox>记住我</Checkbox>
+            </Form.Item>
 
-      <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-        <Button htmlType="button" onClick={onReset}>
-          Reset
-        </Button>
-        <Button type="link" htmlType="button" onClick={onRegis}>
-          Register
-        </Button>
-      </Form.Item>
-    </Form>
+            <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+              <Space></Space>
+              <Button type="primary" htmlType="submit">
+                提交
+              </Button>
+              <Button htmlType="button" onClick={onReset}>
+                重置
+              </Button>
+              <Button type="link" htmlType="button" onClick={onRegis}>
+                注册
+              </Button>
+            </Form.Item>
+          </Form>
+        </Col>
+        <Col span={6}></Col>
+      </Row>
+    
 
     {!success && (
     <div className="mt-2 text-xs italic text-gray-500">
@@ -110,9 +118,15 @@ function LoginPage(props) {
 
   const SuccessfulLogInDom =
   <Content className="site-layout" style={{ padding: '30px 150px', textAlign : 'center' }}>
-      <Space size={16}>
-        <Avatar style={{ backgroundColor: '#87d068' }} icon={<CheckCircleOutlined />} />登录成功，正在跳转主页...
-      </Space>
+      <Row>
+        <Col span={6}></Col>
+        <Col span={12}>
+          <Space size={16}>
+            <Avatar style={{ backgroundColor: '#87d068' }} icon={<CheckCircleOutlined />} />登录成功，正在跳转主页...
+          </Space>
+        </Col>
+        <Col span={6}></Col>
+      </Row>
   </Content>
   
   return (

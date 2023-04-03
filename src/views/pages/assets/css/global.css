@@ -1,0 +1,62 @@
+.g-min-height-675{
+    min-height: 675px;
+}
+
+.g-bg-size-cover {
+    background-size: cover !important;
+}
+
+.g-bg-img-hero {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.g-pos-rel {
+    position: relative !important;
+}
+
+.text-center {
+    text-align: center!important;
+}
+
+.g-z-index-1 {
+    z-index: 1;
+}
+
+.g-color-white {
+    color: #001529 !important;
+}
+
+.g-font-size-30--md {
+    font-size: 1.875rem !important;
+}
+
+.g-mt-100 {
+    margin-top: 12.1rem !important;
+}
+
+.g-pt-80{
+    padding-top: 3rem;
+}
+
+.g-mx-40{
+    margin-left: 2.85714rem !important;
+    margin-right: 2.85714rem !important;
+}
+
+.g-font-size-16{
+    font-size: 1.14286rem !important;
+}
+
+p {
+    color: #6f7274;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+.g-mx-80{
+    padding-left: 80px;
+    padding-right: 80px;
+}
+

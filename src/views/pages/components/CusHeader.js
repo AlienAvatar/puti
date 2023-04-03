@@ -109,7 +109,7 @@ function CusHeader(props) {
     }
     
     return (
-        <Header style={{ position: 'sticky', top: 0, zIndex: 1, width: '100%' }}>
+        <Header style={{ position: 'sticky', top: 0, zIndex: 99, width: '100%' }}>
           <div
               style={{
               float: 'left',

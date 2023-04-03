@@ -120,7 +120,6 @@ function ArtList(props) {
     
     return (
         <>
-            <Divider orientation="left">文章列表</Divider>
             {content}
         </>
     )

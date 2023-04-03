@@ -42,7 +42,7 @@ function DetailPage(props) {
           icon : <CloseCircleOutlined className="detail-notification-error-icon"/>
         }
         openNotification('top',notificationParam);
-        
+
         setTimeout(()=>{
           window.location.href = window.location.origin + '/login';
         },2000);
@@ -106,7 +106,10 @@ function DetailPage(props) {
                       <Title level={3}>{articleData.title}</Title>
                     </div>
                     <div className="writer">
-                      <span>文件编号: { num }</span>
+                      <Space>
+                        <span>文件编号: { num }</span>
+                        <span><LikeOutlined />{articleData.endorse}</span>
+                      </Space>
                       <Space className="detail-author-group">
                         <span>作者：{articleData.author}</span>
                         <div>
@@ -118,6 +121,7 @@ function DetailPage(props) {
                     <div>
                       {convertedHTML}
                     </div>
+                    <Divider />
                     <Row>
                       <Col span={24} style={{textAlign : 'center'}}>
                       <Tooltip title="点赞" >

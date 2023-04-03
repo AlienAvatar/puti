@@ -92,12 +92,6 @@ function ArticlePage(props) {
       }
     }
 
-    // const content = <div className="rich-after-save-text">
-    //                       <header className="rich-header">
-    //                         文章
-    //                       </header>
-                          
-    //                   </div>
     const content = <div className="rich-text-content">
                         <header className="rich-header">
                           文本编辑器
@@ -107,11 +101,7 @@ function ArticlePage(props) {
                           <p>Article</p>
                         </CusEditor>
                       </div>
-    if(isSave){
-      // setContent(beforeSave);
-    }else{
-      // setContent(afterSave);
-    }
+    
 
     
     
