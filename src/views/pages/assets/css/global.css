@@ -60,3 +60,8 @@ p {
     padding-right: 80px;
 }
 
+.g-icon-color-blue{
+    background-color: #1677ff;
+    border-radius: 50%;
+    color: #fff;
+}

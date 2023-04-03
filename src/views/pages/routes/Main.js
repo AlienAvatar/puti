@@ -1,9 +1,7 @@
-import { Breadcrumb, Layout, Menu, theme, Row, Col, Divider} from 'antd';
-import { AppstoreOutlined, HomeOutlined, UserOutlined } from '@ant-design/icons';
-import ImgSrc  from "../assets/main/main.jpg";
+import { Breadcrumb, Layout, theme, Row, Col, Divider} from 'antd';
 import ArtList from '../components/ArticleList';
 import CusLayout from '../components/CusLayout';
-import { useEffect, useState, useParams } from 'react';
+import { useState } from 'react';
 import { connect } from 'react-redux';
 import '../assets/css/global.css';
 import '../assets/css/main.css';

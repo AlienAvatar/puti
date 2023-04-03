@@ -85,7 +85,7 @@ function ArticlePage(props) {
       console.log('props', props);
       console.log("response",response);
       console.log("data",response.payload);
-      if(response.payload.code == 200){
+      if(typeof response.payload !== "undefined" && response.payload.code == 200){
         setTimeout(()=>{
           window.location.href = window.location.origin + "/detail/" + response.payload.data.num;
         },1000);

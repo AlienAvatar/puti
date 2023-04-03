@@ -1,11 +1,12 @@
 import { Button, Checkbox, Form, Input, Avatar, Space } from 'antd';
-import { Breadcrumb, Layout, Menu, theme, Row, Col } from 'antd';
-import { AppstoreOutlined, HomeOutlined, UserOutlined, CheckCircleTwoTone, CheckCircleOutlined} from '@ant-design/icons';
+import { Breadcrumb, Layout, Menu, theme, Row, Col, notification } from 'antd';
+import { AppstoreOutlined, HomeOutlined, UserOutlined, CheckCircleTwoTone, CheckCircleOutlined, CloseCircleOutlined} from '@ant-design/icons';
 import { useRef,useState,useEffect, createContext, useLayoutEffect } from 'react';
 import CusLayout from '../components/CusLayout';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actionCreators as loginActionCreators } from '../../../store/login';
+import '../assets/css/detail.css';
 
 const { Header, Content, Footer } = Layout;
 const PATH_LOGIN = '/login/validUser';
@@ -40,6 +41,14 @@ function LoginPage(props) {
       setTimeout(backToHome,3000);
     }else{
       setSuccess(false);
+      console.log("response",response);
+
+      const notificationParam = {
+        message : response.message,
+        description : "",
+        icon : <CloseCircleOutlined className="detail-notification-error-icon"/>
+      }
+      openNotification('top',notificationParam);
     }
   };
   
@@ -53,6 +62,16 @@ function LoginPage(props) {
   
   const onRegis = () => {
     window.location.href = window.location.origin + "/register";
+  };
+
+  //消息通知
+  const openNotification = (placement,notificationParam) => {
+    notification.open({
+      message: notificationParam.message,
+      description: notificationParam.description,
+      placement,
+      icon: notificationParam.icon
+    });
   };
 
   const LoginRenderDom = 
@@ -92,16 +111,17 @@ function LoginPage(props) {
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-              <Space></Space>
-              <Button type="primary" htmlType="submit">
-                提交
-              </Button>
-              <Button htmlType="button" onClick={onReset}>
-                重置
-              </Button>
-              <Button type="link" htmlType="button" onClick={onRegis}>
-                注册
-              </Button>
+              <Space size={[8,16]}>
+                <Button type="primary" htmlType="submit">
+                  提交
+                </Button>
+                <Button htmlType="button" onClick={onReset}>
+                  重置
+                </Button>
+                <Button type="link" htmlType="button" onClick={onRegis}>
+                  注册
+                </Button>
+              </Space>
             </Form.Item>
           </Form>
         </Col>
