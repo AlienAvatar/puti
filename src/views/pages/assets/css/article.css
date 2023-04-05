@@ -24,11 +24,6 @@
     color: #fff;
 }
 
-.rich-text-content{
-    margin: 25px auto 0;
-    overflow: hidden;
-}
-
 .rich-text-editor{
     min-height: 1080px;
 }

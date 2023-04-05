@@ -2,15 +2,15 @@ import CusLayout from "../components/CusLayout";
 import store from '../../../store';
 import CusEditor from "../components/CusEditor";
 import '../assets/css/article.css'
-import DOMPurify from 'dompurify';
+import '../assets/css/global.css'
 import { useRef, useEffect, useState } from "react";
 import { connect, useDispatch, useSelector  } from 'react-redux';
 import { actionCreators as articleActionCreators } from '../../../store/article';
 import { bindActionCreators } from 'redux';
-import { CloseCircleOutlined, CheckCircleOutlined, LoadingOutlined } from '@ant-design/icons';
-import { Button, Menu, Dropdown, Space, Tooltip, Empty, Spin, notification, message, Skeleton, Typography, Divider, Alert } from 'antd';
+import { CloseCircleOutlined, CheckCircleOutlined, LoadingOutlined, InfoCircleOutlined} from '@ant-design/icons';
+import { Button, Menu, Dropdown, Space, Tooltip, Empty, Spin, notification, Modal, Skeleton, Typography, Divider, Alert } from 'antd';
+import { addlikeCountPost, fetchValidTokenPosts } from '../../../store/register/Reducer';
 import { saveArticlePost } from '../../../store/article/Reducer';
-
 const token = window.sessionStorage.getItem('token');
 const antIcon = (
   <LoadingOutlined
@@ -22,26 +22,44 @@ const antIcon = (
 );
 
 function ArticlePage(props) {
-    //const htmlConvertedContent = htmlRef.current.getConvertedContentHTML();
-
-    // useEffect(()=>{
-    //   if(token){
-    //     store.dispatch(validToken(token));
-    //   }else{
-    //     alert('未登录')
-    //     sessionStorage.removeItem('token');
-    //     window.location.href = window.location.origin + '/login'
-    //   }
-    // },[]);
+    // const htmlConvertedContent = htmlRef.current.getConvertedContentHTML();
 
     const dispatch = useDispatch();
     const postStatus = useSelector((state) => state.articleReducer.status);
+    // const tokenStatus = useSelector((state) => state.registerReducer.status);
+    const tokenStatus = props.registerReducer.status;
 
     const [ author, setAuthor ] = useState("匿名");
-    const [ articleData, setArticleData ] = useState();
     const [ isSave, setIsSave ] = useState(false);
-    const [ num, setNum ] = useState();
+    
+    useEffect(()=>{
+      if(tokenStatus === "idle"){
+        if(token){
+          dispatch(fetchValidTokenPosts(token));
+        }else{
+          const notificationParam = {
+            message : "未登录",
+            description : "",
+            icon : <InfoCircleOutlined className="g-icon-color-blue"/>
+          }
+          openNotification('top',notificationParam);
+          //未登录情况下，跳转到登录界面
+          setTimeout(() => {
+            sessionStorage.removeItem('token');
+            window.location.href = window.location.origin + '/login'
+          }, 2000);
+        }
+      }
+    },[])
+    
+    useEffect(()=>{
+      if(tokenStatus === "succeeded"){
+        setAuthor(props.registerReducer.userData.data.nickName);
+      }
+    },[tokenStatus, dispatch]);
 
+   
+    //当点击保存时
     useEffect(()=>{
       if(postStatus === "loading"){
         const notificationParam = {
@@ -81,6 +99,7 @@ function ArticlePage(props) {
 
     const saveClick = async (postParam)  => {
       //const response = await props.articleDataFn.saveArticle(contentJson);
+
       const response = await dispatch(saveArticlePost(postParam));
       console.log('props', props);
       console.log("response",response);
@@ -97,14 +116,10 @@ function ArticlePage(props) {
                           文本编辑器
                         </header>
                         
-                        <CusEditor saveClick={saveClick} postStatus={postStatus} openNotification={openNotification}>
+                        <CusEditor saveClick={saveClick} postStatus={postStatus} openNotification={openNotification} author={author}>
                           <p>Article</p>
                         </CusEditor>
                       </div>
-    
-
-    
-    
     return (
       <CusLayout children={content}>
         
@@ -116,6 +131,7 @@ function ArticlePage(props) {
 const mapStateToProps = state => {
   return {
     articleData : state,
+    registerReducer : state.registerReducer,
   }
 }
 

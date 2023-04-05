@@ -134,10 +134,14 @@ const articleReducer = createSlice({
             if(action.payload.code === 200){
               state.status = 'succeeded';
               state.articleData = action.payload;
+            }else if(action.payload.code === 507){
+              state.status = 'succeeded';
+              state.error = action.payload.message;
             }else{
-                state.status = 'failed';
-                state.error = action.payload.message;
+              state.status = 'failed';
+              state.error = action.payload.message;
             }
+            
             return state;
           })
           .addCase(addlikeCountPost.rejected, (state, action) => {

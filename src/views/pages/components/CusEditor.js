@@ -11,7 +11,7 @@ import { InfoCircleOutlined, UserOutlined, ExclamationCircleOutlined } from '@an
 import { Input, Tooltip, Form } from 'antd';
 
 function CusEditor(props) {
-    //console.log('props',props);
+    // console.log('props',props);
     //创建当前editorState的状态
     const [editorState, setEditorState] = useState(
       () => EditorState.createEmpty(),
@@ -21,7 +21,7 @@ function CusEditor(props) {
     //是否预览
     const [ review, setReview ] = useState(false);
     
-    let author = "匿名";
+    let author = props.author || "匿名";
 
     useEffect(()=>{
       //从editor state获取content state，并转换为html
@@ -97,6 +97,11 @@ function CusEditor(props) {
                         wrapperClassName="wrapper-class"
                         editorClassName="editor-class"
                         toolbarClassName="toolbar-class"
+                        toolbar={{
+                          options : [ 'inline','blockType', 'fontSize', 
+                          'fontFamily', 'list', 'textAlign','remove', 'history',
+                          'colorPicker', 'link', 'embedded','emoji' ],
+                        }}
                       />
                     )
 
@@ -127,6 +132,9 @@ function CusEditor(props) {
                   onFinish={onFinishHandle}
                   onFinishFailed={onFinishFailedHandle}
                   autoComplete="off"
+                  toolbar={{
+                    inline: { inDropdown: true },
+                  }}
                 >
                     <Form.Item
                       className='editor-title' 

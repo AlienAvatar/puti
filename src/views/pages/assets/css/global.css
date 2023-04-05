@@ -65,3 +65,8 @@ p {
     border-radius: 50%;
     color: #fff;
 }
+
+.ant-dropdown-menu{
+    background-color: rgb(0, 21, 41) !important;
+    color: #6f7274;
+}

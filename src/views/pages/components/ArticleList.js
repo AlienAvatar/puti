@@ -43,13 +43,14 @@ function ArtList(props) {
     let content;
     let data;
     let footerList;
+    const headerList = <div>...</div>;
 
     if(postStatus === 'loading'){
         data = [<Skeleton active />];
         
         content = <List
                     size="normal"
-                    header={<div>Header</div>}
+                    header={headerList}
                     bordered
                     dataSource={data}
                     renderItem={(item) => { return (<List.Item>{item}</List.Item> )}}
@@ -81,7 +82,7 @@ function ArtList(props) {
                         className="artlist-list"
                         itemLayout="horizontal"
                         size="normal"
-                        header={<div>Header</div>}
+                        header={headerList}
                         footer={footerList}
                         bordered
                         dataSource={list}
@@ -101,7 +102,7 @@ function ArtList(props) {
                                     </List.Item>
                             )}}
                     />
-    }else if(postStatus == 'failed'){
+    }else{
         content = <>
                     <Alert
                         message="Error"

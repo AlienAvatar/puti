@@ -93,7 +93,6 @@ function DetailPage(props) {
       
       //content转换为
       const convertedContent = articleData.content;
-      console.log("articleData",convertedContent);
       const convertedHTML = <div
                           className="preview"
                           dangerouslySetInnerHTML={createMarkup(convertedContent)}>

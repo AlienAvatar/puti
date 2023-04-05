@@ -46,7 +46,7 @@ function MainPage(props) {
                         <div className="g-pos-rel">
                           <div className="slick-track" style={{ width: '540px', height : 'auto' }}>
                             <div className="slick-slide g-mx-80 g-pt-80">
-                              <img class="img-fluid" src={PuxianImgSrc} alt="Image Description" />
+                              <img className="img-fluid" src={PuxianImgSrc} alt="Image Description" />
                             </div>
                           </div>
                         </div>
@@ -76,7 +76,7 @@ function MainPage(props) {
                         <div className="g-pos-rel">
                           <div className="slick-track" style={{ width: '540px', height : 'auto' }}>
                             <div className="slick-slide g-mx-80 g-top g-pt-80">
-                              <img class="img-fluid" src={WenshuImgSrc} alt="Image Description" />
+                              <img className="img-fluid" src={WenshuImgSrc} alt="Image Description" />
                             </div>
                           </div>
                         </div>
@@ -88,7 +88,7 @@ function MainPage(props) {
                         <div className="g-pos-rel">
                           <div className="slick-track" style={{ width: '540px', height : 'auto' }}>
                             <div className="slick-slide g-mx-80 g-pt-80">
-                              <img class="img-fluid" src={GuanshiyinImgSrc} alt="Image Description" />
+                              <img className="img-fluid" src={GuanshiyinImgSrc} alt="Image Description" />
                             </div>
                           </div>
                         </div>
@@ -116,7 +116,7 @@ function MainPage(props) {
                         <div className="g-pos-rel">
                           <div className="slick-track" style={{ width: '540px', height : 'auto' }}>
                             <div className="slick-slide g-mx-80 g-top g-pt-80">
-                              <img class="img-fluid" src={DizangwangImgSrc} alt="Image Description" />
+                              <img className="img-fluid" src={DizangwangImgSrc} alt="Image Description" />
                             </div>
                           </div>
                         </div>

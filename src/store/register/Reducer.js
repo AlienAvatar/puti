@@ -17,6 +17,14 @@ export const fetchAddUserPosts = createAsyncThunk(config.PATH_ADDUSER, async (pa
     return response.data;
 })
 
+export const fetchValidTokenPosts = createAsyncThunk(config.PATH_VALIDTOKEN, async (paramData) => {
+    const token = window.sessionStorage.getItem('token');
+    const header = { 'token' : token };
+    axios.defaults.headers.common['token'] = token;
+    const response = await axios.post(config.PATH_VALIDTOKEN, paramData);
+    return response.data;
+})
+
 const registerReducer = createSlice({
     name : 'login',
     initState,
@@ -26,24 +34,48 @@ const registerReducer = createSlice({
             userData: action.payload,
           });
         },
+        validToken(state,action){
+            state = Object.assign({}, state, {
+                userData: action.payload,
+            });
+        }
     },
 
     //这是原来的reducer
     extraReducers(builder) {
         builder
+            //添加用户
             .addCase(fetchAddUserPosts.pending, (state, action) => {
                 state.status = 'loading'
             })
             .addCase(fetchAddUserPosts.fulfilled, (state, action) => {
-            if(action.payload.code === 200){
-                state.status = 'succeeded';
-                state.articleData = action.payload;
-            }else{
-                state.status = 'failed';
-                state.error = action.payload.message;
-            }
-            })
+                if(action.payload.code === 200){
+                    state.status = 'succeeded';
+                    state.articleData = action.payload;
+                }else{
+                    state.status = 'failed';
+                    state.error = action.payload.message;
+                }
+                })
             .addCase(fetchAddUserPosts.rejected, (state, action) => {
+                state.status = 'error'
+                state.error = action.payload.message
+            })
+
+            //验证Token
+            .addCase(fetchValidTokenPosts.pending, (state, action) => {
+                state.status = 'loading'
+            })
+            .addCase(fetchValidTokenPosts.fulfilled, (state, action) => {
+                if(action.payload.code === 200){
+                    state.status = 'succeeded';
+                    state.userData = action.payload;
+                }else{
+                    state.status = 'failed';
+                    state.error = action.payload.message;
+                }
+            })
+            .addCase(fetchValidTokenPosts.rejected, (state, action) => {
                 state.status = 'error'
                 state.error = action.payload.message
             })
@@ -53,6 +85,6 @@ const registerReducer = createSlice({
     },
 })
 
-export const { addUser } = registerReducer.actions;
+export const { addUser,validToken } = registerReducer.actions;
 
 export default registerReducer.reducer;

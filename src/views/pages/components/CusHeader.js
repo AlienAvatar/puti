@@ -1,4 +1,4 @@
-import { Breadcrumb, Layout, Menu, theme, Avatar, Space } from 'antd';
+import { Button, Layout, Menu, Dropdown, Avatar, Space } from 'antd';
 import { AppstoreOutlined, HomeOutlined, UserOutlined,EditOutlined } from '@ant-design/icons';
 import TitleBg from '../assets/header/header_title.png'
 import { useState, useEffect } from 'react'
@@ -6,8 +6,7 @@ import { connect } from 'react-redux'
 import { validToken, syncInfoAc } from '../../../store/login/ActionCreators';
 import store from '../../../store';
 import { bindActionCreators } from 'redux';
-import { actionCreators as loginActionCreators } from '../../../store/login';
-import { useParams } from 'react-router';
+import '../assets/css/global.css';
 
 const { Header, Content, Footer } = Layout;
 
@@ -30,15 +29,6 @@ const defaultItems = [
       value: 'login',
       icon: <UserOutlined />,
     },
-    // {
-    //   label: (
-    //     <Space size={16}>
-    //       <Avatar src='https://overwatch.nosdn.127.net/1/images/heroes/dva/icon-portrait.png' />
-    //       <span>nickname</span>
-    //     </Space>
-    //     ),
-    //   key:'user'
-    // }
 ];
 
 const AfterLoginInitems = [
@@ -55,6 +45,25 @@ const AfterLoginInitems = [
       icon: <EditOutlined />,
   }
 ];
+
+const logOutHandle = () => {
+    window.sessionStorage.removeItem('token');
+    window.location.reload();
+}
+
+const items = [
+  {
+    key: '1',
+    label: (
+      <Button type="primary" onClick={logOutHandle}>
+        注销
+      </Button>
+    ),
+    className:'ss',
+  },
+];
+
+
 
 const token = window.sessionStorage.getItem('token');
 
@@ -108,6 +117,9 @@ function CusHeader(props) {
       window.location.href = window.location.origin;
     }
     
+    const test = <Avatar src={avatarSrc}>
+                  <span>{nickName}</span>
+                     </Avatar>
     return (
         <Header style={{ position: 'sticky', top: 0, zIndex: 99, width: '100%' }}>
           <div
@@ -124,13 +136,24 @@ function CusHeader(props) {
 
 
           {isAuth && (
-          <Space style={{float:'right',color:'rgba(255, 255, 255, 0.65)'}} size={16} >
-              <Avatar src={avatarSrc} />
-              <span>{nickName}</span>
-          </Space>
+              <Space style={{float:'right',color:'rgba(255, 255, 255, 0.65)',marginLeft:'16px'}} size={16} >
+                <Dropdown
+                className="g-bg-header"
+                menu={{
+                  items,
+                }}
+                placement="bottom"
+              >
+                <Space size={16} >
+                  <Avatar src={avatarSrc} />
+                  <span>{nickName}</span>
+                </Space>
+              </Dropdown>
+            </Space>
           )}
 
-          <Menu style={{float:'right'}} theme="dark" onClick={onClickHandle} selectedKeys={[current]} mode="horizontal" items={itemMenu} /> 
+          <Menu style={{float:'right'}} theme="dark" onClick={onClickHandle} 
+                selectedKeys={[current]} mode="horizontal" items={itemMenu} /> 
           
         </Header>
     );
