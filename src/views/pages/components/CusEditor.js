@@ -1,12 +1,11 @@
-import React, {useImperativeHandle} from 'react';
-import ReactDOM from 'react-dom';
-import { EditorState, ContentState, convertToRaw, ContentToRaw} from 'draft-js';
+import React from 'react';
+import { EditorState, convertToRaw} from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import '../assets/css/editor.css';
 import { useState, useEffect  } from 'react';
 import { convertToHTML } from 'draft-convert';
 import DOMPurify from 'dompurify';
-import { Button, Radio, Space, Divider, Col, Row } from 'antd';
+import { Button, Col, Row } from 'antd';
 import { InfoCircleOutlined, UserOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { Input, Tooltip, Form } from 'antd';
 
@@ -65,8 +64,8 @@ function CusEditor(props) {
       }
       const contentJson = convertToRaw(editorState.getCurrentContent());
       const contentStr = JSON.stringify(contentJson);
-      console.log("convertedContent",convertedContent);
-      console.log('reviewHTML',reviewHTML);
+      // console.log("convertedContent",convertedContent);
+      // console.log('reviewHTML',reviewHTML);
       
       if(props.postStatus === 'idle'){
         const postParam = {
@@ -80,7 +79,6 @@ function CusEditor(props) {
     }
     const onFinishFailedHandle = () => {
       alert('onFinishFailedHandle')
-      console.log('onFinishFailedHandle')
     }
 
     

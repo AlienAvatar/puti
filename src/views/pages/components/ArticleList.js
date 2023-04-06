@@ -1,4 +1,4 @@
-import { Divider, List, Avatar } from 'antd';
+import { List, Avatar } from 'antd';
 import { useEffect } from 'react';
 import { bindActionCreators } from 'redux';
 import { actionCreators as articleActionCreators } from '../../../store/article';

@@ -1,9 +1,9 @@
-import { Route, Routes, useLocation, useNavigate, BrowserRouter} from 'react-router-dom';
+import { Route, Routes, BrowserRouter} from 'react-router-dom';
 import LoginPage from './pages/routes/Login';
 import RegisterPage from './pages/routes/Regis';
 import MainPage from './pages/routes/Main';
 import ArticlePage from './pages/routes/Article';
-import { Component, useState, React } from 'react';
+import { Component, React } from 'react';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import DetailPage from './pages/routes/Detail';
 

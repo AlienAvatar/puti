@@ -1,16 +1,16 @@
 import CusLayout from "../components/CusLayout";
-import store from '../../../store';
 import CusEditor from "../components/CusEditor";
 import '../assets/css/article.css'
 import '../assets/css/global.css'
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector  } from 'react-redux';
 import { actionCreators as articleActionCreators } from '../../../store/article';
 import { bindActionCreators } from 'redux';
 import { CloseCircleOutlined, CheckCircleOutlined, LoadingOutlined, InfoCircleOutlined} from '@ant-design/icons';
-import { Button, Menu, Dropdown, Space, Tooltip, Empty, Spin, notification, Modal, Skeleton, Typography, Divider, Alert } from 'antd';
-import { addlikeCountPost, fetchValidTokenPosts } from '../../../store/register/Reducer';
+import { notification } from 'antd';
+import { fetchValidTokenPosts } from '../../../store/register/Reducer';
 import { saveArticlePost } from '../../../store/article/Reducer';
+
 const token = window.sessionStorage.getItem('token');
 const antIcon = (
   <LoadingOutlined
@@ -23,6 +23,7 @@ const antIcon = (
 
 function ArticlePage(props) {
     // const htmlConvertedContent = htmlRef.current.getConvertedContentHTML();
+    console.log("props",props);
 
     const dispatch = useDispatch();
     const postStatus = useSelector((state) => state.articleReducer.status);

@@ -1,16 +1,15 @@
 import CusLayout from "../components/CusLayout";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router";
 import { connect, useDispatch, useSelector } from 'react-redux';
 import { actionCreators as articleActionCreators } from '../../../store/article';
 import { bindActionCreators } from 'redux';
 import '../assets/css/detail.css';
-import { Button, Menu, Dropdown, Space, Tooltip, Empty, Spin, notification, message, Skeleton, Typography, Divider, Alert, Col, Row, Watermark  } from 'antd';
+import { Button, Space, Tooltip, Empty, Spin, notification, Skeleton, Typography, Divider, Alert, Col, Row  } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import { CloseCircleOutlined, CheckCircleOutlined, LikeOutlined } from '@ant-design/icons';
 import { addlikeCountPost, fetchArticleByNumGet } from '../../../store/article/Reducer';
 import DOMPurify from 'dompurify';
-import { convertToHTML } from 'draft-convert';
 
 const antIcon = (
   <LoadingOutlined

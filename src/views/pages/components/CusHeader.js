@@ -1,11 +1,10 @@
 import { Button, Layout, Menu, Dropdown, Avatar, Space } from 'antd';
-import { AppstoreOutlined, HomeOutlined, UserOutlined,EditOutlined } from '@ant-design/icons';
+import { HomeOutlined, UserOutlined,EditOutlined } from '@ant-design/icons';
 import TitleBg from '../assets/header/header_title.png'
 import { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { validToken, syncInfoAc } from '../../../store/login/ActionCreators';
+import { validToken } from '../../../store/login/ActionCreators';
 import store from '../../../store';
-import { bindActionCreators } from 'redux';
 import '../assets/css/global.css';
 
 const { Header, Content, Footer } = Layout;
