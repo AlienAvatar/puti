@@ -1,4 +1,5 @@
-const SERVER_ADDR = 'http://localhost:9527';
+const SERVER_ADDR = 'http://localhost:9527/puti';
+//const SERVER_ADDR = 'http://47.241.47.150:9527/puti';
 const LOGIN = '/login';
 
 export const PATH_VALIDUSER = SERVER_ADDR + LOGIN + '/validUser';
