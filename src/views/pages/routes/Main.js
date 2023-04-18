@@ -8,8 +8,9 @@ import '../assets/css/main.css';
 import PuxianImgSrc from "../assets/main/puxian.jpg";
 import WenshuImgSrc from "../assets/main/wenshu.jpg";
 import GuanshiyinImgSrc from "../assets/main/guanshiyin.jpg";
-import DizangwangImgSrc from "../assets/main/dizangwang.jpg"
-import HometitleImgsrc from "../assets/main/home_title.png"
+import DizangwangImgSrc from "../assets/main/dizangwang.jpg";
+import HometitleImgsrc from "../assets/main/home_title.png";
+import BgSrc from "../assets/main/bg_main.jpg";
 
 const { Header, Content, Footer } = Layout;
 
@@ -35,6 +36,14 @@ function MainPage(props) {
                       </div>
                     </div>
                   </Col>
+                </Row>
+                <Divider />
+                <Row>
+                  <Col span={3}></Col>
+                  <Col span={18}>
+                    <img className="img-fluid" src={BgSrc} alt="Image Description" />
+                  </Col>
+                  <Col span={3}></Col>
                 </Row>
                 <Divider />
                 <Row>

@@ -11,7 +11,7 @@ export default function CusLayout({ children }) {
             <CusHeader />
         
             {/* Body */}
-            <main className="flex-shrink-0 flex-grow items-center lg:flex">
+            <main className="bg-main flex-shrink-0 flex-grow items-center lg:flex">
                 {children}
             </main>
         
