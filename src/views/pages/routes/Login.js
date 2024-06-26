@@ -113,7 +113,7 @@ function LoginPage(props) {
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
               <Space size={[8,16]}>
                 <Button type="primary" htmlType="submit">
-                  提交
+                  提交111
                 </Button>
                 <Button htmlType="button" onClick={onReset}>
                   重置

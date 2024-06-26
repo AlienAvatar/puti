@@ -65,7 +65,7 @@ function MainPage(props) {
                           <h3 className="mb-4 text-center" style={{ fontSize : '1.75rem'}}>
                             普贤菩萨
                           </h3>
-                          <p className="g-font-size-16">佛教菩萨名，梵文Samantabhadra的意译，也曾译为遍吉菩萨，音译为三曼多跋陀罗。
+                          <p className="g-font-size-16">佛教菩萨名, 梵文Samantabhadra的意译，也曾译为遍吉菩萨，音译为三曼多跋陀罗。
                             普贤菩萨是中国佛教的四大菩萨之一，象征着理德、行德，与象征着智德、正德的文殊菩萨相对应，
                             同为释迦牟尼佛的左、右胁侍。此外，毗卢遮那如来、文殊菩萨、普贤菩萨被尊称为“华严三圣”。</p>
                         </div>

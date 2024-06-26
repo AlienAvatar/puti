@@ -1,0 +1,20 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "126.0.6478.115",
+    "configurations": [
+        {
+        "type": "chrome",
+        "request": "launch",
+        "name": "react调试",
+        "url": "http://localhost:10002",
+        "runtimeExecutable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+        "runtimeArgs": [
+            "--start-maximized",
+            "--auto-open-devtools-for-tabs"
+        ],
+        "webRoot": "${workspaceFolder}/puti"
+        }
+    ]
+}

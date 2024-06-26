@@ -6,10 +6,8 @@ import ArticlePage from './pages/routes/Article';
 import { Component, React } from 'react';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import DetailPage from './pages/routes/Detail';
-
-//const basename = import.meta.env.BASE_URL
-
-
+import LandingPage from './pages/components/templates/landing-page/LandingPage';
+import HomePage from './pages/components/templates/landing-page/HomePage';
 
 class App extends Component{
   state = {
@@ -28,10 +26,12 @@ class App extends Component{
           <BrowserRouter>
             <Routes>
               <Route path="/" exact element={<MainPage />}></Route>
+              <Route path="/home" exact element={<HomePage />}></Route>
               <Route path="/login" element={<LoginPage dataHandle = {this.dataHandle}/>}></Route>
               <Route path="/register" element={<RegisterPage />}></Route>
               <Route path="/article" element={<ArticlePage />}></Route>
               <Route path="/detail/:num" element={<DetailPage />}></Route>
+              <Route path="/test" element={<LandingPage />}></Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
