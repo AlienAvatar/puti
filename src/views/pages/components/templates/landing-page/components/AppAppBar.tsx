@@ -151,19 +151,27 @@ export default function AppAppBar({ mode, toggleColorMode }: AppAppBarProps) {
                   </IconButton>
                 </Box>
                 <Divider sx={{ my: 3 }} />
-                <MenuItem onClick={() => scrollToSection('features')}>
-                  Features
+                <MenuItem onClick={() => scrollToSection('buddha')}>
+                  古佛降世
                 </MenuItem>
-                <MenuItem onClick={() => scrollToSection('testimonials')}>
-                  Testimonials
+                <MenuItem onClick={() => scrollToSection('buddha_dharma')}>
+                  羌佛说法
                 </MenuItem>
-                <MenuItem onClick={() => scrollToSection('highlights')}>
-                  Highlights
+                <MenuItem onClick={() => scrollToSection('office')}>
+                  羌佛公告
                 </MenuItem>
-                <MenuItem onClick={() => scrollToSection('pricing')}>
-                  Pricing
+                <MenuItem onClick={() => scrollToSection('recognition')}>
+                  认证恭贺
                 </MenuItem>
-                <MenuItem onClick={() => scrollToSection('faq')}>FAQ</MenuItem>
+                <MenuItem onClick={() => scrollToSection('holy_realization')}>
+                  羌佛圣量
+                </MenuItem>
+                <MenuItem onClick={() => scrollToSection('holy_occurrences')}>
+                  羌佛圣迹
+                </MenuItem>
+                <MenuItem onClick={() => scrollToSection('buddha_virtue')}>圆满佛格</MenuItem>
+                <MenuItem onClick={() => scrollToSection('wuming')}>妙谙五明</MenuItem>
+                <MenuItem onClick={() => scrollToSection('savelivingbings')}>渡生成就</MenuItem>
                 <MenuItem>
                   <Button color="primary" variant="contained" fullWidth>
                     Sign up

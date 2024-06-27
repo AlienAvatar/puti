@@ -85,6 +85,14 @@ export default function HomePage() {
       
       <Hero />
 
+      <Box sx={{ bgcolor: 'background.default' }}>
+
+      </Box>
+      <Box sx={{ bgcolor: '#444' }}>
+        <Footer />
+      </Box>
+      
+      
       {/* <Box sx={{ bgcolor: 'background.default' }}>
         <LogoCollection />
         <Features />

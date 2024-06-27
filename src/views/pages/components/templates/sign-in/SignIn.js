@@ -16,15 +16,15 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { Card as MuiCard } from '@mui/material';
 import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
-
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
-
 import ForgotPassword from './ForgotPassword';
 import getSignInTheme from './getSignInTheme';
 import ToggleColorMode from './ToggleColorMode';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
-
+import { useSelector, useDispatch, connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { actionCreators as loginActionCreators } from '../../../../../store/login';
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
     <Box
@@ -102,7 +102,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
   }),
 }));
 
-export default function SignIn() {
+function SignIn(props) {
   const [mode, setMode] = React.useState('light');
   const [showCustomTheme, setShowCustomTheme] = React.useState(true);
   const defaultTheme = createTheme({ palette: { mode } });
@@ -112,6 +112,9 @@ export default function SignIn() {
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [open, setOpen] = React.useState(false);
+  const [usernameError, setUsernameError] = React.useState(false);
+  const [usernameErrorMessage, setUsernameErrorMessage] = React.useState('');
+
 
   const toggleColorMode = () => {
     setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
@@ -129,33 +132,56 @@ export default function SignIn() {
     setOpen(false);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    const postParam = {
+      username : data.get('username'),
+      password : data.get('password'),
+    };
+
+    //登录
+    const response = await props.userDataFn.loginAc(postParam);
+    if(response.status === "success"){
+      console.log("response", response);
+      localStorage.setItem('nickname', response.nickname);
+      localStorage.setItem('token', response.access_token);
+      localStorage.setItem('is_login', true);
+
+      window.location.href = "/home";
+    }else{
+      localStorage.setItem('is_login', false);
+      console.log('error')
+    }
   };
 
   const validateInputs = () => {
-    const email = document.getElementById('email');
+    //const email = document.getElementById('email');
+    const username = document.getElementById('username');
     const password = document.getElementById('password');
 
     let isValid = true;
 
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-      setEmailError(true);
-      setEmailErrorMessage('Please enter a valid email address.');
+    // if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+    //   setEmailError(true);
+    //   setEmailErrorMessage('Please enter a valid email address.');
+    //   isValid = false;
+    // } else {
+    //   setEmailError(false);
+    //   setEmailErrorMessage('');
+    // }
+    
+    if(!username.value) {
+      setUsernameError(true);
       isValid = false;
-    } else {
-      setEmailError(false);
-      setEmailErrorMessage('');
+    }else{
+      setUsernameError(false);
+      setUsernameErrorMessage('');
     }
 
-    if (!password.value || password.value.length < 6) {
+    if (!password.value) {
       setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
       isValid = false;
     } else {
       setPasswordError(false);
@@ -181,11 +207,11 @@ export default function SignIn() {
           <Button
             startIcon={<ArrowBackRoundedIcon />}
             component="a"
-            href="/material-ui/getting-started/templates/"
+            href="/home"
           >
-            Back
+            返回主页
           </Button>
-          <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
+          {/* <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} /> */}
         </Stack>
         <Stack
           sx={{
@@ -201,7 +227,7 @@ export default function SignIn() {
               variant="h4"
               sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
             >
-              Sign in
+              登录
             </Typography>
             <Box
               component="form"
@@ -215,8 +241,8 @@ export default function SignIn() {
               }}
             >
               <FormControl>
-                <FormLabel htmlFor="email">Email</FormLabel>
-                <TextField
+                {/* <FormLabel htmlFor="email">Email</FormLabel> */}
+                {/* <TextField
                   error={emailError}
                   helperText={emailErrorMessage}
                   id="email"
@@ -230,18 +256,33 @@ export default function SignIn() {
                   variant="outlined"
                   color={emailError ? 'error' : 'primary'}
                   sx={{ ariaLabel: 'email' }}
+                /> */}
+                <FormLabel htmlFor="username">用户名</FormLabel>
+                <TextField
+                  error={emailError}
+                  helperText={emailErrorMessage}
+                  id="username"
+                  type="username"
+                  name="username"
+                  placeholder="用户名"
+                  autoFocus
+                  required
+                  fullWidth
+                  variant="outlined"
+                  color={emailError ? 'error' : 'primary'}
+                  sx={{ ariaLabel: 'email' }}
                 />
               </FormControl>
               <FormControl>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <FormLabel htmlFor="password">Password</FormLabel>
+                  <FormLabel htmlFor="password">密码</FormLabel>
                   <Link
                     component="button"
                     onClick={handleClickOpen}
                     variant="body2"
                     sx={{ alignSelf: 'baseline' }}
                   >
-                    Forgot your password?
+                    忘记密码?
                   </Link>
                 </Box>
                 <TextField
@@ -259,10 +300,10 @@ export default function SignIn() {
                   color={passwordError ? 'error' : 'primary'}
                 />
               </FormControl>
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
-              />
+              /> */}
               <ForgotPassword open={open} handleClose={handleClose} />
               <Button
                 type="submit"
@@ -270,17 +311,17 @@ export default function SignIn() {
                 variant="contained"
                 onClick={validateInputs}
               >
-                Sign in
+                登录
               </Button>
               <Link
-                href="/material-ui/getting-started/templates/sign-up/"
+                href="/sign-up/"
                 variant="body2"
                 sx={{ alignSelf: 'center' }}
               >
-                Don&apos;t have an account? Sign up
+                没有账号? 注册
               </Link>
             </Box>
-            <Divider>or</Divider>
+            {/* <Divider>or</Divider>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <Button
                 type="submit"
@@ -302,14 +343,30 @@ export default function SignIn() {
               >
                 Sign in with Facebook
               </Button>
-            </Box>
+            </Box> */}
           </Card>
         </Stack>
       </SignInContainer>
-      <ToggleCustomTheme
+      {/* <ToggleCustomTheme
         showCustomTheme={showCustomTheme}
         toggleCustomTheme={toggleCustomTheme}
-      />
+      /> */}
     </ThemeProvider>
   );
 }
+
+//这个函数来指定如何把当前store state映射到展示组件的props中
+const mapStateToProps = state => {
+  return {
+    userData : state.loginReducer,
+  }
+}
+
+//接受dispatch()方法并返回期望注入到展示组件的props中的方法
+const mapDispatchToProps = dispatch => {
+  return{
+    userDataFn : bindActionCreators(loginActionCreators, dispatch),
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(SignIn);

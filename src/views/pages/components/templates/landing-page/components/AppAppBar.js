@@ -13,17 +13,61 @@ import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ToggleColorMode from './ToggleColorMode';
-
+import IsLoginContext from "../../../../common/Global"
 import Sitemark from './SitemarkIcon';
+import Avatar from '@mui/material/Avatar';
+import { TextField, Menu  } from '@mui/material';
+// import { deepOrange, deepPurple } from '@material-ui/core/colors';
+// import { makeStyles } from '@material-ui/core/styles';
+
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     display: 'flex',
+//     '& > *': {
+//       margin: theme.spacing(1),
+//     },
+//   },
+//   orange: {
+//     color: theme.palette.getContrastText(deepOrange[500]),
+//     backgroundColor: deepOrange[500],
+//   },
+//   purple: {
+//     color: theme.palette.getContrastText(deepPurple[500]),
+//     backgroundColor: deepPurple[500],
+//   },
+// }));
 
 function AppAppBar({ mode, toggleColorMode }) {
   const [open, setOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  //const classes = useStyles();
+  // console.log('IsLoginContext', IsLoginContext);
+
+  let token = localStorage.getItem('token');
+  //console.log('is_login', is_login);
+  let is_login = false;
+  if(token){
+    is_login = true;
+  }
+
+  const handleAvatarClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  //登出
+  const handleAvatarClose = () => {
+    setAnchorEl(null);
+    is_login = false;
+    localStorage.removeItem('token');
+    localStorage.removeItem('nickname');
+  };
 
   const toggleDrawer = (newOpen) => () => {
     setOpen(newOpen);
   };
 
   const scrollToSection = (sectionId) => {
+    
     const sectionElement = document.getElementById(sectionId);
     const offset = 128;
     if (sectionElement) {
@@ -77,43 +121,80 @@ function AppAppBar({ mode, toggleColorMode }) {
                 variant="text"
                 color="info"
                 size="small"
-                onClick={() => titleClickHandle('features')}
+                onClick={() => titleClickHandle('buddha')}
               >
-                Features
+                古佛降世
               </Button>
               <Button
                 variant="text"
                 color="info"
                 size="small"
-                onClick={() => titleClickHandle('testimonials')}
+                onClick={() => titleClickHandle('buddha_dharma')}
               >
-                Testimonials
+                羌佛说法
               </Button>
               <Button
                 variant="text"
                 color="info"
                 size="small"
-                onClick={() => titleClickHandle('highlights')}
+                onClick={() => titleClickHandle('office')}
               >
-                Highlights
+                羌佛公告
               </Button>
               <Button
                 variant="text"
                 color="info"
                 size="small"
-                onClick={() => titleClickHandle('pricing')}
+                onClick={() => titleClickHandle('recognition')}
               >
-                Pricing
+                认证恭贺
               </Button>
               <Button
                 variant="text"
                 color="info"
                 size="small"
-                onClick={() => titleClickHandle('faq')}
+                onClick={() => titleClickHandle('holy_realization')}
                 sx={{ minWidth: 0 }}
               >
-                FAQ
+                羌佛圣量
+              </Button> 
+              <Button
+                variant="text"
+                color="info"
+                size="small"
+                onClick={() => titleClickHandle('holy_occurrences')}
+                sx={{ minWidth: 0 }}
+              >
+                羌佛圣迹
               </Button>
+              <Button
+                variant="text"
+                color="info"
+                size="small"
+                onClick={() => titleClickHandle('buddha_virtue')}
+                sx={{ minWidth: 0 }}
+              >
+                圆满佛格
+              </Button>
+              <Button
+                variant="text"
+                color="info"
+                size="small"
+                onClick={() => titleClickHandle('wuming')}
+                sx={{ minWidth: 0 }}
+              >
+                妙谙五明
+              </Button>
+               <Button
+                variant="text"
+                color="info"
+                size="small"
+                onClick={() => titleClickHandle('savelivingbings')}
+                sx={{ minWidth: 0 }}
+              >
+                渡生成就
+              </Button>
+              
             </Box>
           </Box>
           <Box
@@ -124,12 +205,32 @@ function AppAppBar({ mode, toggleColorMode }) {
             }}
           >
             {/* <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} /> */}
-            <Button color="primary" variant="text" size="small">
-              登录
-            </Button>
-            <Button color="primary" variant="contained" size="small">
-              注册
-            </Button>
+            {is_login ? 
+              <>
+                <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleAvatarClick}>
+                  <Avatar alt={localStorage.getItem('nickname')} >
+                    {localStorage.getItem('nickname').slice(0,1)}
+                  </Avatar>
+                </Button>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleAvatarClose}
+                >
+                  <MenuItem onClick={handleAvatarClose}>登出</MenuItem>
+                </Menu>
+              </>
+            : <>
+                <Button color="primary" variant="text" size="small" onClick={() => titleClickHandle('signin')}>
+                  登录
+                </Button>
+                <Button color="primary" variant="contained" size="small" onClick={() => titleClickHandle('signup')}>
+                  注册
+                </Button>
+              </>
+            }
           </Box>
           <Box sx={{ display: { sm: 'flex', md: 'none' } }}>
             <IconButton aria-label="Menu button" onClick={toggleDrawer(true)}>
@@ -150,26 +251,34 @@ function AppAppBar({ mode, toggleColorMode }) {
                   </IconButton>
                 </Box>
                 <Divider sx={{ my: 3 }} />
-                <MenuItem onClick={() => scrollToSection('features')}>
-                  Features
+                <MenuItem onClick={() => titleClickHandle('buddha')}>
+                  古佛降世
                 </MenuItem>
-                <MenuItem onClick={() => scrollToSection('testimonials')}>
-                  Testimonials
+                <MenuItem onClick={() => titleClickHandle('buddha_dharma')}>
+                  羌佛说法
                 </MenuItem>
-                <MenuItem onClick={() => scrollToSection('highlights')}>
-                  Highlights
+                <MenuItem onClick={() => titleClickHandle('office')}>
+                  羌佛公告
                 </MenuItem>
-                <MenuItem onClick={() => scrollToSection('pricing')}>
-                  Pricing
+                <MenuItem onClick={() => titleClickHandle('recognition')}>
+                  认证恭贺
                 </MenuItem>
-                <MenuItem onClick={() => scrollToSection('faq')}>FAQ</MenuItem>
+                <MenuItem onClick={() => titleClickHandle('holy_realization')}>
+                  羌佛圣量
+                </MenuItem>
+                <MenuItem onClick={() => titleClickHandle('holy_occurrences')}>
+                  羌佛圣迹
+                </MenuItem>
+                <MenuItem onClick={() => titleClickHandle('buddha_virtue')}>圆满佛格</MenuItem>
+                <MenuItem onClick={() => titleClickHandle('wuming')}>妙谙五明</MenuItem>
+                <MenuItem onClick={() => titleClickHandle('savelivingbings')}>渡生成就</MenuItem>
                 <MenuItem>
-                  <Button color="primary" variant="contained" fullWidth>
+                  <Button color="primary" variant="contained" fullWidth onClick={() => titleClickHandle('signup')}>
                     注册
                   </Button>
                 </MenuItem>
                 <MenuItem>
-                  <Button color="primary" variant="outlined" fullWidth>
+                  <Button color="primary" variant="outlined" fullWidth onClick={() => titleClickHandle('signin')}>
                     登录
                   </Button>
                 </MenuItem>

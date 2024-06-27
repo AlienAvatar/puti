@@ -8,6 +8,9 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import DetailPage from './pages/routes/Detail';
 import LandingPage from './pages/components/templates/landing-page/LandingPage';
 import HomePage from './pages/components/templates/landing-page/HomePage';
+import SignIn from './pages/components/templates/sign-in/SignIn';
+import SignUp from './pages/components/templates/sign-up/SignUp';
+import ModelPage from './pages/routes/Model';
 
 class App extends Component{
   state = {
@@ -32,6 +35,9 @@ class App extends Component{
               <Route path="/article" element={<ArticlePage />}></Route>
               <Route path="/detail/:num" element={<DetailPage />}></Route>
               <Route path="/test" element={<LandingPage />}></Route>
+              <Route path="/signin" element={<SignIn />}></Route>
+              <Route path="/signup" element={<SignUp />}></Route>
+              <Route path="/model" element={<ModelPage />}></Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

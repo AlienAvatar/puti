@@ -185,9 +185,9 @@ export default function SignUp() {
           <Button
             startIcon={<ArrowBackRoundedIcon />}
             component="a"
-            href="/material-ui/getting-started/templates/"
+            href="/home"
           >
-            Back
+            返回主页
           </Button>
           <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
         </Stack>
@@ -305,10 +305,10 @@ export default function SignUp() {
           </Card>
         </Stack>
       </SignUpContainer>
-      <ToggleCustomTheme
+      {/* <ToggleCustomTheme
         showCustomTheme={showCustomTheme}
         toggleCustomTheme={toggleCustomTheme}
-      />
+      /> */}
     </ThemeProvider>
   );
 }

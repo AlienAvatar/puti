@@ -112,11 +112,15 @@ export default function SignUp() {
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [nameError, setNameError] = React.useState(false);
   const [nameErrorMessage, setNameErrorMessage] = React.useState('');
+  const [confirmPasswordError, setconfirmPasswordError] = React.useState(false);
+  const [confirmPasswordErrorMessage, setconfirmPasswordErrorMessage] = React.useState('');
 
   const validateInputs = () => {
     const email = document.getElementById('email');
+    const username = document.getElementById('email');
     const password = document.getElementById('password');
-    const name = document.getElementById('name');
+    const confirm_password = document.getElementById('confirm_password');
+    const nickname = document.getElementById('nickname');
 
     let isValid = true;
 
@@ -129,7 +133,7 @@ export default function SignUp() {
       setEmailErrorMessage('');
     }
 
-    if (!password.value || password.value.length < 6) {
+    if (!password.value) {
       setPasswordError(true);
       setPasswordErrorMessage('Password must be at least 6 characters long.');
       isValid = false;
@@ -138,7 +142,16 @@ export default function SignUp() {
       setPasswordErrorMessage('');
     }
 
-    if (!name.value || name.value.length < 1) {
+    if(confirm_password.value !== password.value) {
+      setconfirmPasswordError(true);
+      setconfirmPasswordErrorMessage('confirmPassword must be at least 6 characters long.');
+      isValid = false;
+    } else {
+      setconfirmPasswordError(true);
+      setconfirmPasswordErrorMessage('');
+    }
+
+    if (!nickname.value || nickname.value.length < 1) {
       setNameError(true);
       setNameErrorMessage('Name is required.');
       isValid = false;
@@ -185,9 +198,9 @@ export default function SignUp() {
           <Button
             startIcon={<ArrowBackRoundedIcon />}
             component="a"
-            href="/material-ui/getting-started/templates/"
+            href="/home"
           >
-            Back
+            返回主页
           </Button>
           <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
         </Stack>
@@ -205,7 +218,7 @@ export default function SignUp() {
               variant="h4"
               sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
             >
-              Sign up
+              注册
             </Typography>
             <Box
               component="form"
@@ -213,14 +226,28 @@ export default function SignUp() {
               sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
             >
               <FormControl>
-                <FormLabel htmlFor="name">Full name</FormLabel>
+                <FormLabel htmlFor="username">用户名</FormLabel>
                 <TextField
-                  autoComplete="name"
-                  name="name"
+                  autoComplete="username"
+                  name="username"
                   required
                   fullWidth
-                  id="name"
-                  placeholder="Jon Snow"
+                  id="username"
+                  placeholder="username"
+                  error={nameError}
+                  helperText={nameErrorMessage}
+                  color={nameError ? 'error' : 'primary'}
+                />
+              </FormControl>
+              <FormControl>
+                <FormLabel htmlFor="nickname">昵称</FormLabel>
+                <TextField
+                  autoComplete="nickname"
+                  name="nickname"
+                  required
+                  fullWidth
+                  id="nickname"
+                  placeholder="张三"
                   error={nameError}
                   helperText={nameErrorMessage}
                   color={nameError ? 'error' : 'primary'}
@@ -242,7 +269,7 @@ export default function SignUp() {
                 />
               </FormControl>
               <FormControl>
-                <FormLabel htmlFor="password">Password</FormLabel>
+                <FormLabel htmlFor="password">密码</FormLabel>
                 <TextField
                   required
                   fullWidth
@@ -257,27 +284,43 @@ export default function SignUp() {
                   color={passwordError ? 'error' : 'primary'}
                 />
               </FormControl>
-              <FormControlLabel
+              <FormControl>
+                <FormLabel htmlFor="password">密码验证</FormLabel>
+                <TextField
+                  required
+                  fullWidth
+                  name="confirm_password"
+                  placeholder="••••••"
+                  type="password"
+                  id="confirm_password"
+                  autoComplete="new-password"
+                  variant="outlined"
+                  error={confirmPasswordError}
+                  helperText={confirmPasswordErrorMessage}
+                  color={confirmPasswordError ? 'error' : 'primary'}
+                />
+              </FormControl>
+              {/* <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
                 label="I want to receive updates via email."
-              />
+              /> */}
               <Button
                 type="submit"
                 fullWidth
                 variant="contained"
                 onClick={validateInputs}
               >
-                Sign up
+                注册
               </Button>
               <Link
-                href="/material-ui/getting-started/templates/sign-in/"
+                href="/login"
                 variant="body2"
                 sx={{ alignSelf: 'center' }}
               >
-                Already have an account? Sign in
+                已经有账户了? 登录
               </Link>
             </Box>
-            <Divider>
+            {/* <Divider>
               <Typography sx={{ color: 'text.secondary' }}>or</Typography>
             </Divider>
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -301,14 +344,14 @@ export default function SignUp() {
               >
                 Sign up with Facebook
               </Button>
-            </Box>
+            </Box> */}
           </Card>
         </Stack>
       </SignUpContainer>
-      <ToggleCustomTheme
+      {/* <ToggleCustomTheme
         showCustomTheme={showCustomTheme}
         toggleCustomTheme={toggleCustomTheme}
-      />
+      /> */}
     </ThemeProvider>
   );
 }

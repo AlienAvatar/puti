@@ -12,16 +12,16 @@ const initState = {
 
 //Action
 //createAsyncThunk 来帮助发送数据，而不仅仅是获取数据,这是一个异步请求
-export const fetchAddUserPosts = createAsyncThunk(config.PATH_ADDUSER, async (paramData) => {
-    const response = await axios.post(config.PATH_ADDUSER, paramData);
+export const fetchAddUserPosts = createAsyncThunk(config.PATH_USER_CREATE, async (paramData) => {
+    const response = await axios.post(config.PATH_USER_CREATE, paramData);
     return response.data;
 })
 
-export const fetchValidTokenPosts = createAsyncThunk(config.PATH_VALIDTOKEN, async (paramData) => {
+export const fetchValidTokenPosts = createAsyncThunk(config.PATH_USER_LIST, async (paramData) => {
     const token = window.sessionStorage.getItem('token');
     const header = { 'token' : token };
     axios.defaults.headers.common['token'] = token;
-    const response = await axios.post(config.PATH_VALIDTOKEN, paramData);
+    const response = await axios.post(config.PATH_USER_LIST, paramData);
     return response.data;
 })
 

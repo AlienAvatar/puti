@@ -7,6 +7,9 @@ import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import Title_IMG from '../../../../assets/header/header_title.png'
+import BG_IMG from '../../../../assets/main/bg_brick.jpg'
+import MAIN_IMG from '../../../../assets/main/bg_main.jpg'
 
 import { visuallyHidden } from '@mui/utils';
 import { styled } from '@mui/material/styles';
@@ -20,7 +23,7 @@ const StyledBox = styled('div')(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   outline: '1px solid',
   boxShadow: '0 0 12px 8px hsla(220, 25%, 80%, 0.2)',
-    backgroundImage: `url(${'/src/views/pages/assets/main/bg_brick.jpg'})`,
+  backgroundImage: `url(${MAIN_IMG})`,
   outlineColor: 'hsla(220, 25%, 80%, 0.5)',
   backgroundSize: 'cover',
   [theme.breakpoints.up('sm')]: {
@@ -40,9 +43,7 @@ export default function Hero() {
       id="hero"
       sx={(theme) => ({
         width: '100%',
-        backgroundRepeat: 'no-repeat',
-        backgroundImage:
-          `url(${'/src/views/pages/assets/main/bg_brick.jpg'})`,
+        backgroundImage: `url(${BG_IMG})`,
         ...theme.applyStyles('dark', {
           backgroundImage:
             'radial-gradient(ellipse 80% 50% at 50% -20%, hsl(210, 100%, 16%), transparent)',
@@ -63,7 +64,7 @@ export default function Hero() {
           useFlexGap
           sx={{ alignItems: 'center', width: { xs: '100%', sm: '70%' } }}
         >
-          <Typography
+          {/* <Typography
             variant="h1"
             sx={{
               display: 'flex',
@@ -86,17 +87,16 @@ export default function Hero() {
             >
               products
             </Typography>
-          </Typography>
+          </Typography> */}
           <Typography
             sx={{
               textAlign: 'center',
-              color: 'text.secondary',
+              color: 'black',
               width: { sm: '100%', md: '80%' },
             }}
           >
-            Explore our cutting-edge dashboard, delivering high-quality solutions
-            tailored to your needs. Elevate your experience with top-tier features
-            and services.
+            “须菩提！于意云何？如一恒河中所有沙，有如是等恒河，是诸恒河所有沙数，佛世界如是，宁为多不？”
+            ——《金刚经》一体同观分
           </Typography>
           <Stack
             direction={{ xs: 'column', sm: 'row' }}
@@ -104,34 +104,15 @@ export default function Hero() {
             useFlexGap
             sx={{ pt: 2, width: { xs: '100%', sm: 'auto' } }}
           >
-            <InputLabel htmlFor="email-hero" sx={visuallyHidden}>
-              Email
-            </InputLabel>
-            <TextField
-              id="email-hero"
-              hiddenLabel
-              size="small"
-              variant="outlined"
-              aria-label="Enter your email address"
-              placeholder="Your email address"
-              slotProps={{
-                htmlInput: {
-                  autoComplete: 'off',
-                  'aria-label': 'Enter your email address',
-                },
-              }}
-            />
-            <Button variant="contained" color="primary">
-              Start now
-            </Button>
+            
           </Stack>
-          <Typography variant="caption" sx={{ textAlign: 'center' }}>
+          {/* <Typography variant="caption" sx={{ textAlign: 'center' }}>
             By clicking &quot;Start now&quot; you agree to our&nbsp;
             <Link href="#" color="primary">
               Terms & Conditions
             </Link>
             .
-          </Typography>
+          </Typography> */}
         </Stack>
         <StyledBox id="image" />
       </Container>
