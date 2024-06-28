@@ -1,4 +1,4 @@
 import * as actionCreators from './ActionCreators';
-import {queryAllArticle} from './Reducer';
+import reducer from './Reducer';
 
-export { actionCreators, queryAllArticle };
+export { actionCreators, reducer };

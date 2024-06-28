@@ -13,7 +13,6 @@ import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ToggleColorMode from './ToggleColorMode';
-import IsLoginContext from "../../../../common/Global"
 import Sitemark from './SitemarkIcon';
 import Avatar from '@mui/material/Avatar';
 import { TextField, Menu  } from '@mui/material';
@@ -41,7 +40,6 @@ function AppAppBar({ mode, toggleColorMode }) {
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   //const classes = useStyles();
-  // console.log('IsLoginContext', IsLoginContext);
 
   let token = localStorage.getItem('token');
   //console.log('is_login', is_login);

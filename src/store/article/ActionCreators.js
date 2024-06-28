@@ -58,3 +58,15 @@ export const queryAllArticle = () => {
         }));
     }
 }
+
+export const searchAllArticleAc = () => {
+    return () => {
+        return axios.get(config.PATH_ARTICLE_LIST_HOME)
+            .then(response=>{
+                //告诉调用代码不需要等待
+                return response.data;
+             }).catch(error => {
+                console.log('searchAllArticleAc error', error);
+            });
+    };
+};

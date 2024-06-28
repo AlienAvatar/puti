@@ -161,9 +161,4 @@ export default articleReducer.reducer;
 
 export const selectAllPosts = (state) => state.articleReducer
 
-export const selectPostByNum = (state, num) => { 
-    console.log("state",state);
-    // return state.articleReducer.articleData.find((post) => {
-    //     post.num === num;
-    // })
-}
+
