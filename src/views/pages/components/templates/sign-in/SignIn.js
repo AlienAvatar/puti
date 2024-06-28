@@ -22,7 +22,7 @@ import ForgotPassword from './ForgotPassword';
 import getSignInTheme from './getSignInTheme';
 import ToggleColorMode from './ToggleColorMode';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
-import { useSelector, useDispatch, connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators as loginActionCreators } from '../../../../../store/login';
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
@@ -107,8 +107,6 @@ function SignIn(props) {
   const [showCustomTheme, setShowCustomTheme] = React.useState(true);
   const defaultTheme = createTheme({ palette: { mode } });
   const SignInTheme = createTheme(getSignInTheme(mode));
-  const [emailError, setEmailError] = React.useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
   const [open, setOpen] = React.useState(false);
@@ -147,7 +145,6 @@ function SignIn(props) {
       console.log("response", response);
       localStorage.setItem('nickname', response.nickname);
       localStorage.setItem('token', response.access_token);
-      localStorage.setItem('is_login', true);
 
       window.location.href = "/home";
     }else{
@@ -259,8 +256,8 @@ function SignIn(props) {
                 /> */}
                 <FormLabel htmlFor="username">用户名</FormLabel>
                 <TextField
-                  error={emailError}
-                  helperText={emailErrorMessage}
+                  error={usernameError}
+                  helperText={usernameErrorMessage}
                   id="username"
                   type="username"
                   name="username"
@@ -269,7 +266,7 @@ function SignIn(props) {
                   required
                   fullWidth
                   variant="outlined"
-                  color={emailError ? 'error' : 'primary'}
+                  color={usernameError ? 'error' : 'primary'}
                   sx={{ ariaLabel: 'email' }}
                 />
               </FormControl>

@@ -16,13 +16,14 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { Card as MuiCard } from '@mui/material';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
-
+import { connect } from 'react-redux';
 import getSignUpTheme from './getSignUpTheme';
 import ToggleColorMode from './ToggleColorMode';
-import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
+import { SitemarkIcon } from './CustomIcons';
+import { bindActionCreators } from 'redux';
+import { actionCreators as loginActionCreators } from '../../../../../store/login';
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
@@ -101,7 +102,7 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
   }),
 }));
 
-export default function SignUp() {
+function SignUp(props) {
   const [mode, setMode] = React.useState('light');
   const [showCustomTheme, setShowCustomTheme] = React.useState(true);
   const defaultTheme = createTheme({ palette: { mode } });
@@ -110,19 +111,30 @@ export default function SignUp() {
   const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
-  const [nameError, setNameError] = React.useState(false);
-  const [nameErrorMessage, setNameErrorMessage] = React.useState('');
+  const [usernameError, setUsernameError] = React.useState(false);
+  const [usernameErrorMessage, setUsernameErrorMessage] = React.useState('');
+  const [nicknameError, setNicknameError] = React.useState(false);
+  const [nicknameErrorMessage, setNicknameErrorMessage] = React.useState('');
   const [confirmPasswordError, setconfirmPasswordError] = React.useState(false);
   const [confirmPasswordErrorMessage, setconfirmPasswordErrorMessage] = React.useState('');
 
+  let isValid = true;
+
   const validateInputs = () => {
     const email = document.getElementById('email');
-    const username = document.getElementById('email');
+    const username = document.getElementById('username');
     const password = document.getElementById('password');
     const confirm_password = document.getElementById('confirm_password');
     const nickname = document.getElementById('nickname');
-
-    let isValid = true;
+    
+    if (!username.value || username.value.length < 1) {
+      setUsernameError(true);
+      setUsernameErrorMessage('Username is required.');
+      isValid = false;
+    } else {
+      setUsernameError(false);
+      setUsernameErrorMessage('');
+    }
 
     if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
       setEmailError(true);
@@ -144,20 +156,20 @@ export default function SignUp() {
 
     if(confirm_password.value !== password.value) {
       setconfirmPasswordError(true);
-      setconfirmPasswordErrorMessage('confirmPassword must be at least 6 characters long.');
+      setconfirmPasswordErrorMessage('确认密码与密码不一致');
       isValid = false;
     } else {
-      setconfirmPasswordError(true);
+      setconfirmPasswordError(false);
       setconfirmPasswordErrorMessage('');
     }
 
     if (!nickname.value || nickname.value.length < 1) {
-      setNameError(true);
-      setNameErrorMessage('Name is required.');
+      setNicknameError(true);
+      setNicknameErrorMessage('Name is required.');
       isValid = false;
     } else {
-      setNameError(false);
-      setNameErrorMessage('');
+      setNicknameError(false);
+      setNicknameErrorMessage('');
     }
 
     return isValid;
@@ -171,15 +183,32 @@ export default function SignUp() {
     setShowCustomTheme((prev) => !prev);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get('name'),
-      lastName: data.get('lastName'),
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    const postParam = {
+      username : data.get('username'),
+      nickname : data.get('nickname'),
+      email : data.get('email'),
+      password : data.get('password'),
+    };
+
+    if(!isValid){
+      return;
+    }
+    //注册
+    const response = await props.userDataFn.signupAc(postParam);
+    if(response.status === "success"){
+      console.log("response", response);
+      window.location.href = "/home";
+    }else if(response.status === "fail"){
+      setUsernameError(true);
+      setUsernameErrorMessage("用户名重复")
+    }else{
+      localStorage.setItem('is_login', false);
+      console.log('error')
+    }
   };
 
   return (
@@ -202,7 +231,7 @@ export default function SignUp() {
           >
             返回主页
           </Button>
-          <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} />
+          {/* <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} /> */}
         </Stack>
         <Stack
           sx={{
@@ -234,9 +263,9 @@ export default function SignUp() {
                   fullWidth
                   id="username"
                   placeholder="username"
-                  error={nameError}
-                  helperText={nameErrorMessage}
-                  color={nameError ? 'error' : 'primary'}
+                  error={usernameError}
+                  helperText={usernameErrorMessage}
+                  color={usernameError ? 'error' : 'primary'}
                 />
               </FormControl>
               <FormControl>
@@ -248,9 +277,9 @@ export default function SignUp() {
                   fullWidth
                   id="nickname"
                   placeholder="张三"
-                  error={nameError}
-                  helperText={nameErrorMessage}
-                  color={nameError ? 'error' : 'primary'}
+                  error={nicknameError}
+                  helperText={nicknameErrorMessage}
+                  color={nicknameError ? 'error' : 'primary'}
                 />
               </FormControl>
               <FormControl>
@@ -285,7 +314,7 @@ export default function SignUp() {
                 />
               </FormControl>
               <FormControl>
-                <FormLabel htmlFor="password">密码验证</FormLabel>
+                <FormLabel htmlFor="confirm_password">确认密码</FormLabel>
                 <TextField
                   required
                   fullWidth
@@ -355,3 +384,18 @@ export default function SignUp() {
     </ThemeProvider>
   );
 }
+
+//这个函数来指定如何把当前store state映射到展示组件的props中
+const mapStateToProps = state => {
+  return {
+    userData : state.loginActionCreators,
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return{
+    userDataFn : bindActionCreators(loginActionCreators, dispatch),
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(SignUp);

@@ -54,3 +54,16 @@ export const logout = () => {
         dispatch(syncInfoAc({}));
     };
 };
+
+
+export const signupAc = paramData => {
+    return () => {
+        return axios.post(config.PATH_USER_CREATE, paramData)
+            .then(response=>{
+                //告诉调用代码不需要等待
+                return response.data;
+            }).catch(error => {
+                console.log('signupAc error', error);
+            });
+    };
+};

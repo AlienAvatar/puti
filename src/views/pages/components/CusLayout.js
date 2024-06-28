@@ -7,7 +7,6 @@ export default function CusLayout({ children }) {
 
     return (
         <Layout>
-            {/* 自定义头部 prop = {data : ..., isLogin : ...}*/}
             <CusHeader />
         
             {/* Body */}
