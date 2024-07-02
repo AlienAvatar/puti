@@ -23,6 +23,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actionCreators as articleActionCreators } from '../../../../../store/article';
 import { useState, useEffect } from 'react';
+import InteractiveList from './components/iList';
+import ImgList from './components/iImgList';
+import FoShuList from './components/FoShu';
+import BG_IMG from '../../../assets/main/bg_brick.jpg'
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
@@ -72,7 +76,20 @@ function HomePage(props) {
   const LPtheme = createTheme(getLPTheme(mode));
   const defaultTheme = createTheme({ palette: { mode } });
   const [articledata, setArticledata] = useState(null);
+  const [office_data_list, setOfficeDataList] = useState(null);
   const [buddha_data_list, setBuddhaDataList] = useState(null);
+  const [buddha_dharma_data_list, setBuddhaDharmaDataList] = useState(null);
+  const [recognition_data_list, setRecognitionDataList] = useState(null);
+  const [buddha_virtue_data_list, setBuddhaVirtueDataList] = useState(null);
+  const [holy_realization_data_list, setHolyRealizationDataList] = useState(null);
+  const [holy_occurrences_data_list, setHolyOccurencesDataList] = useState(null);
+  const [wuming_data_list, setWumingDataList] = useState(null);
+  const [savelivingbings_data_list, setSavelivingbingsDataList] = useState(null);
+  const [true_dharma_news_data_list, setTrueDharmaNewsDataList] = useState(null);
+  const [positive_data_list, setPositiveDataList] = useState(null);
+  const [shared_data_list, setSharedDataList] = useState(null);
+  const [foshu_data_list, setFoshuDataList] = useState(null);
+
   const toggleColorMode = () => {
     // 切换颜色模式
     // 如果当前模式为 'dark'，则设置为 'light'；否则设置为 'dark'
@@ -89,9 +106,32 @@ function HomePage(props) {
           const response = await props.artilceDataFn.searchAllArticleAc();
           if(response && response.status === "success"){
             setArticledata(response.data);
-            const buddha_data_list = response.data.filter(data => data.category === "公告");
-            setBuddhaDataList(buddha_data_list);
-           
+            const office_list = response.data.filter(data => data.category === "公告");
+            setOfficeDataList(office_list);
+            const buddha_list = response.data.filter(data => data.category === "古佛降世");
+            setBuddhaDataList(buddha_list);
+            const buddha_dharma_list = response.data.filter(data => data.category === "羌佛说法");
+            setBuddhaDharmaDataList(buddha_dharma_list);
+            const recognition_list = response.data.filter(data => data.category === "认证恭祝");
+            setRecognitionDataList(recognition_list);
+            const buddha_virtue_list = response.data.filter(data => data.category === "圆满佛格");
+            setBuddhaVirtueDataList(buddha_virtue_list);
+            const holy_realization_list = response.data.filter(data => data.category === "羌佛圣量");
+            setHolyRealizationDataList(holy_realization_list);
+            const holy_occurrences_list = response.data.filter(data => data.category === "羌佛圣迹");
+            setHolyOccurencesDataList(holy_occurrences_list);
+            const wuming_list = response.data.filter(data => data.category === "妙谙五明");
+            setWumingDataList(wuming_list);
+            const savelivingbings_list = response.data.filter(data => data.category === "渡生成就");
+            setSavelivingbingsDataList(savelivingbings_list);
+            const shared_list = response.data.filter(data => data.category === "受用分享");
+            setSharedDataList(shared_list);
+            const true_dharma_news_list = response.data.filter(data => data.category === "正法新闻");
+            setTrueDharmaNewsDataList(true_dharma_news_list);
+            const positive_list = response.data.filter(data => data.category === "摧邪显正");
+            setPositiveDataList(positive_list);
+            const foshu_list = response.data.filter(data => data.category === "佛书法著");
+            setFoshuDataList(foshu_list);
           }else{
             console.log('error');
           }
@@ -112,10 +152,50 @@ function HomePage(props) {
       <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
       
       <Hero />
-      <Office props={buddha_data_list}/>
-      <Box sx={{ bgcolor: 'background.default' }}>
-      
+      <Box sx={{backgroundImage: `url(${BG_IMG})` }}>
+      {/* 公告栏 */}
+      <Office props={office_data_list}/>
+      {/* 古佛降世，羌佛说法 */}
+      <InteractiveList 
+          left_list={buddha_data_list} 
+          right_list={buddha_dharma_data_list} 
+          left_title="古佛降世" 
+          right_title="羌佛说法"/>
+
+      <InteractiveList 
+          left_list={recognition_data_list}
+          right_list={buddha_virtue_data_list}
+          left_title="认证恭贺"
+          right_title="圆满佛格"/>
+
+      <InteractiveList
+          left_list={holy_realization_data_list}
+          right_list={holy_occurrences_data_list}
+          left_title="羌佛圣量"
+          right_title="羌佛圣迹"/>
+
+      <InteractiveList 
+          left_list={wuming_data_list}
+          right_list={savelivingbings_data_list}
+          left_title="妙谙五明"
+          right_title="渡生成就"/>
+
+      {/* 佛书法著 */}
+      <FoShuList data_list={foshu_data_list}/>
+
+      <InteractiveList 
+          left_list={true_dharma_news_data_list}
+          right_list={positive_data_list}
+          left_title="正法新闻"
+          right_title="摧邪显正"/>
+
+      <ImgList
+          data_list={shared_data_list}
+      />
       </Box>
+      {/* <Box sx={{ bgcolor: 'background.default' }}>
+      
+      </Box> */}
       <Box sx={{ bgcolor: '#444' }}>
         <Footer />
       </Box>

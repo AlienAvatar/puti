@@ -41,7 +41,6 @@ function LoginPage(props) {
       setTimeout(backToHome,3000);
     }else{
       setSuccess(false);
-      console.log("response",response);
 
       const notificationParam = {
         message : response.message,

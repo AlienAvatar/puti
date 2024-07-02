@@ -16,32 +16,32 @@ import DevicesRoundedIcon from '@mui/icons-material/DevicesRounded';
 import EdgesensorHighRoundedIcon from '@mui/icons-material/EdgesensorHighRounded';
 import ViewQuiltRoundedIcon from '@mui/icons-material/ViewQuiltRounded';
 
-const items = [
-  {
-    icon: <ViewQuiltRoundedIcon />,
-    title: 'Dashboard',
-    description:
-      'This item could provide a snapshot of the most important metrics or data points related to the product.',
-    imageLight: 'url("/static/images/templates/templates-images/dash-light.png")',
-    imageDark: 'url("/static/images/templates/templates-images/dash-dark.png")',
-  },
-  {
-    icon: <EdgesensorHighRoundedIcon />,
-    title: 'Mobile integration',
-    description:
-      'This item could provide information about the mobile app version of the product.',
-    imageLight: 'url("/static/images/templates/templates-images/mobile-light.png")',
-    imageDark: 'url("/static/images/templates/templates-images/mobile-dark.png")',
-  },
-  {
-    icon: <DevicesRoundedIcon />,
-    title: 'Available on all platforms',
-    description:
-      'This item could let users know the product is available on all platforms, such as web, mobile, and desktop.',
-    imageLight: 'url("/static/images/templates/templates-images/devices-light.png")',
-    imageDark: 'url("/static/images/templates/templates-images/devices-dark.png")',
-  },
-];
+// const items = [
+//   {
+//     icon: <ViewQuiltRoundedIcon />,
+//     title: 'Dashboard',
+//     description:
+//       'This item could provide a snapshot of the most important metrics or data points related to the product.',
+//     imageLight: 'url("/static/images/templates/templates-images/dash-light.png")',
+//     imageDark: 'url("/static/images/templates/templates-images/dash-dark.png")',
+//   },
+//   {
+//     icon: <EdgesensorHighRoundedIcon />,
+//     title: 'Mobile integration',
+//     description:
+//       'This item could provide information about the mobile app version of the product.',
+//     imageLight: 'url("/static/images/templates/templates-images/mobile-light.png")',
+//     imageDark: 'url("/static/images/templates/templates-images/mobile-dark.png")',
+//   },
+//   {
+//     icon: <DevicesRoundedIcon />,
+//     title: 'Available on all platforms',
+//     description:
+//       'This item could let users know the product is available on all platforms, such as web, mobile, and desktop.',
+//     imageLight: 'url("/static/images/templates/templates-images/devices-light.png")',
+//     imageDark: 'url("/static/images/templates/templates-images/devices-dark.png")',
+//   },
+// ];
 
 const Chip = styled(MuiChip)(({ theme }) => ({
   variants: [
@@ -63,18 +63,29 @@ const Chip = styled(MuiChip)(({ theme }) => ({
   ],
 }));
 
+
 export default function Office(props) {
   const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
   
-  const handleItemClick = (index) => {
-    setSelectedItemIndex(index);
+  if(props.left_list == null || props.left_list.length === 0 || props.right_list == null || props.right_list.length === 0){
+    return;
+  }
+  const handleItemClick = (id) => {
+    // <Route path="/detail/:num" element={<DetailPage />}></Route>
+
+    window.location.href = `/details/${id}`
   };
 
-  const selectedFeature = items[selectedItemIndex];
+
+  
   const data = props.props[0].data.articles;
-  console.log('buddha_data_list', data);
+
+  const left = data.slice(0, 5);
+  const right = data.slice(5, 10);
+  const left_selected_feature = left[selectedItemIndex];
+  const right_selected_feature = left[selectedItemIndex];
   return (
-    <Container id="features" sx={{ py: { xs: 8, sm: 16 } }}>
+    <Container id="features" sx={{ py: { xs: 8, sm: 5 } }}>
       <Grid container spacing={6}>
         <Grid item xs={12} md={6}>
           {/* <Grid container item sx={{ gap: 1, display: { xs: 'auto', sm: 'none' } }}>
@@ -102,8 +113,8 @@ export default function Office(props) {
                 }),
               })}
               style={{
-                '--items-imageLight': items[selectedItemIndex].imageLight,
-                '--items-imageDark': items[selectedItemIndex].imageDark,
+                '--items-imageLight': left[selectedItemIndex].imageLight,
+                '--items-imageDark': left[selectedItemIndex].imageDark,
               }}
             />
             <Box sx={{ px: 2, pb: 2 }}>
@@ -111,10 +122,10 @@ export default function Office(props) {
                 gutterBottom
                 sx={{ color: 'text.primary', fontWeight: 'medium' }}
               >
-                {selectedFeature.title}
+                {left_selected_feature.title}
               </Typography>
               <Typography variant="body2" sx={{ color: 'text.secondary', mb: 1.5 }}>
-                {selectedFeature.description}
+                {left_selected_feature.description}
               </Typography>
               <Link
                 color="primary"
@@ -135,8 +146,7 @@ export default function Office(props) {
               </Link>
             </Box>
           </Card>
-
-          {/* 移动端 */}
+          
           <Stack
             direction="column"
             spacing={2}
@@ -148,13 +158,13 @@ export default function Office(props) {
               display: { xs: 'none', sm: 'flex' },
             }}
           >
-            {data.map(({ title, cotent, created_at }, index) =>{
-              console.log(index)
+
+            { left.map(({ title, cotent, created_at, id}, index) =>{
               return (
                 <Card
                   key={index}
                   component={Button}
-                  onClick={() => handleItemClick(index)}
+                  onClick={() => handleItemClick(id)}
                   sx={[
                     (theme) => ({
                       p: 3,
@@ -174,14 +184,6 @@ export default function Office(props) {
                         }),
                       },
                     }),
-                    selectedItemIndex === index &&
-                      ((theme) => ({
-                        backgroundColor: 'action.selected',
-                        borderColor: 'primary.light',
-                        ...theme.applyStyles('dark', {
-                          borderColor: 'primary.dark',
-                        }),
-                      })),
                   ]}
                 >
                   <Box
@@ -210,9 +212,7 @@ export default function Office(props) {
                       <Link
                         color="primary"
                         variant="body2"
-                        onClick={(event) => {
-                          event.stopPropagation();
-                        }}
+                        onClick={() => handleItemClick(id)}
                         sx={{
                           fontWeight: 'bold',
                           display: 'inline-flex',
@@ -221,7 +221,7 @@ export default function Office(props) {
                           '&:hover > svg': { transform: 'translateX(2px)' },
                         }}
                       >
-                        <span>Learn more</span>
+                        <span>详情访问</span>
                         <ChevronRightRoundedIcon
                           fontSize="small"
                           sx={{ mt: '1px', ml: '2px' }}
@@ -234,7 +234,7 @@ export default function Office(props) {
             } )}
           </Stack>
         </Grid>
-        {/* <Grid
+        <Grid
           item
           xs={12}
           md={6}
@@ -242,32 +242,142 @@ export default function Office(props) {
         >
           <Card
             variant="outlined"
-            sx={{
-              height: '100%',
-              width: '100%',
-              display: { xs: 'none', sm: 'flex' },
-              pointerEvents: 'none',
-            }}
+            sx={{ display: { xs: 'auto', sm: 'none' }, mt: 4 }}
           >
             <Box
               sx={(theme) => ({
-                m: 'auto',
-                width: 420,
-                height: 500,
-                backgroundSize: 'contain',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                minHeight: 280,
                 backgroundImage: 'var(--items-imageLight)',
                 ...theme.applyStyles('dark', {
                   backgroundImage: 'var(--items-imageDark)',
                 }),
               })}
               style={{
-                '--items-imageLight': items[selectedItemIndex].imageLight,
-                '--items-imageDark': items[selectedItemIndex].imageDark,
+                '--items-imageLight': right[selectedItemIndex].imageLight,
+                '--items-imageDark': right[selectedItemIndex].imageDark,
               }}
             />
+            <Box sx={{ px: 2, pb: 2 }}>
+              <Typography
+                gutterBottom
+                sx={{ color: 'text.primary', fontWeight: 'medium' }}
+              >
+                {right_selected_feature.title}
+              </Typography>
+              <Typography variant="body2" sx={{ color: 'text.secondary', mb: 1.5 }}>
+                {right_selected_feature.description}
+              </Typography>
+              <Link
+                color="primary"
+                variant="body2"
+                sx={{
+                  fontWeight: 'bold',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  '& > svg': { transition: '0.2s' },
+                  '&:hover > svg': { transform: 'translateX(2px)' },
+                }}
+              >
+                <span>Learn more</span>
+                <ChevronRightRoundedIcon
+                  fontSize="small"
+                  sx={{ mt: '1px', ml: '2px' }}
+                />
+              </Link>
+            </Box>
           </Card>
-        </Grid> */}
+          
+          <Stack
+            direction="column"
+            spacing={2}
+            useFlexGap
+            sx={{
+              justifyContent: 'center',
+              alignItems: 'flex-start',
+              width: '100%',
+              display: { xs: 'none', sm: 'flex' },
+            }}
+          >
+
+            { right.map(({ title, cotent, created_at, id }, index) =>{
+              return (
+                <Card
+                  key={index}
+                  component={Button}
+                  onClick={() => handleItemClick(index)}
+                  sx={[
+                    (theme) => ({
+                      p: 3,
+                      height: 'fit-content',
+                      width: '100%',
+                      background: 'none',
+                      '&:hover': {
+                        background:
+                          'linear-gradient(to bottom right, hsla(210, 100%, 97%, 0.5) 25%, hsla(210, 100%, 90%, 0.3) 100%)',
+                        borderColor: 'primary.light',
+                        boxShadow: '0px 2px 8px hsla(0, 0%, 0%, 0.1)',
+                        ...theme.applyStyles('dark', {
+                          background:
+                            'linear-gradient(to right bottom, hsla(210, 100%, 12%, 0.2) 25%, hsla(210, 100%, 16%, 0.2) 100%)',
+                          borderColor: 'primary.dark',
+                          boxShadow: '0px 1px 8px hsla(210, 100%, 25%, 0.5) ',
+                        }),
+                      },
+                    }),
+                  ]}
+                >
+                  <Box
+                    sx={{
+                      width: '100%',
+                      display: 'flex',
+                      textAlign: 'left',
+                      flexDirection: { xs: 'column', md: 'row' },
+                      alignItems: { md: 'center' },
+                      gap: 2.5,
+                    }}
+                  >
+                    <div>
+                      <Typography
+                        gutterBottom
+                        sx={{ color: 'text.primary', fontWeight: 'medium' }}
+                      >
+                        {title}
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        sx={{ color: 'text.secondary', mb: 1.5 }}
+                      >
+                        {cotent}
+                      </Typography>
+                      <Link
+                        color="primary"
+                        variant="body2"
+                        onClick={() => handleItemClick(id)}
+                        sx={{
+                          fontWeight: 'bold',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          '& > svg': { transition: '0.2s' },
+                          '&:hover > svg': { transform: 'translateX(2px)' },
+                        }}
+                      >
+                        <span>详情访问</span>
+                        <ChevronRightRoundedIcon
+                          fontSize="small"
+                          sx={{ mt: '1px', ml: '2px' }}
+                        />
+                      </Link>
+                    </div>
+                  </Box>
+                </Card>
+              )
+            } )}
+          </Stack>
+        </Grid>
       </Grid>
     </Container>
   );
 }
+
