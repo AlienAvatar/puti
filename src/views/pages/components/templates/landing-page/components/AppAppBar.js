@@ -80,7 +80,6 @@ function AppAppBar({ mode, toggleColorMode }) {
   };
 
   const titleClickHandle = (value) =>{
-      console.log('value', value);
       window.location.href = `/${value}`;
   }
 
@@ -113,7 +112,7 @@ function AppAppBar({ mode, toggleColorMode }) {
           })}
         >
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
-            <Sitemark />
+            <Button onClick={() => titleClickHandle('home')} ><Sitemark /></Button>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <Button
                 variant="text"

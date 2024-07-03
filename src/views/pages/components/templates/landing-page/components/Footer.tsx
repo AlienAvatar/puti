@@ -57,11 +57,11 @@ export default function Footer() {
         >
           <Box sx={{ width: { xs: '100%', sm: '60%' } }}>
             <SitemarkIcon />
-            <Typography variant="body2" gutterBottom sx={{ fontWeight: 600, mt: 2 }}>
-              Join the newsletter
+            <Typography variant="body2" gutterBottom sx={{ color: '#ccc', fontWeight: 600, mt: 2 }}>
+              关于本站
             </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
-              Subscribe for weekly updates. No spams ever!
+            <Typography variant="body2" sx={{ color: '#ccc', mb: 2 }}>
+              本站创办宗旨是为了让更多的人了解、学习南无第三世多杰羌佛和南无释迦牟尼佛的佛法，修行解脱，利益大众，国泰民安，世界和平。
             </Typography>
             <Stack direction="row" spacing={1} useFlexGap>
               <InputLabel htmlFor="email-newsletter" sx={visuallyHidden}>

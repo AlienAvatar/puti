@@ -16,33 +16,6 @@ import DevicesRoundedIcon from '@mui/icons-material/DevicesRounded';
 import EdgesensorHighRoundedIcon from '@mui/icons-material/EdgesensorHighRounded';
 import ViewQuiltRoundedIcon from '@mui/icons-material/ViewQuiltRounded';
 
-// const items = [
-//   {
-//     icon: <ViewQuiltRoundedIcon />,
-//     title: 'Dashboard',
-//     description:
-//       'This item could provide a snapshot of the most important metrics or data points related to the product.',
-//     imageLight: 'url("/static/images/templates/templates-images/dash-light.png")',
-//     imageDark: 'url("/static/images/templates/templates-images/dash-dark.png")',
-//   },
-//   {
-//     icon: <EdgesensorHighRoundedIcon />,
-//     title: 'Mobile integration',
-//     description:
-//       'This item could provide information about the mobile app version of the product.',
-//     imageLight: 'url("/static/images/templates/templates-images/mobile-light.png")',
-//     imageDark: 'url("/static/images/templates/templates-images/mobile-dark.png")',
-//   },
-//   {
-//     icon: <DevicesRoundedIcon />,
-//     title: 'Available on all platforms',
-//     description:
-//       'This item could let users know the product is available on all platforms, such as web, mobile, and desktop.',
-//     imageLight: 'url("/static/images/templates/templates-images/devices-light.png")',
-//     imageDark: 'url("/static/images/templates/templates-images/devices-dark.png")',
-//   },
-// ];
-
 const Chip = styled(MuiChip)(({ theme }) => ({
   variants: [
     {
@@ -67,7 +40,7 @@ const Chip = styled(MuiChip)(({ theme }) => ({
 export default function Office(props) {
   const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
   
-  if(props.left_list == null || props.left_list.length === 0 || props.right_list == null || props.right_list.length === 0){
+  if(props.data_list == null || props.data_list.length === 0 || props.right_list == null || props.right_list.length === 0){
     return;
   }
   const handleItemClick = (id) => {
@@ -78,7 +51,7 @@ export default function Office(props) {
 
 
   
-  const data = props.props[0].data.articles;
+  const data = props.data_list[0].data.articles;
 
   const left = data.slice(0, 5);
   const right = data.slice(5, 10);

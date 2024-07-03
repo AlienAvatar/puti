@@ -70,3 +70,21 @@ export const searchAllArticleAc = () => {
             });
     };
 };
+
+export const searchAllArticleByCategoryAc = (category) => {
+    const url = `${config.PATH_ARTICLE_LIST}?category=${category}`;
+    const token = localStorage.getItem('token');
+    return () => {
+        return axios.get(url,{
+                headers: {
+                    'token': token,
+                },
+            })
+            .then(response=>{
+                //告诉调用代码不需要等待
+                return response.data;
+             }).catch(error => {
+                console.log('searchAllArticleByCategoryAc error', error);
+            });
+    };
+};

@@ -18,6 +18,7 @@ export default function FoShuList(props) {
                 <List
                 size="large"
                 dataSource={data}
+                style={{ backgroundColor: '#fff', borderRadius: 10, padding: 20 }}
                 header={
                     <h3>
                         佛书法著
@@ -28,7 +29,6 @@ export default function FoShuList(props) {
                     column: 6,
                 }}
                 renderItem={(item) => {
-                    console.log('foshu', item)
                     return (
                         <List.Item 
                         // extra={

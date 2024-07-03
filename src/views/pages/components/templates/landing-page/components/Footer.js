@@ -19,9 +19,9 @@ import SitemarkIcon from './SitemarkIcon';
 
 function Copyright() {
   return (
-    <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
+    <Typography variant="body2" sx={{ color: '#ccc', mt: 1 }}>
       {'Copyright © '}
-      <Link href="https://mui.com/">Sitemark&nbsp;</Link>
+      { '菩提道行版权所有'}&nbsp;
       {new Date().getFullYear()}
     </Typography>
   );
@@ -57,35 +57,12 @@ export default function Footer() {
         >
           <Box sx={{ width: { xs: '100%', sm: '60%' } }}>
             <SitemarkIcon />
-            <Typography variant="body2" gutterBottom sx={{ fontWeight: 600, mt: 2 }}>
-              Join the newsletter
+            <Typography variant="body2" gutterBottom sx={{ color: '#ccc', fontWeight: 600, mt: 2 }}>
+              关于本站
             </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
-              Subscribe for weekly updates. No spams ever!
+            <Typography variant="body2" sx={{ color: '#ccc', mb: 2 }}>
+              本站创办宗旨是为了让更多的人了解、学习南无第三世多杰羌佛和南无释迦牟尼佛的佛法，修行解脱，利益大众，国泰民安，世界和平。
             </Typography>
-            <Stack direction="row" spacing={1} useFlexGap>
-              <InputLabel htmlFor="email-newsletter" sx={visuallyHidden}>
-                Email
-              </InputLabel>
-              <TextField
-                id="email-newsletter"
-                hiddenLabel
-                size="small"
-                variant="outlined"
-                fullWidth
-                aria-label="Enter your email address"
-                placeholder="Your email address"
-                slotProps={{
-                  htmlInput: {
-                    autoComplete: 'off',
-                    'aria-label': 'Enter your email address',
-                  },
-                }}
-              />
-              <Button variant="contained" color="primary" sx={{ flexShrink: 0 }}>
-                Subscribe
-              </Button>
-            </Stack>
           </Box>
         </Box>
         <Box
@@ -95,43 +72,20 @@ export default function Footer() {
             gap: 1,
           }}
         >
-          <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-            Product
-          </Typography>
-          <Link color="text.secondary" variant="body2" href="#">
+          {/* <Link color="#ccc" variant="body2" href="#">
             Features
+          </Link> */}
+          <Link color="#ccc" variant="body2" href="#">
+            羌佛说法
           </Link>
-          <Link color="text.secondary" variant="body2" href="#">
-            Testimonials
+          <Link color="#ccc" variant="body2" href="#">
+            羌佛圣量
           </Link>
-          <Link color="text.secondary" variant="body2" href="#">
-            Highlights
+          <Link color="#ccc" variant="body2" href="#">
+            妙谙五明
           </Link>
-          <Link color="text.secondary" variant="body2" href="#">
-            Pricing
-          </Link>
-          <Link color="text.secondary" variant="body2" href="#">
-            FAQs
-          </Link>
-        </Box>
-        <Box
-          sx={{
-            display: { xs: 'none', sm: 'flex' },
-            flexDirection: 'column',
-            gap: 1,
-          }}
-        >
-          <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-            Company
-          </Typography>
-          <Link color="text.secondary" variant="body2" href="#">
-            About us
-          </Link>
-          <Link color="text.secondary" variant="body2" href="#">
-            Careers
-          </Link>
-          <Link color="text.secondary" variant="body2" href="#">
-            Press
+          <Link color="#ccc" variant="body2" href="#">
+            正法新闻
           </Link>
         </Box>
         <Box
@@ -141,24 +95,44 @@ export default function Footer() {
             gap: 1,
           }}
         >
-          <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-            Legal
-          </Typography>
-          <Link color="text.secondary" variant="body2" href="#">
-            Terms
+          <Link color="#ccc" variant="body2" href="#">
+            古佛降世
           </Link>
-          <Link color="text.secondary" variant="body2" href="#">
-            Privacy
+          <Link color="#ccc" variant="body2" href="#">
+            圆满佛格
           </Link>
-          <Link color="text.secondary" variant="body2" href="#">
-            Contact
+          <Link color="#ccc" variant="body2" href="#">
+            渡生成就
+          </Link>
+          <Link color="#ccc" variant="body2" href="#">
+            圣德答复
+          </Link>
+        </Box>
+        <Box
+          sx={{
+            display: { xs: 'none', sm: 'flex' },
+            flexDirection: 'column',
+            gap: 1,
+          }}
+        >
+          <Link color="#ccc" variant="body2" href="#">
+            认证恭贺
+          </Link>
+          <Link color="#ccc" variant="body2" href="#">
+            羌佛圣迹
+          </Link>
+          <Link color="#ccc" variant="body2" href="#">
+            摧邪显正
+          </Link>
+          <Link color="#ccc" variant="body2" href="#">
+            大德文集
           </Link>
         </Box>
       </Box>
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'space-between',
+          justifyContent: 'center',
           pt: { xs: 4, sm: 8 },
           width: '100%',
           borderTop: '1px solid',
@@ -166,22 +140,13 @@ export default function Footer() {
         }}
       >
         <div>
-          <Link color="text.secondary" variant="body2" href="#">
-            Privacy Policy
-          </Link>
-          <Typography sx={{ display: 'inline', mx: 0.5, opacity: 0.5 }}>
-            &nbsp;•&nbsp;
-          </Typography>
-          <Link color="text.secondary" variant="body2" href="#">
-            Terms of Service
-          </Link>
           <Copyright />
         </div>
-        <Stack
+        {/* <Stack
           direction="row"
           spacing={1}
           useFlexGap
-          sx={{ justifyContent: 'left', color: 'text.secondary' }}
+          sx={{ justifyContent: 'left', color: '#ccc' }}
         >
           <IconButton
             color="inherit"
@@ -207,7 +172,7 @@ export default function Footer() {
           >
             <LinkedInIcon />
           </IconButton>
-        </Stack>
+        </Stack> */}
       </Box>
     </Container>
   );

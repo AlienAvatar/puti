@@ -152,46 +152,46 @@ function HomePage(props) {
       <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
       
       <Hero />
-      <Box sx={{backgroundImage: `url(${BG_IMG})` }}>
-      {/* 公告栏 */}
-      <Office props={office_data_list}/>
-      {/* 古佛降世，羌佛说法 */}
-      <InteractiveList 
-          left_list={buddha_data_list} 
-          right_list={buddha_dharma_data_list} 
-          left_title="古佛降世" 
-          right_title="羌佛说法"/>
+      <Box sx={{ backgroundImage: `url(${BG_IMG})`}}>
+        {/* 公告栏 */}
+        <Office data_list={office_data_list}/>
+        {/* 古佛降世，羌佛说法 */}
+        <InteractiveList 
+            left_list={buddha_data_list} 
+            right_list={buddha_dharma_data_list} 
+            left_title="古佛降世" 
+            right_title="羌佛说法"/>
 
-      <InteractiveList 
-          left_list={recognition_data_list}
-          right_list={buddha_virtue_data_list}
-          left_title="认证恭贺"
-          right_title="圆满佛格"/>
+        <InteractiveList 
+            left_list={recognition_data_list}
+            right_list={buddha_virtue_data_list}
+            left_title="认证恭贺"
+            right_title="圆满佛格"/>
 
-      <InteractiveList
-          left_list={holy_realization_data_list}
-          right_list={holy_occurrences_data_list}
-          left_title="羌佛圣量"
-          right_title="羌佛圣迹"/>
+        <InteractiveList
+            left_list={holy_realization_data_list}
+            right_list={holy_occurrences_data_list}
+            left_title="羌佛圣量"
+            right_title="羌佛圣迹"/>
 
-      <InteractiveList 
-          left_list={wuming_data_list}
-          right_list={savelivingbings_data_list}
-          left_title="妙谙五明"
-          right_title="渡生成就"/>
+        <InteractiveList 
+            left_list={wuming_data_list}
+            right_list={savelivingbings_data_list}
+            left_title="妙谙五明"
+            right_title="渡生成就"/>
 
-      {/* 佛书法著 */}
-      <FoShuList data_list={foshu_data_list}/>
+        {/* 佛书法著 */}
+        <FoShuList data_list={foshu_data_list}/>
 
-      <InteractiveList 
-          left_list={true_dharma_news_data_list}
-          right_list={positive_data_list}
-          left_title="正法新闻"
-          right_title="摧邪显正"/>
+        <InteractiveList 
+            left_list={true_dharma_news_data_list}
+            right_list={positive_data_list}
+            left_title="正法新闻"
+            right_title="摧邪显正"/>
 
-      <ImgList
-          data_list={shared_data_list}
-      />
+        <ImgList
+            data_list={shared_data_list}
+        />
       </Box>
       {/* <Box sx={{ bgcolor: 'background.default' }}>
       

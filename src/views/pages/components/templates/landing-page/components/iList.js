@@ -3,7 +3,7 @@ import React from 'react';
 import { Divider, List, Typography, Avatar, Space } from 'antd';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import { LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
+import { LikeOutlined, MessageOutlined, StarOutlined, ProfileOutlined } from '@ant-design/icons';
 import BG_IMG from '../../../../assets/main/bg_brick.jpg'
 
 // const useStyles = makeStyles((theme) => ({
@@ -50,9 +50,10 @@ export default function InteractiveList(props) {
       <Grid container spacing={6}>
         <Grid item xs={12} md={6}>
             <List
-                header={<h3>{left_title}</h3>}
+                header={<h3><ProfileOutlined /> {left_title}</h3>}
                 bordered
                 dataSource={left_data}
+                style={{ backgroundColor: '#fff'}}
                 renderItem={(item) =>{
                     const dateTimeString = item.created_at;
                     const dateString = dateTimeString.split('T')[0];
@@ -67,9 +68,10 @@ export default function InteractiveList(props) {
         </Grid>
         <Grid item xs={12} md={6}>
             <List
-                header={<h3>{right_title}</h3>}
+                header={<h3><ProfileOutlined /> {right_title}</h3>}
                 bordered
                 dataSource={right_data}
+                style={{ backgroundColor: '#fff'}}
                 renderItem={(item) =>{
                     const dateTimeString = item.created_at;
                     const dateString = dateTimeString.split('T')[0];
@@ -84,60 +86,5 @@ export default function InteractiveList(props) {
         </Grid>
       </Grid>
     </Container>
-  );
-}
-
-const IconText = ({ icon, text }) => (
-    <Space>
-      {React.createElement(icon)}
-      {text}
-    </Space>
-  );
-
-export function ImgList(props) {
-  const { item } = props;
-  const data = props.data_list;
-
-  return (
-    <List
-    itemLayout="vertical"
-    size="large"
-    pagination={{
-      onChange: (page) => {
-        console.log(page);
-      },
-      pageSize: 3,
-    }}
-    dataSource={data}
-    footer={
-      <div>
-        <b>ant design</b> footer part
-      </div>
-    }
-    renderItem={(item) => (
-      <List.Item
-        key={item.title}
-        actions={[
-          <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-          <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-          <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-        ]}
-        extra={
-          <img
-            width={272}
-            alt="logo"
-            src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-          />
-        }
-      >
-        <List.Item.Meta
-          avatar={<Avatar src={item.avatar} />}
-          title={<a href={item.href}>{item.title}</a>}
-          description={item.description}
-        />
-        {item.content}
-      </List.Item>
-    )}
-  />
   );
 }

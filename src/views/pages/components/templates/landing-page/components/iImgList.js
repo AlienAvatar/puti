@@ -1,11 +1,8 @@
 import React from 'react';
-import { LikeOutlined, MessageOutlined, StarOutlined, TeamOutlined } from '@ant-design/icons';
+import { LikeOutlined, MessageOutlined, StarOutlined, TeamOutlined, ProfileOutlined } from '@ant-design/icons';
 import { Avatar, List, Space } from 'antd';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import {
-    RichTextField,
-} from 'react-admin';
 import DOMPurify from 'dompurify';
 
 const IconText = ({ icon, text }) => (
@@ -26,20 +23,15 @@ export default function ImgList(props) {
 
     const data = props.data_list[0].data.articles.slice(0, 6);
     return (
-        <Container id="features" sx={{ py: { xs: 1, sm: 5 } }}>
+        <Container id="features" sx={{ py: { xs: 1, sm: 5 }, backgroundColor: '#fff'}}>
             <Grid container spacing={6}>
             <Grid item xs={12} md={12}>
                 <List
                 itemLayout="vertical"
                 size="large"
                 dataSource={data}
-                header={
-                    <h3>
-                        共用分享
-                    </h3>
-                }
+                header={<h3><ProfileOutlined /> 共用分享</h3>}
                 renderItem={(item) => {
-                    console.log(item);
                     const convertedHTML = <div 
                                             style={{
                                                     maxWidth: '50em',
