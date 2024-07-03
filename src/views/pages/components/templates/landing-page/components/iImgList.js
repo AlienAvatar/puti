@@ -23,7 +23,7 @@ export default function ImgList(props) {
 
     const data = props.data_list[0].data.articles.slice(0, 6);
     return (
-        <Container id="features" sx={{ py: { xs: 1, sm: 5 }, backgroundColor: '#fff'}}>
+        <Container id="features" sx={{ py: { xs: 1, sm: 5 } }}>
             <Grid container spacing={6}>
             <Grid item xs={12} md={12}>
                 <List
@@ -31,6 +31,7 @@ export default function ImgList(props) {
                 size="large"
                 dataSource={data}
                 header={<h3><ProfileOutlined /> 共用分享</h3>}
+                style={{ backgroundColor: '#fff', borderRadius: 10, padding: 20 }}
                 renderItem={(item) => {
                     const convertedHTML = <div 
                                             style={{

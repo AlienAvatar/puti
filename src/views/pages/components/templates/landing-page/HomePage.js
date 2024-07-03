@@ -27,6 +27,7 @@ import InteractiveList from './components/iList';
 import ImgList from './components/iImgList';
 import FoShuList from './components/FoShu';
 import BG_IMG from '../../../assets/main/bg_brick.jpg'
+import Announcement from './components/Announcement';
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
@@ -89,6 +90,8 @@ function HomePage(props) {
   const [positive_data_list, setPositiveDataList] = useState(null);
   const [shared_data_list, setSharedDataList] = useState(null);
   const [foshu_data_list, setFoshuDataList] = useState(null);
+  const [announcement_data_list, setAnnouncementDataList] = useState(null);
+  const [office_announcement_data_list, setOfficeAnnouncementDataList] = useState(null);
 
   const toggleColorMode = () => {
     // 切换颜色模式
@@ -132,6 +135,10 @@ function HomePage(props) {
             setPositiveDataList(positive_list);
             const foshu_list = response.data.filter(data => data.category === "佛书法著");
             setFoshuDataList(foshu_list);
+            const announcement_list = response.data.filter(data => data.category === "总部文告");
+            setAnnouncementDataList(announcement_list);
+            const office_announcement_list = response.data.filter(data => data.category === "羌佛文告");
+            setOfficeAnnouncementDataList(office_announcement_list);
           }else{
             console.log('error');
           }
@@ -154,7 +161,12 @@ function HomePage(props) {
       <Hero />
       <Box sx={{ backgroundImage: `url(${BG_IMG})`}}>
         {/* 公告栏 */}
-        <Office data_list={office_data_list}/>
+        {/* <Office data_list={office_data_list}/> */}
+        {/* 羌佛文告 */}
+        <Announcement data_list={office_announcement_data_list} title="羌佛文告" />
+        {/* 总部文告 */}
+        <Announcement data_list={announcement_data_list} title="总部文告"/>
+
         {/* 古佛降世，羌佛说法 */}
         <InteractiveList 
             left_list={buddha_data_list} 

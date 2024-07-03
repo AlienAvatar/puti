@@ -15,7 +15,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actionCreators as articleActionCreators } from '../../../../../store/article';
 import { useState, useEffect } from 'react';
-
+import { Empty } from 'antd';
+import BG_IMG from '../../../assets/main/bg_brick.jpg'
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
     <Box
@@ -58,9 +59,7 @@ ToggleCustomTheme.propTypes = {
   toggleCustomTheme: PropTypes.func.isRequired,
 };
 
-function ListPage(props) {
-    console.log("ListPage", props);
-    const category = props.category;
+function DetailPage(props) {
     const [mode, setMode] = React.useState('light');
     const [showCustomTheme, setShowCustomTheme] = React.useState(true);
     const LPtheme = createTheme(getLPTheme(mode));
@@ -69,11 +68,18 @@ function ListPage(props) {
     const toggleCustomTheme = () => {
       setShowCustomTheme((prev) => !prev);
     };
+    
+    const toggleColorMode = () => {
+      // 切换颜色模式
+      // 如果当前模式为 'dark'，则设置为 'light'；否则设置为 'dark'
+      setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    };
 
     useEffect(() => {
         async function fetchData() {
           try {
-            const response = await props.artilceDataFn.searchAllArticleByCategoryAc(category);
+            const id = window.location.pathname.replace("/", "");;
+            const response = await props.artilceDataFn.searchArticleByIdAc(id);
             if(response && response.status === "success"){
               setArticledata(response.data);
             }else{
@@ -87,14 +93,20 @@ function ListPage(props) {
         fetchData();
     }, []);
 
-  
-  
+    let article_details = null;
+    if(articledata == null){
+      article_details = <Empty />
+    }
     return (
       <ThemeProvider theme={showCustomTheme ? LPtheme : defaultTheme}>
         <CssBaseline />
         {/* title */}
-        <AppAppBar />
+        <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
         
+        <Box sx={{ backgroundImage: `url(${BG_IMG})` }}>
+          {article_details}
+        </Box>
+          
         <Box sx={{ bgcolor: '#444' }}>
           <Footer />
         </Box>
@@ -122,4 +134,4 @@ const mapDispatchToProps = dispatch => {
 
 //作为传递给 connect 的第二个参数，mapDispatchToProps 用于 dispatch actions 给 store。
 //这是触发 state 变更的唯一方法
-export default connect(mapStateToProps,mapDispatchToProps)(ListPage);
+export default connect(mapStateToProps,mapDispatchToProps)(DetailPage);

@@ -5,13 +5,14 @@ import MainPage from './pages/routes/Main';
 import ArticlePage from './pages/routes/Article';
 import { Component, React } from 'react';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import DetailPage from './pages/routes/Detail';
+// import DetailPage from './pages/routes/Detail';
 import LandingPage from './pages/components/templates/landing-page/LandingPage';
 import HomePage from './pages/components/templates/landing-page/HomePage';
 import SignIn from './pages/components/templates/sign-in/SignIn';
 import SignUp from './pages/components/templates/sign-up/SignUp';
 import ModelPage from './pages/routes/Model';
 import ListPage from './pages/components/templates/landing-page/ListPage';
+import DetailPage from './pages/components/templates/landing-page/DetailsPage';
 class App extends Component{
   state = {
     data : ''
@@ -33,7 +34,7 @@ class App extends Component{
               <Route path="/login" element={<LoginPage dataHandle = {this.dataHandle}/>}></Route>
               <Route path="/register" element={<RegisterPage />}></Route>
               <Route path="/article" element={<ArticlePage />}></Route>
-              <Route path="/detail/:num" element={<DetailPage />}></Route>
+              <Route path="/:id" element={<DetailPage />}></Route>
               <Route path="/test" element={<LandingPage />}></Route>
               <Route path="/signin" element={<SignIn />}></Route>
               <Route path="/signup" element={<SignUp />}></Route>
@@ -47,7 +48,6 @@ class App extends Component{
               <Route path="/buddha_virtue" element={<ListPage category="圆满佛格"/>}></Route>
               <Route path="/wuming" element={<ListPage category="妙谙五明"/>}></Route>
               <Route path="/savelivingbings" element={<ListPage category="渡生成就"/>}></Route>
-
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

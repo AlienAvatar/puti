@@ -73,18 +73,26 @@ export const searchAllArticleAc = () => {
 
 export const searchAllArticleByCategoryAc = (category) => {
     const url = `${config.PATH_ARTICLE_LIST}?category=${category}`;
-    const token = localStorage.getItem('token');
     return () => {
-        return axios.get(url,{
-                headers: {
-                    'token': token,
-                },
-            })
+        return axios.get(url)
             .then(response=>{
                 //告诉调用代码不需要等待
                 return response.data;
              }).catch(error => {
                 console.log('searchAllArticleByCategoryAc error', error);
+            });
+    };
+};
+
+export const searchArticleByIdAc = (id) => {
+    const url = `${config.PATH_ARTICLE_GET}${id}`;
+    return () => {
+        return axios.get(url)
+            .then(response=>{
+                //告诉调用代码不需要等待
+                return response.data;
+             }).catch(error => {
+                console.log('searchArticleByIdAc error', error);
             });
     };
 };

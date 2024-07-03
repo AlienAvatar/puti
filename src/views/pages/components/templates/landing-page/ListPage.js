@@ -20,7 +20,7 @@ import Container from '@mui/material/Container';
 import DOMPurify from 'dompurify';
 import { Avatar, List, Space } from 'antd';
 import { LikeOutlined, MessageOutlined, StarOutlined, TeamOutlined } from '@ant-design/icons';
-
+import BG_IMG from '../../../assets/main/bg_brick.jpg'
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
     <Box
@@ -124,8 +124,9 @@ function ListPage(props) {
         <CssBaseline />
         {/* title */}
         <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
-        
-        <Container id="features" sx={{ py: { xs: 1, sm: 15 }, }}>
+
+        <Box sx={{ backgroundImage: `url(${BG_IMG})` }}>
+        <Container id="features" sx={{ py: { xs: 1, sm: 15 } }}>
             <Grid container spacing={6}>
                 <Grid item xs={12} md={12}>
                     <List
@@ -135,6 +136,7 @@ function ListPage(props) {
                     loading={articledata.length === 0}
                     pagination={{ position, align }}
                     split={true}
+                    style={{backgroundColor: '#fff', borderRadius: 10}}
                     renderItem={(item) => {
                         const convertedHTML = <div 
                                                 style={{
@@ -163,7 +165,9 @@ function ListPage(props) {
                                     />
                                 }
                                 style={{
-                                    padding: '10px 24px',
+                                    padding: '45px',
+                                    borderBottom: '1px solid #7c7c7c',
+                                    // backgroundColor: '#fff'
                                 }}
                             >
                                 <List.Item.Meta
@@ -178,7 +182,7 @@ function ListPage(props) {
                 </Grid>
             </Grid>
         </Container>
-
+        </Box>
         <Box sx={{ bgcolor: '#444' }}>
             <Footer />
         </Box>

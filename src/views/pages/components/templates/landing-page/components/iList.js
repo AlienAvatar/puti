@@ -54,7 +54,7 @@ export default function InteractiveList(props) {
                 bordered
                 dataSource={left_data}
                 style={{ backgroundColor: '#fff'}}
-                renderItem={(item) =>{
+                renderItem={(item) => {
                     const dateTimeString = item.created_at;
                     const dateString = dateTimeString.split('T')[0];
                     return (

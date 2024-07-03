@@ -1,11 +1,10 @@
 import React from 'react';
-import { LikeOutlined, MessageOutlined, StarOutlined, TeamOutlined } from '@ant-design/icons';
+import { ProfileOutlined } from '@ant-design/icons';
 import { Avatar, List, Space } from 'antd';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import DOMPurify from 'dompurify';
 import { Card } from 'antd';
-const { Meta } = Card;
 
 export default function FoShuList(props) {
     if(props.data_list == null || props.data_list.length === 0) return null;
@@ -19,26 +18,14 @@ export default function FoShuList(props) {
                 size="large"
                 dataSource={data}
                 style={{ backgroundColor: '#fff', borderRadius: 10, padding: 20 }}
-                header={
-                    <h3>
-                        佛书法著
-                    </h3>
-                }
+                header={<h3><ProfileOutlined /> 佛书法著</h3>}
                 grid={{
                     gutter: 1,
                     column: 6,
                 }}
                 renderItem={(item) => {
                     return (
-                        <List.Item 
-                        // extra={
-                        //     <img
-                        //     width={272}
-                        //     alt="logo"
-                        //     src={item.cover_img}
-                        //     />
-                        // }
-                        >
+                        <List.Item>
                             
                             <Card
                                 title={item.title}
