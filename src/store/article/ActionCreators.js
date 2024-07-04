@@ -96,3 +96,20 @@ export const searchArticleByIdAc = (id) => {
             });
     };
 };
+
+export const updateSupportCountAc = (id) => {
+    const url = `${config.PATH_ARTICLE_UPDATE_SUPPORT_COUNT}${id}`;
+    return () => {
+        const token = localStorage.getItem('token');
+        const username = localStorage.getItem('username');
+        axios.defaults.headers['token'] = token;
+        return axios.post(url,{
+            'support_user': username,
+        }).then(response=>{
+            //告诉调用代码不需要等待
+            return response.data;
+        }).catch(error => {
+            console.log('searchArticleByIdAc error', error);
+        });
+    };
+};

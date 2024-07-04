@@ -142,8 +142,8 @@ function SignIn(props) {
     //登录
     const response = await props.userDataFn.loginAc(postParam);
     if(response.status === "success"){
-      console.log("response", response);
       localStorage.setItem('nickname', response.nickname);
+      localStorage.setItem('username', data.get('username'));
       localStorage.setItem('token', response.access_token);
 
       window.location.href = "/home";

@@ -1,4 +1,4 @@
-.detail-text{
+/* .detail-text{
     
     margin: 25px auto 0;
     overflow: hidden;
@@ -32,4 +32,21 @@
 .detail-author-group{
     padding: 0 10px;
     float: right;
+} */
+
+
+
+
+.aligncenter {
+    display: block;
+    margin: 0 auto;
+}
+
+.single_content img{
+    max-width: 100%;
+    display: block;
+}
+
+.single_content{
+    padding: 30px;
 }

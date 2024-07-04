@@ -101,14 +101,14 @@ function ListPage(props) {
     useEffect(() => {
         async function fetchData() {
             try {
-            const response = await props.artilceDataFn.searchAllArticleByCategoryAc(category);
+              const response = await props.artilceDataFn.searchAllArticleByCategoryAc(category);
             if(response && response.status === "success"){
                 setArticledata(response.articles);
             }else{
                 console.log('error');
             }
             } catch (error) {
-            console.error('Error fetching data:', error);
+              console.error('Error fetching data:', error);
             }
         }
 

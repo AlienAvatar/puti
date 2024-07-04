@@ -26,6 +26,6 @@ export const PATH_ARTICLE_UPDATE = SERVER_ADDR + ARTICLE + 'update/';
 export const PATH_ARTICLE_GET = SERVER_ADDR + ARTICLE + 'get/';
 export const PATH_ARTICLE_DELETE = SERVER_ADDR + ARTICLE + 'delete/';
 export const PATH_ARTICLE_DELETE_MANY = SERVER_ADDR + ARTICLE + 'delete_many/';
-
+export const PATH_ARTICLE_UPDATE_SUPPORT_COUNT = PATH_ARTICLE_UPDATE + 'support_count/';
 
 export const PATH_HOME = '/';
