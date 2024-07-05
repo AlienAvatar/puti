@@ -93,6 +93,7 @@ export const searchArticleByIdAc = (id) => {
                 return response.data;
              }).catch(error => {
                 console.log('searchArticleByIdAc error', error);
+                return error;
             });
     };
 };

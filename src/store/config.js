@@ -29,3 +29,12 @@ export const PATH_ARTICLE_DELETE_MANY = SERVER_ADDR + ARTICLE + 'delete_many/';
 export const PATH_ARTICLE_UPDATE_SUPPORT_COUNT = PATH_ARTICLE_UPDATE + 'support_count/';
 
 export const PATH_HOME = '/';
+
+//comment
+const COMMENT = 'comment/'
+export const PATH_COMMENT_LIST = SERVER_ADDR + COMMENT + 'list/';
+export const PATH_COMMENT_LIST_BY_ARTICLE_ID = SERVER_ADDR + COMMENT + 'list/';
+export const PATH_COMMENT_CREATE = SERVER_ADDR + COMMENT + 'create/';
+export const PATH_COMMENT_GET = SERVER_ADDR + COMMENT + 'get/';
+export const PATH_COMMENT_UPDATE = SERVER_ADDR + COMMENT + 'update/';
+export const PATH_COMMENT_DELETE = SERVER_ADDR + COMMENT + 'delete/';

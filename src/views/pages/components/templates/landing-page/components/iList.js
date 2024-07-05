@@ -1,6 +1,6 @@
 import React from 'react';
 // import { makeStyles } from '@mui/styles';
-import { Divider, List, Typography, Avatar, Space } from 'antd';
+import { Divider, List, Typography, Avatar, Space, Button } from 'antd';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import { LikeOutlined, MessageOutlined, StarOutlined, ProfileOutlined } from '@ant-design/icons';
@@ -27,9 +27,10 @@ function generate(element) {
   );
 }
 
-const handleListItemClick = (event, id) => {
-
-};
+const listClickHandle = (item) => {
+  const id = item.id;
+  window.location.href = `${id}`;
+}
 
 export default function InteractiveList(props) {
   //const classes = useStyles();
@@ -44,7 +45,8 @@ export default function InteractiveList(props) {
   const right_data = props.right_list[0].data.articles;
   const left_title = props.left_title;
   const right_title = props.right_title;
-  
+  const left_href = props.left_href;
+  const right_href = props.right_href;
   return (
     <Container id="features" sx={{ py: { xs: 1, sm: 5 } }}>
       <Grid container spacing={6}>
@@ -59,7 +61,7 @@ export default function InteractiveList(props) {
                     const dateString = dateTimeString.split('T')[0];
                     return (
                     <List.Item>
-                        <Typography.Text> {item.title}</Typography.Text>
+                        <Button type="text" onClick={() => listClickHandle(item)}><Typography.Text> {item.title}</Typography.Text></Button>
                         <div>{dateString}</div>
                     </List.Item>
                     )}  
@@ -77,7 +79,7 @@ export default function InteractiveList(props) {
                     const dateString = dateTimeString.split('T')[0];
                     return (
                     <List.Item>
-                        <Typography.Text> {item.title}</Typography.Text>
+                         <Button type="text" onClick={() => listClickHandle(item)}><Typography.Text> {item.title}</Typography.Text></Button>
                         <div>{dateString}</div>
                     </List.Item>
                     )}  

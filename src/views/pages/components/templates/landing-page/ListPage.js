@@ -115,7 +115,10 @@ function ListPage(props) {
         fetchData();
     }, []);
 
-    
+    const listClickHandle = (item) => {
+      const id = item.id;
+      window.location.href = `${id}`;
+    }
     // if(articledata == null || articledata.length === 0){
     //     return;
     // }
@@ -152,10 +155,10 @@ function ListPage(props) {
                         return (
                             <List.Item
                                 key={item.title}
+                                onClick={() => listClickHandle(item)}
                                 actions={[
                                 <IconText icon={TeamOutlined} text={item.views_count} key="list-vertical-star-o" />,
                                 <IconText icon={LikeOutlined} text={item.support_count} key="list-vertical-like-o" />,
-                                // <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
                                 ]}
                                 extra={
                                     <img
@@ -173,6 +176,7 @@ function ListPage(props) {
                                 <List.Item.Meta
                                     title={<a>{item.title}</a>}
                                 />
+                                
                                 {/* 将html去标签 */}
                                 {convertedHTML}
                             </List.Item>

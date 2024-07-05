@@ -10,4 +10,5 @@ export default combineReducers({
     loginReducer : loginReducer,
     articleReducer : articleReducer,
     registerReducer : registerReducer,
+    commentReducer : commentReducer,
 })

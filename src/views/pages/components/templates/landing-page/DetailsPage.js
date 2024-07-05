@@ -12,7 +12,7 @@ import getLPTheme from './getLPTheme';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actionCreators as articleActionCreators } from '../../../../../store/article';
-// import { commentactionCreators as actionCreators } from '../../../../../store/comment';
+import { actionCreators as commentActionCreators } from '../../../../../store/comment';
 import { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
@@ -23,6 +23,7 @@ import { Col, Row, message, Input, Form, Space, Button  } from 'antd';
 import '../../../assets/css/detail.css'
 import { EyeOutlined, LikeOutlined, LikeFilled} from '@ant-design/icons';
 import { margin } from '@mui/system';
+import { Avatar, List } from 'antd';
 
 const { Title, Text, Description  } = Typography;
 const { Meta } = Card;
@@ -32,6 +33,13 @@ const tailLayout = {
   wrapperCol: {
     offset: 0,
     span: 16,
+  },
+};
+
+const nicknameLayout = {
+  wrapperCol: {
+    offset: 0,
+    span: 5,
   },
 };
 
@@ -96,8 +104,6 @@ const convertDate = (date_string) =>{
   return `${year}年${month}月${day}日 ${hours}:${minutes}:${seconds}`
 }
 
-
-
 function DetailPage(props) {
     const [mode, setMode] = React.useState('light');
     const [showCustomTheme, setShowCustomTheme] = React.useState(true);
@@ -107,7 +113,13 @@ function DetailPage(props) {
     const [isSupport, setIsSupport] = useState(false);
     const [messageApi, contextHolder] = message.useMessage();
     const [commentValue, setCommentValue] = useState('');
-    const [commentdata, setCommentData] = useState(null);
+    const [commentData, setCommentData] = useState([]);
+    const [commentList, setCommentList] = useState([]);
+    const [article_id, setArticleId] = useState(null);
+    const [initLoading, setInitLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+    const count = 6;
+    const [limit, setLimit] = useState(6);
 
     const toggleCustomTheme = () => {
       setShowCustomTheme((prev) => !prev);
@@ -142,24 +154,108 @@ function DetailPage(props) {
       });
     };
 
+    const comment_success = () => {
+      messageApi.open({
+        type: 'success',
+        content: '评论成功',
+        style: {
+          marginTop: '10vh',
+          zIndex: 100,
+        },
+      });
+    };
+
+    const comment_error = () => {
+      messageApi.open({
+        type: 'error',
+        content: '评论失败',
+        style: {
+          marginTop: '10vh',
+          zIndex: 100,
+        },
+      });
+    };
+
+    const unauthorized_error = () => {
+      messageApi.open({
+        type: 'error',
+        content: '请登录',
+        style: {
+          marginTop: '10vh',
+          zIndex: 100,
+        },
+      });
+    };
+
     const error = () => {
       messageApi.open({
         type: 'error',
         content: '系统错误',
       });
+
     };
 
-    const onFinish = (values) => {
-      console.log(values);
+    const onFinish = async (values) => {
+      const id = window.location.pathname.replace("/", "");
+
+      const postParam = {
+        content: values.content,
+        author: values.author,
+        article_id: id,
+      };
+      const response = await props.commentDataFn.createCommmentAc(postParam);
+      if(response && response.status === "success"){
+        comment_success();
+        setCommentData(commentData.concat(response.data.comment));
+        document.getElementById('content').value = '';
+        setCommentValue('');
+      }else if(response.response.status === 401){
+        unauthorized_error();
+      }else{
+        comment_error();
+      }
+      
     };
+
+    const onLoadMore = () => {
+      setLoading(true);
+      setCommentList(
+        commentData.concat(
+          [...new Array(count)].map(() => ({
+            loading: true,
+            name: {},
+            picture: {},
+          })),
+        ),
+      );
+      setLimit(limit + 6);
+      
+      console.log("limit", limit);
+      try {
+        const id = window.location.pathname.replace("/", "");
+        const response = props.commentDataFn.getCommentListAc(id, limit + 6);
+        if(response && response.status === "success"){
+          const newData = commentData.concat(response.comments);
+          setCommentData(newData);
+          setCommentList(newData);
+          setLoading(false);
+          window.dispatchEvent(new Event('resize'));
+        }else{
+          error();
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+   
 
     useEffect(() => {
-        async function fetchData() {
+        async function fetchArticleData() {
           try {
-            const id = window.location.pathname.replace("/", "");;
+            const id = window.location.pathname.replace("/", "");
             const response = await props.artilceDataFn.searchArticleByIdAc(id);
             if(response && response.status === "success"){
-              setArticleData(response.data);
+              setArticleData(response.data.article.data);
             }else{
               error();
             }
@@ -168,14 +264,33 @@ function DetailPage(props) {
           }
         }
 
-        fetchData();
+        async function fetchCommentData() {
+          try {
+            const id = window.location.pathname.replace("/", "");
+            const response = await props.commentDataFn.getCommentListAc(id, limit);
+            if(response && response.status === "success"){
+              setCommentData(response.comments);
+              setCommentList(response.comments);
+              setInitLoading(false);
+            }else{
+              error();
+            }
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        }
+
+        fetchArticleData();
+        fetchCommentData();
     }, []);
 
+    
     if(articledata === null){
         return ;
     }
 
     let created_at = convertDate(articledata.article.created_at);
+
     const convertedHTML = <div  dangerouslySetInnerHTML={createMarkup(articledata.article.content)}>
                           </div>
 
@@ -189,7 +304,20 @@ function DetailPage(props) {
                         title={<Title level={3}>{articledata.article.title}</Title>}
                         description={description}
                  />;
-
+    const nickname = localStorage.getItem('nickname');
+    const loadMore =
+      !initLoading && !loading ? (
+        <div
+          style={{
+            textAlign: 'center',
+            marginTop: 12,
+            height: 32,
+            lineHeight: '32px',
+          }}
+        >
+          <Button onClick={()=>{setLimit(limit + 6); console.log('limit', limit);  window.dispatchEvent(new Event('resize'));}}>loading more</Button>
+        </div>
+      ) : null;
     return (
       <ThemeProvider theme={showCustomTheme ? LPtheme : defaultTheme}>
         <CssBaseline />
@@ -217,6 +345,25 @@ function DetailPage(props) {
 
                   <Card  bordered={false} style={{margin: "20px 0" }}>
                     <Divider style={{padding: 10}} orientation="left">评论区</Divider>
+                    <List
+                      itemLayout="horizontal"
+                      dataSource={commentList}
+                      loadMore={loadMore}
+                      renderItem={(item, index) => {
+                        const avatar = <Avatar alt={item.author} >
+                                        {item.author}
+                                      </Avatar>
+                        return (
+                          <List.Item>
+                            <List.Item.Meta
+                              avatar={avatar}
+                              title={<p>{item.author}</p>}
+                              description={item.content}
+                            />
+                          </List.Item>
+                        )
+                      }}
+                    />
 
                     <Form
                       onFinish={onFinish}
@@ -226,23 +373,39 @@ function DetailPage(props) {
                         rules={[
                           {
                             required: true,
+                            message: '请输入评论内容',
                           },
                         ]}
                       >
                         <TextArea
-                          value={commentValue}
-                          onChange={(e) => setCommentValue(e.target.value)}
                           placeholder="写下你要评论的内容"
+                          value={commentValue}
+                          // oncChange={()=>{setCommentValue('')}}
                           autoSize={{
                             minRows: 3,
                             maxRows: 5,
                           }}
                         />
                       </Form.Item>
+
+                      <Form.Item
+                        {...nicknameLayout}
+                        name="author"
+                        rules={[
+                          {
+                            required: true,
+                          },
+                        ]}
+                        initialValue={nickname === null ? '未登录，请先登录' : nickname}
+                      >
+                        <Input disabled/>
+                      </Form.Item>
+                      
                       <Form.Item {...tailLayout}>
                           <Button type="primary" htmlType="submit" style={{width: "50%"}}>
                             提交
                           </Button>
+                          
                       </Form.Item>
                     </Form>
                   </Card>
@@ -270,7 +433,7 @@ function DetailPage(props) {
 const mapStateToProps = (state) => {
   return {
     artilceData : state.articleReducer,
-    // commentData : state.commentReducer,
+    commentData : state.commentReducer,
   }
 }
 
@@ -279,7 +442,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => {
   return{
     artilceDataFn : bindActionCreators(articleActionCreators, dispatch),
-    // commentDataFn : bindActionCreators(commentActionCreators, dispatch),
+    commentDataFn : bindActionCreators(commentActionCreators, dispatch),
   }
 }
 
