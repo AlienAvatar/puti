@@ -56,7 +56,7 @@ export default function InteractiveList(props) {
                 header={ <h3><Button type="text" style={{fontSize: 'medium'}} href={left_href}><ProfileOutlined /> {left_title}</Button></h3>}
                 bordered
                 dataSource={left_data}
-                style={{ backgroundColor: '#fff'}}
+                style={{ backgroundColor: '#fff' }}
                 renderItem={(item) => {
                     const dateTimeString = item.created_at;
                     const dateString = dateTimeString.split('T')[0];

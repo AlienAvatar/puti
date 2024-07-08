@@ -1,6 +1,6 @@
 import React from 'react';
 import { LikeOutlined, MessageOutlined, StarOutlined, TeamOutlined, ProfileOutlined } from '@ant-design/icons';
-import { Avatar, List, Space, Button } from 'antd';
+import { Avatar, List, Space, Button, Typography } from 'antd';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import DOMPurify from 'dompurify';
@@ -10,8 +10,12 @@ const IconText = ({ icon, text }) => (
       {React.createElement(icon)}
       {text}
     </Space>
-  );
+);
 
+const listClickHandle = (item) => {
+const id = item.id;
+window.location.href = `${id}`;
+}
 const createMarkup = (html) => {
     return {
         __html : DOMPurify.sanitize(html)
@@ -31,16 +35,18 @@ export default function ImgList(props) {
                 itemLayout="vertical"
                 size="large"
                 dataSource={data}
-                header={ <h3><Button type="text" style={{fontSize: 'medium'}} href={href}><ProfileOutlined /> 共用分享</Button></h3> }
+                header={ <h3><Button type="text" style={{fontSize: 'medium'}} href={href}><ProfileOutlined /> 受用分享</Button></h3> }
                 style={{ backgroundColor: '#fff', borderRadius: 10, padding: 20 }}
                 renderItem={(item) => {
                     const convertedHTML = <div 
                                             style={{
-                                                    maxWidth: '50em',
+                                                    maxWidth: '53em',
                                                     maxHeight: '10em',
                                                     overflow: 'hidden',
                                                     textOverflow: 'ellipsis',
-                                                    whiteSpace: 'nowrap',
+                                                    display: 'flex',
+                                                    flexWrap: 'wrap',
+                                                    
                                             }}
                                             dangerouslySetInnerHTML={createMarkup(item.content)}>
                                         </div>
@@ -62,7 +68,7 @@ export default function ImgList(props) {
                         }
                         >
                         <List.Item.Meta
-                            title={<a>{item.title}</a>}
+                            title={<Button type="link" onClick={() => listClickHandle(item)}> {item.title} </Button>}
                         />
                             {/* 将html去标签 */}
                             {convertedHTML}

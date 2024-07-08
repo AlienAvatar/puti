@@ -50,7 +50,11 @@ class App extends Component{
               <Route path="/savelivingbings" element={<ListPage category="渡生成就"/>}></Route>
               <Route path="/true_dharma_news" element={<ListPage category="正法新闻"/>}></Route>
               <Route path="/positive" element={<ListPage category="摧邪显正"/>}></Route>
-              <Route path="/shared" element={<ListPage category="共用分享"/>}></Route>
+              <Route path="/shared" element={<ListPage category="受用分享"/>}></Route>
+              <Route path="/discourse" element={<ListPage category="大德文集"/>}></Route>
+              <Route path="/answer" element={<ListPage category="圣德回复"/>}></Route>
+              <Route path="/office_announcement" element={<ListPage category="羌佛文告"/>}></Route>
+              <Route path="/announcement" element={<ListPage category="总部文告"/>}></Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

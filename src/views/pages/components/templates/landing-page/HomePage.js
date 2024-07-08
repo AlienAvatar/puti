@@ -165,7 +165,7 @@ function HomePage(props) {
         {/* 羌佛文告 */}
         <Announcement data_list={office_announcement_data_list} title="羌佛文告" href="/office_announcement" />
         {/* 总部文告 */}
-        <Announcement data_list={announcement_data_list} title="总部文告"/>
+        <Announcement data_list={announcement_data_list} title="总部文告" href="/announcement"/>
 
         {/* 古佛降世，羌佛说法 */}
         <InteractiveList 
@@ -180,7 +180,7 @@ function HomePage(props) {
         <InteractiveList 
             left_list={recognition_data_list}
             right_list={buddha_virtue_data_list}
-            left_title="认证恭贺"
+            left_title="认证恭祝"
             right_title="圆满佛格"
             left_href= "/recognition"
             right_href= "/buddha_virtue"

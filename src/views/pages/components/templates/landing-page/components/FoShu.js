@@ -3,7 +3,12 @@ import { ProfileOutlined } from '@ant-design/icons';
 import { Avatar, List, Space } from 'antd';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import { Card, Button } from 'antd';
+import { Card, Button, Typography } from 'antd';
+
+const listClickHandle = (item) => {
+    const id = item.id;
+    window.location.href = `${id}`;
+}
 
 export default function FoShuList(props) {
     if(props.data_list == null || props.data_list.length === 0) return null;
@@ -27,10 +32,11 @@ export default function FoShuList(props) {
                         <List.Item>
                             
                             <Card
-                                title={item.title}
+                                title={<Typography.Text> {item.title}</Typography.Text>}
                                 hoverable
                                 style={{ width: 150 }}
                                 cover={<img alt={item.title} src={item.cover_img} />}
+                                onClick={() => listClickHandle(item)}
                             >
                                 {/* <img src={item.cover_img} /> */}
                             </Card>

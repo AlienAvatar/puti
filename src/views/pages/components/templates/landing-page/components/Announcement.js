@@ -10,6 +10,11 @@ import { Divider, List, Typography, Button } from 'antd';
 import { styled } from '@mui/material/styles';
 import { ProfileOutlined } from '@ant-design/icons';
 
+const listClickHandle = (item) => {
+  const id = item.id;
+  window.location.href = `${id}`;
+}
+
 export default function Announcement(props) {
   const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
   
@@ -41,7 +46,7 @@ export default function Announcement(props) {
                     return (
                         <List.Item
                             style={{display: 'flex', justifyContent:'space-between'}}
-                        >{item.title} <p>{dateString}</p></List.Item>
+                        ><Button type="text" onClick={() => listClickHandle(item)}><Typography.Text> {item.title}</Typography.Text></Button> <p>{dateString}</p></List.Item>
                     )
                 }}
             />
