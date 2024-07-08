@@ -25,6 +25,7 @@ import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators as loginActionCreators } from '../../../../../store/login';
+import { message } from 'antd';
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
     <Box
@@ -112,7 +113,8 @@ function SignIn(props) {
   const [open, setOpen] = React.useState(false);
   const [usernameError, setUsernameError] = React.useState(false);
   const [usernameErrorMessage, setUsernameErrorMessage] = React.useState('');
-
+  let input_valid = true;
+  const [messageApi, contextHolder] = message.useMessage();
 
   const toggleColorMode = () => {
     setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
@@ -130,6 +132,17 @@ function SignIn(props) {
     setOpen(false);
   };
 
+  const handleSubmitForgetPwd = () => {
+
+  }
+
+  const msg_error = (msg) => {
+    messageApi.open({
+      type: 'error',
+      content: msg,
+    });
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -141,15 +154,21 @@ function SignIn(props) {
     //To Do 记录在哪个页面点的登录，登录后回调到所点页面
     let current_href = window.location.href;
 
+    if(usernameError || passwordError){
+      msg_error('请输入登录信息');
+      return;
+    }
+
     //登录
     const response = await props.userDataFn.loginAc(postParam);
-    if(response.status === "success"){
+    if(response && response.status === "success"){
       localStorage.setItem('nickname', response.nickname);
       localStorage.setItem('username', data.get('username'));
       localStorage.setItem('token', response.access_token);
 
       window.location.href = "/home";
     }else{
+      msg_error('登录失败,请重试');
       localStorage.setItem('is_login', false);
       console.log('error')
     }
@@ -174,17 +193,21 @@ function SignIn(props) {
     if(!username.value) {
       setUsernameError(true);
       isValid = false;
+      input_valid = false;
     }else{
       setUsernameError(false);
       setUsernameErrorMessage('');
+      input_valid = true;
     }
 
     if (!password.value) {
       setPasswordError(true);
       isValid = false;
+      input_valid = false;
     } else {
       setPasswordError(false);
       setPasswordErrorMessage('');
+      input_valid = true;
     }
 
     return isValid;
@@ -194,6 +217,7 @@ function SignIn(props) {
     <ThemeProvider theme={showCustomTheme ? SignInTheme : defaultTheme}>
       <CssBaseline />
       <SignInContainer direction="column" justifyContent="space-between">
+        {contextHolder}
         <Stack
           direction="row"
           sx={{
@@ -275,14 +299,14 @@ function SignIn(props) {
               <FormControl>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                   <FormLabel htmlFor="password">密码</FormLabel>
-                  <Link
+                  {/* <Link
                     component="button"
                     onClick={handleClickOpen}
                     variant="body2"
                     sx={{ alignSelf: 'baseline' }}
                   >
                     忘记密码?
-                  </Link>
+                  </Link> */}
                 </Box>
                 <TextField
                   error={passwordError}
@@ -303,7 +327,7 @@ function SignIn(props) {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               /> */}
-              <ForgotPassword open={open} handleClose={handleClose} />
+              <ForgotPassword open={open} handleClose={handleClose} handleSubmitForgetPwd={handleSubmitForgetPwd}/>
               <Button
                 type="submit"
                 fullWidth

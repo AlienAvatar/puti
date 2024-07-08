@@ -163,7 +163,7 @@ function HomePage(props) {
         {/* 公告栏 */}
         {/* <Office data_list={office_data_list}/> */}
         {/* 羌佛文告 */}
-        <Announcement data_list={office_announcement_data_list} title="羌佛文告" />
+        <Announcement data_list={office_announcement_data_list} title="羌佛文告" href="/office_announcement" />
         {/* 总部文告 */}
         <Announcement data_list={announcement_data_list} title="总部文告"/>
 
@@ -172,37 +172,52 @@ function HomePage(props) {
             left_list={buddha_data_list} 
             right_list={buddha_dharma_data_list} 
             left_title="古佛降世" 
-            right_title="羌佛说法"/>
+            right_title="羌佛说法"
+            left_href= "/buddha"
+            right_href= "/buddha_dharma"
+            />
 
         <InteractiveList 
             left_list={recognition_data_list}
             right_list={buddha_virtue_data_list}
             left_title="认证恭贺"
-            right_title="圆满佛格"/>
+            right_title="圆满佛格"
+            left_href= "/recognition"
+            right_href= "/buddha_virtue"
+            />
 
         <InteractiveList
             left_list={holy_realization_data_list}
             right_list={holy_occurrences_data_list}
             left_title="羌佛圣量"
-            right_title="羌佛圣迹"/>
+            right_title="羌佛圣迹"
+            left_href= "/holy_realization"
+            right_href= "/holy_occurrences"
+            />
 
         <InteractiveList 
             left_list={wuming_data_list}
             right_list={savelivingbings_data_list}
             left_title="妙谙五明"
-            right_title="渡生成就"/>
+            right_title="渡生成就"
+            left_href= "/wuming"
+            right_href= "/savelivingbings"
+            />
 
         {/* 佛书法著 */}
-        <FoShuList data_list={foshu_data_list}/>
+        <FoShuList data_list={foshu_data_list} href = "foshu"/>
 
         <InteractiveList 
             left_list={true_dharma_news_data_list}
             right_list={positive_data_list}
             left_title="正法新闻"
-            right_title="摧邪显正"/>
+            right_title="摧邪显正"
+            left_href= "/true_dharma_news"
+            right_href= "/positive"
+            />
 
         <ImgList
-            data_list={shared_data_list}
+            data_list={shared_data_list} href="shared"
         />
       </Box>
       {/* <Box sx={{ bgcolor: 'background.default' }}>

@@ -18,9 +18,12 @@ import { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import DOMPurify from 'dompurify';
-import { Avatar, List, Space } from 'antd';
+import { Avatar, List, Space, Typography} from 'antd';
 import { LikeOutlined, MessageOutlined, StarOutlined, TeamOutlined } from '@ant-design/icons';
 import BG_IMG from '../../../assets/main/bg_brick.jpg'
+
+const { Paragraph, Text } = Typography;
+
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
     <Box
@@ -142,20 +145,20 @@ function ListPage(props) {
                     style={{backgroundColor: '#fff', borderRadius: 10}}
                     renderItem={(item) => {
                         const convertedHTML = <div 
-                                                style={{
-                                                    maxWidth: '50em',
-                                                    maxHeight: '10em',
-                                                    overflow: 'hidden',
-                                                    textOverflow: 'ellipsis',
-                                                    whiteSpace: 'nowrap',
-                                                }}
+                                                // style={{
+                                                //     maxWidth: '50em',
+                                                //     maxHeight: '10em',
+                                                //     overflow: 'hidden',
+                                                //     textOverflow: 'ellipsis',
+                                                //     whiteSpace: 'nowrap',
+                                                // }}
                                                 dangerouslySetInnerHTML={createMarkup(item.content)}>
                                             </div>
                     
                         return (
                             <List.Item
                                 key={item.title}
-                                onClick={() => listClickHandle(item)}
+                                // onClick={() => listClickHandle(item)}
                                 actions={[
                                 <IconText icon={TeamOutlined} text={item.views_count} key="list-vertical-star-o" />,
                                 <IconText icon={LikeOutlined} text={item.support_count} key="list-vertical-like-o" />,
@@ -178,7 +181,23 @@ function ListPage(props) {
                                 />
                                 
                                 {/* 将html去标签 */}
-                                {convertedHTML}
+                                <Typography.Paragraph
+                                  // style={{ width: 200 }}
+                                  style={{
+                                    maxWidth: '50em',
+                                    maxHeight: '10em',
+                                    paddingBottom: '11%',
+
+                                  }}
+                                  ellipsis={{
+                                    rows: 5,
+                                    expandable: 'collapsible',
+                                    symbol: '展开',
+                                  }}
+                                  onClick={() => listClickHandle(item)}
+                                >
+                                  {convertedHTML}
+                                </Typography.Paragraph>
                             </List.Item>
                         )
                     }}

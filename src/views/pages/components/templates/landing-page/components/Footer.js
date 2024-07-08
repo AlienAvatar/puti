@@ -75,16 +75,16 @@ export default function Footer() {
           {/* <Link color="#ccc" variant="body2" href="#">
             Features
           </Link> */}
-          <Link color="#ccc" variant="body2" href="#">
+          <Link color="#ccc" variant="body2" href="/buddha_dharma">
             羌佛说法
           </Link>
-          <Link color="#ccc" variant="body2" href="#">
+          <Link color="#ccc" variant="body2" href="/holy_realization">
             羌佛圣量
           </Link>
-          <Link color="#ccc" variant="body2" href="#">
+          <Link color="#ccc" variant="body2" href="/wuming">
             妙谙五明
           </Link>
-          <Link color="#ccc" variant="body2" href="#">
+          <Link color="#ccc" variant="body2" href="/true_dharma_news">
             正法新闻
           </Link>
         </Box>
@@ -95,16 +95,16 @@ export default function Footer() {
             gap: 1,
           }}
         >
-          <Link color="#ccc" variant="body2" href="#">
+          <Link color="#ccc" variant="body2" href="/buddha">
             古佛降世
           </Link>
-          <Link color="#ccc" variant="body2" href="#">
+          <Link color="#ccc" variant="body2" href="/buddha_virtue">
             圆满佛格
           </Link>
-          <Link color="#ccc" variant="body2" href="#">
+          <Link color="#ccc" variant="body2" href="/savelivingbings">
             渡生成就
           </Link>
-          <Link color="#ccc" variant="body2" href="#">
+          <Link color="#ccc" variant="body2" href="/answer">
             圣德答复
           </Link>
         </Box>
@@ -115,16 +115,16 @@ export default function Footer() {
             gap: 1,
           }}
         >
-          <Link color="#ccc" variant="body2" href="#">
+          <Link color="#ccc" variant="body2" href="/recognition">
             认证恭贺
           </Link>
-          <Link color="#ccc" variant="body2" href="#">
+          <Link color="#ccc" variant="body2" href="/holy_occurrences">
             羌佛圣迹
           </Link>
-          <Link color="#ccc" variant="body2" href="#">
+          <Link color="#ccc" variant="body2" href="/positive">
             摧邪显正
           </Link>
-          <Link color="#ccc" variant="body2" href="#">
+          <Link color="#ccc" variant="body2" href="/discourse">
             大德文集
           </Link>
         </Box>

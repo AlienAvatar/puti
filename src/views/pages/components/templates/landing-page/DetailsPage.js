@@ -23,7 +23,7 @@ import { Col, Row, message, Input, Form, Space, Button  } from 'antd';
 import '../../../assets/css/detail.css'
 import { EyeOutlined, LikeOutlined, LikeFilled} from '@ant-design/icons';
 import { margin } from '@mui/system';
-import { Avatar, List } from 'antd';
+import { Avatar, List, Skeleton } from 'antd';
 
 const { Title, Text, Description  } = Typography;
 const { Meta } = Card;
@@ -103,7 +103,7 @@ const convertDate = (date_string) =>{
   const seconds = String(date.getSeconds()).padStart(2, '0');
   return `${year}年${month}月${day}日 ${hours}:${minutes}:${seconds}`
 }
-
+let count = 6;
 function DetailPage(props) {
     const [mode, setMode] = React.useState('light');
     const [showCustomTheme, setShowCustomTheme] = React.useState(true);
@@ -118,8 +118,8 @@ function DetailPage(props) {
     const [article_id, setArticleId] = useState(null);
     const [initLoading, setInitLoading] = useState(true);
     const [loading, setLoading] = useState(false);
-    const count = 6;
     const [limit, setLimit] = useState(6);
+    const [comments_len, setCommentsLen] = useState(0);
 
     const toggleCustomTheme = () => {
       setShowCustomTheme((prev) => !prev);
@@ -187,7 +187,7 @@ function DetailPage(props) {
       });
     };
 
-    const error = () => {
+    const sys_error = () => {
       messageApi.open({
         type: 'error',
         content: '系统错误',
@@ -214,41 +214,38 @@ function DetailPage(props) {
       }else{
         comment_error();
       }
-      
     };
 
-    const onLoadMore = () => {
+    const onLoadMore = async () => {
       setLoading(true);
-      setCommentList(
-        commentData.concat(
-          [...new Array(count)].map(() => ({
-            loading: true,
-            name: {},
-            picture: {},
-          })),
-        ),
-      );
-      setLimit(limit + 6);
-      
-      console.log("limit", limit);
+      // setCommentList(
+      //   commentData.concat(
+      //     [...new Array(count)].map(() => ({
+      //       loading: true,
+      //       author: {},
+      //       content: {},
+      //     })),
+      //   ),
+      // );
+      count += 6;
+
       try {
         const id = window.location.pathname.replace("/", "");
-        const response = props.commentDataFn.getCommentListAc(id, limit + 6);
+        const response = await props.commentDataFn.getCommentListAc(id, count);
         if(response && response.status === "success"){
-          const newData = commentData.concat(response.comments);
-          setCommentData(newData);
-          setCommentList(newData);
+          setCommentData(response.comments);
+          setCommentList(response.comments);
+          setCommentsLen(response.results);
           setLoading(false);
           window.dispatchEvent(new Event('resize'));
         }else{
-          error();
+          sys_error();
         }
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
    
-
     useEffect(() => {
         async function fetchArticleData() {
           try {
@@ -257,7 +254,7 @@ function DetailPage(props) {
             if(response && response.status === "success"){
               setArticleData(response.data.article.data);
             }else{
-              error();
+              sys_error();
             }
           } catch (error) {
             console.error('Error fetching data:', error);
@@ -267,16 +264,18 @@ function DetailPage(props) {
         async function fetchCommentData() {
           try {
             const id = window.location.pathname.replace("/", "");
-            const response = await props.commentDataFn.getCommentListAc(id, limit);
+            const response = await props.commentDataFn.getCommentListAc(id, count);
             if(response && response.status === "success"){
               setCommentData(response.comments);
               setCommentList(response.comments);
+              setCommentsLen(response.results);
               setInitLoading(false);
             }else{
-              error();
+              sys_error();
             }
           } catch (error) {
             console.error('Error fetching data:', error);
+            sys_error();
           }
         }
 
@@ -315,7 +314,7 @@ function DetailPage(props) {
             lineHeight: '32px',
           }}
         >
-          <Button onClick={()=>{setLimit(limit + 6); console.log('limit', limit);  window.dispatchEvent(new Event('resize'));}}>loading more</Button>
+          { comments_len >= count ? <Button onClick={onLoadMore}>加载更多</Button> : <Divider plain>已读取所有评论</Divider>}
         </div>
       ) : null;
     return (
@@ -349,17 +348,20 @@ function DetailPage(props) {
                       itemLayout="horizontal"
                       dataSource={commentList}
                       loadMore={loadMore}
+                      style={{paddingBottom: 30}}
                       renderItem={(item, index) => {
                         const avatar = <Avatar alt={item.author} >
-                                        {item.author}
+                                        {/* {item.author ? item.author.slice(0, 1) : null} */}
                                       </Avatar>
                         return (
                           <List.Item>
-                            <List.Item.Meta
-                              avatar={avatar}
-                              title={<p>{item.author}</p>}
-                              description={item.content}
-                            />
+                            <Skeleton avatar title={false} loading={item.loading} active>
+                              <List.Item.Meta
+                                avatar={avatar}
+                                title={<p>{item.author}</p>}
+                                description={item.content}
+                              />
+                            </Skeleton>
                           </List.Item>
                         )
                       }}
@@ -405,7 +407,6 @@ function DetailPage(props) {
                           <Button type="primary" htmlType="submit" style={{width: "50%"}}>
                             提交
                           </Button>
-                          
                       </Form.Item>
                     </Form>
                   </Card>

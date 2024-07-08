@@ -38,7 +38,7 @@ class App extends Component{
               <Route path="/test" element={<LandingPage />}></Route>
               <Route path="/signin" element={<SignIn />}></Route>
               <Route path="/signup" element={<SignUp />}></Route>
-              <Route path="/model" element={<ModelPage />}></Route>
+              {/* <Route path="/model" element={<ModelPage />}></Route> */}
               <Route path="/buddha" element={<ListPage category="古佛降世"/>}></Route>
               <Route path="/buddha_dharma" element={<ListPage category="羌佛说法"/>}></Route>
               <Route path="/office" element={<ListPage category="公告"/>}></Route>
@@ -48,6 +48,9 @@ class App extends Component{
               <Route path="/buddha_virtue" element={<ListPage category="圆满佛格"/>}></Route>
               <Route path="/wuming" element={<ListPage category="妙谙五明"/>}></Route>
               <Route path="/savelivingbings" element={<ListPage category="渡生成就"/>}></Route>
+              <Route path="/true_dharma_news" element={<ListPage category="正法新闻"/>}></Route>
+              <Route path="/positive" element={<ListPage category="摧邪显正"/>}></Route>
+              <Route path="/shared" element={<ListPage category="共用分享"/>}></Route>
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

@@ -7,44 +7,100 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import OutlinedInput from '@mui/material/OutlinedInput';
+import { message } from 'antd';
 
-function ForgotPassword({ open, handleClose }) {
+function ForgotPassword({ open, handleClose, handleSubmitForgetPwd }) {
+  const [messageApi, contextHolder] = message.useMessage();
+  const pwd_error = () => {
+    messageApi.open({
+      type: 'error',
+      content: '两次输入的密码不一致',
+    });
+  };
   return (
     <Dialog
       open={open}
       onClose={handleClose}
       PaperProps={{
         component: 'form',
-        onSubmit: (event) => {
+        onSubmit: async (event) => {
+          debugger;
           event.preventDefault();
-          handleClose();
+          const data = new FormData(event.currentTarget);
+          const confirm_new_password = data.get('confirm_new_password');
+          if (confirm_new_password !== data.get('new_password')) {
+            pwd_error();
+            return;
+          }
+          const postParam = {
+            username : data.get('username'),
+            email : data.get('email'),
+            new_password : data.get('new_password'),
+          };
+          handleSubmitForgetPwd(postParam);
         },
       }}
+      // style={{
+      //   height: '150px'
+      // }}
     >
-      <DialogTitle>Reset password</DialogTitle>
+      {contextHolder}
+      <DialogTitle>重置密码</DialogTitle>
       <DialogContent
-        sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
+        sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%'  }}
       >
         <DialogContentText>
-          Enter your account&apos;s email address, and we&apos;ll send you a link to
-          reset your password.
+         请输入一个新密码，并确认新密码。
         </DialogContentText>
+        <OutlinedInput
+          autoFocus
+          required
+          margin="dense"
+          id="username"
+          name="username"
+          label="用户名"
+          placeholder="用户名"
+          type="text"
+          fullWidth
+        /> 
         <OutlinedInput
           autoFocus
           required
           margin="dense"
           id="email"
           name="email"
-          label="Email address"
-          placeholder="Email address"
+          label="电子邮箱"
+          placeholder="电子邮箱"
           type="email"
+          fullWidth
+        /> 
+        <OutlinedInput
+          autoFocus
+          required
+          margin="dense"
+          id="new_password"
+          name="new_password"
+          label="新密码"
+          placeholder="新密码"
+          type="password"
+          fullWidth
+        />
+        <OutlinedInput
+          autoFocus
+          required
+          margin="dense"
+          id="confirm_new_password"
+          name="confirm_new_password"
+          label="确认新密码"
+          placeholder="确认新密码"
+          type="password"
           fullWidth
         />
       </DialogContent>
       <DialogActions sx={{ pb: 3, px: 3 }}>
-        <Button onClick={handleClose}>Cancel</Button>
+        <Button onClick={handleClose}>取消</Button>
         <Button variant="contained" type="submit">
-          Continue
+          继续
         </Button>
       </DialogActions>
     </Dialog>

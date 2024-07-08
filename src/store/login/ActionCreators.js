@@ -67,3 +67,17 @@ export const signupAc = paramData => {
             });
     };
 };
+
+export const forgetPasswordAc = paramData => {
+    return () => {
+        const username = paramData.username;
+        const url = `${config.PATH_USER_UPDATE_PWD}${username}`;
+        return axios.post(url, paramData)
+            .then(response=>{
+                //告诉调用代码不需要等待
+                return response.data;
+            }).catch(error => {
+                console.log('forgetPasswordAc error', error);
+            });
+    };
+};

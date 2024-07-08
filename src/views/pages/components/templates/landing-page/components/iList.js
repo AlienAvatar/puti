@@ -47,12 +47,13 @@ export default function InteractiveList(props) {
   const right_title = props.right_title;
   const left_href = props.left_href;
   const right_href = props.right_href;
+  
   return (
     <Container id="features" sx={{ py: { xs: 1, sm: 5 } }}>
       <Grid container spacing={6}>
         <Grid item xs={12} md={6}>
             <List
-                header={<h3><ProfileOutlined /> {left_title}</h3>}
+                header={ <h3><Button type="text" style={{fontSize: 'medium'}} href={left_href}><ProfileOutlined /> {left_title}</Button></h3>}
                 bordered
                 dataSource={left_data}
                 style={{ backgroundColor: '#fff'}}
@@ -70,7 +71,7 @@ export default function InteractiveList(props) {
         </Grid>
         <Grid item xs={12} md={6}>
             <List
-                header={<h3><ProfileOutlined /> {right_title}</h3>}
+                header={ <h3><Button type="text" style={{fontSize: 'medium'}} href={right_href}><ProfileOutlined /> {right_title}</Button></h3>}
                 bordered
                 dataSource={right_data}
                 style={{ backgroundColor: '#fff'}}

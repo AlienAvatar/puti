@@ -12,7 +12,6 @@ export const PATH_USER_DELETE = SERVER_ADDR + USER + 'delete/';
 export const PATH_USER_DELETE_MANY = SERVER_ADDR + USER + 'delete_many/';
 export const PATH_USER_UPDATE_PWD = SERVER_ADDR + USER + 'update_pwd/';
 
-
 const ARTICLE = 'article/'
 export const PATH_SAVE_ARTICLE = SERVER_ADDR + ARTICLE + '/saveArticle'
 export const PATH_QUERY_ARTICLE_BYNUM = SERVER_ADDR + ARTICLE + '/queryArticle'

@@ -1,13 +1,12 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import { Chip as MuiChip } from '@mui/material';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
-import { Divider, List, Typography } from 'antd';
+import { Divider, List, Typography, Button } from 'antd';
 import { styled } from '@mui/material/styles';
 import { ProfileOutlined } from '@ant-design/icons';
 
@@ -25,14 +24,14 @@ export default function Announcement(props) {
 
   const data = props.data_list[0].data.articles;
   const title = props.title;
-
+  const href = props.href;
   return (
     <Container id="features" sx={{ py: { xs: 8, sm: 5 } }}>
       <Grid container spacing={6}>
         <Grid item xs={12} md={12}>
             <List
                 size="small"
-                header={<h3><ProfileOutlined /> {title}</h3>}
+                header={ <h3><Button type="text" style={{fontSize: 'medium'}} href={href}><ProfileOutlined /> {title}</Button></h3> }
                 bordered
                 dataSource={data}
                 style={{ backgroundColor: '#fff'}}
