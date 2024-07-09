@@ -136,17 +136,21 @@ function DetailPage(props) {
         const id = window.location.pathname.replace("/", "");;
         const response = await props.artilceDataFn.updateSupportCountAc(id);
         if(response && response.status === "success"){
-           
             setIsSupport(true);
         }else if(response && response.status === "conflict"){
           warning();
           console.log('conflict');
+        }else {
+          // setAuthorizedStr('未登录，请先登录');
+          unauthorized_error();
         }
       } catch (error) {
         console.error('Error fetching data:', error);
+        sys_error();
       }
     }
 
+    
     const warning = () => {
       messageApi.open({
         type: 'warning',
@@ -182,7 +186,6 @@ function DetailPage(props) {
         content: '请登录',
         style: {
           marginTop: '10vh',
-          zIndex: 100,
         },
       });
     };
@@ -210,7 +213,7 @@ function DetailPage(props) {
         document.getElementById('content').value = '';
         setCommentValue('');
       }else if(response.response.status === 401){
-        setAuthorizedStr('未登录，请先登录');
+        // setAuthorizedStr('未登录，请先登录');
         unauthorized_error();
       }else{
         comment_error();
@@ -219,15 +222,6 @@ function DetailPage(props) {
 
     const onLoadMore = async () => {
       setLoading(true);
-      // setCommentList(
-      //   commentData.concat(
-      //     [...new Array(count)].map(() => ({
-      //       loading: true,
-      //       author: {},
-      //       content: {},
-      //     })),
-      //   ),
-      // );
       count += 6;
 
       try {
@@ -323,6 +317,7 @@ function DetailPage(props) {
         <CssBaseline />
         {/* title */}
         <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
+        {/* 消息提示 */}
         {contextHolder}
         <Box sx={{ backgroundImage: `url(${BG_IMG})` }}>
           <Row gutter={16}>
@@ -332,6 +327,7 @@ function DetailPage(props) {
             <Col span={16}>
               <Container id="features" sx={{ py: { xs: 1, sm: 10 } }}>
                   <Card title={title} bordered={false}
+                  // 点赞
                     actions={[
                       isSupport ? 
                       <LikeFilled style={{ fontSize: '24px', color: "#4876ee" }} key="support" disabled />
@@ -399,7 +395,7 @@ function DetailPage(props) {
                             required: true,
                           },
                         ]}
-                        initialValue={nickname === null ? {unauthorized_str} : nickname}
+                        initialValue={nickname === null ? '未登录，请先登录' : nickname}
                       >
                         <Input disabled/>
                       </Form.Item>

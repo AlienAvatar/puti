@@ -113,7 +113,6 @@ function SignIn(props) {
   const [open, setOpen] = React.useState(false);
   const [usernameError, setUsernameError] = React.useState(false);
   const [usernameErrorMessage, setUsernameErrorMessage] = React.useState('');
-  let input_valid = true;
   const [messageApi, contextHolder] = message.useMessage();
 
   const toggleColorMode = () => {
@@ -152,7 +151,6 @@ function SignIn(props) {
       password : data.get('password'),
     };
     //To Do 记录在哪个页面点的登录，登录后回调到所点页面
-    let current_href = window.location.href;
 
     if(usernameError || passwordError){
       msg_error('请输入登录信息');
@@ -193,21 +191,17 @@ function SignIn(props) {
     if(!username.value) {
       setUsernameError(true);
       isValid = false;
-      input_valid = false;
     }else{
       setUsernameError(false);
       setUsernameErrorMessage('');
-      input_valid = true;
     }
 
     if (!password.value) {
       setPasswordError(true);
       isValid = false;
-      input_valid = false;
     } else {
       setPasswordError(false);
       setPasswordErrorMessage('');
-      input_valid = true;
     }
 
     return isValid;
