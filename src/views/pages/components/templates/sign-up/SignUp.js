@@ -200,14 +200,13 @@ function SignUp(props) {
     //注册
     const response = await props.userDataFn.signupAc(postParam);
     if(response.status === "success"){
-      console.log("response", response);
-      window.location.href = "/home";
+      window.location.href = "/";
     }else if(response.status === "fail"){
       setUsernameError(true);
       setUsernameErrorMessage("用户名重复")
     }else{
       localStorage.setItem('is_login', false);
-      console.log('error')
+      console.error('error')
     }
   };
 
@@ -227,7 +226,7 @@ function SignUp(props) {
           <Button
             startIcon={<ArrowBackRoundedIcon />}
             component="a"
-            href="/home"
+            href="/"
           >
             返回主页
           </Button>
@@ -342,7 +341,7 @@ function SignUp(props) {
                 注册
               </Button>
               <Link
-                href="/login"
+                href="/signin"
                 variant="body2"
                 sx={{ alignSelf: 'center' }}
               >

@@ -118,8 +118,8 @@ function DetailPage(props) {
     const [article_id, setArticleId] = useState(null);
     const [initLoading, setInitLoading] = useState(true);
     const [loading, setLoading] = useState(false);
-    const [limit, setLimit] = useState(6);
     const [comments_len, setCommentsLen] = useState(0);
+    const [unauthorized_str, setAuthorizedStr] = useState('未登录，请先登录');
 
     const toggleCustomTheme = () => {
       setShowCustomTheme((prev) => !prev);
@@ -206,10 +206,11 @@ function DetailPage(props) {
       const response = await props.commentDataFn.createCommmentAc(postParam);
       if(response && response.status === "success"){
         comment_success();
-        setCommentData(commentData.concat(response.data.comment));
+        setCommentList(commentList.concat(response.data.comment));
         document.getElementById('content').value = '';
         setCommentValue('');
       }else if(response.response.status === 401){
+        setAuthorizedStr('未登录，请先登录');
         unauthorized_error();
       }else{
         comment_error();
@@ -344,14 +345,14 @@ function DetailPage(props) {
 
                   <Card  bordered={false} style={{margin: "20px 0" }}>
                     <Divider style={{padding: 10}} orientation="left">评论区</Divider>
-                    <List
+                    { commentList.length !== 0 ? <List
                       itemLayout="horizontal"
                       dataSource={commentList}
                       loadMore={loadMore}
                       style={{paddingBottom: 30}}
                       renderItem={(item, index) => {
                         const avatar = <Avatar alt={item.author} >
-                                        {/* {item.author ? item.author.slice(0, 1) : null} */}
+                                        {item.author ? item.author.slice(0, 1) : null}
                                       </Avatar>
                         return (
                           <List.Item>
@@ -365,7 +366,7 @@ function DetailPage(props) {
                           </List.Item>
                         )
                       }}
-                    />
+                    /> : null }
 
                     <Form
                       onFinish={onFinish}
@@ -398,7 +399,7 @@ function DetailPage(props) {
                             required: true,
                           },
                         ]}
-                        initialValue={nickname === null ? '未登录，请先登录' : nickname}
+                        initialValue={nickname === null ? {unauthorized_str} : nickname}
                       >
                         <Input disabled/>
                       </Form.Item>

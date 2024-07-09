@@ -185,7 +185,7 @@ export default function SignUp() {
           <Button
             startIcon={<ArrowBackRoundedIcon />}
             component="a"
-            href="/home"
+            href="/"
           >
             返回主页
           </Button>

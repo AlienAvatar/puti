@@ -166,11 +166,11 @@ function SignIn(props) {
       localStorage.setItem('username', data.get('username'));
       localStorage.setItem('token', response.access_token);
 
-      window.location.href = "/home";
+      window.location.href = "/";
     }else{
       msg_error('登录失败,请重试');
       localStorage.setItem('is_login', false);
-      console.log('error')
+      console.error('error')
     }
   };
 
@@ -230,7 +230,7 @@ function SignIn(props) {
           <Button
             startIcon={<ArrowBackRoundedIcon />}
             component="a"
-            href="/home"
+            href="/"
           >
             返回主页
           </Button>
@@ -337,7 +337,7 @@ function SignIn(props) {
                 登录
               </Button>
               <Link
-                href="/sign-up/"
+                href="/signup"
                 variant="body2"
                 sx={{ alignSelf: 'center' }}
               >

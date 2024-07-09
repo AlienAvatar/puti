@@ -144,19 +144,7 @@ function ListPage(props) {
                     split={true}
                     style={{backgroundColor: '#fff', borderRadius: 10}}
                     renderItem={(item) => {
-                        let img_url = item.cover_img;
-                        const searchString = "http://www.gufowang.org";
-                        if (!img_url.includes(searchString)) {
-                          img_url = searchString + item.cover_img;
-                        }
                         const convertedHTML = <div 
-                                                // style={{
-                                                //     maxWidth: '50em',
-                                                //     maxHeight: '10em',
-                                                //     overflow: 'hidden',
-                                                //     textOverflow: 'ellipsis',
-                                                //     whiteSpace: 'nowrap',
-                                                // }}
                                                 dangerouslySetInnerHTML={createMarkup(item.content)}>
                                             </div>
                     
@@ -167,13 +155,6 @@ function ListPage(props) {
                                 <IconText icon={TeamOutlined} text={item.views_count} key="list-vertical-star-o" />,
                                 <IconText icon={LikeOutlined} text={item.support_count} key="list-vertical-like-o" />,
                                 ]}
-                                extra={
-                                    <img
-                                      width={272}
-                                      alt={img_url}
-                                      src={img_url}
-                                    />
-                                }
                                 style={{
                                     padding: '45px',
                                     borderBottom: '1px solid #7c7c7c',

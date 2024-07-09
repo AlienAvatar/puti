@@ -110,7 +110,7 @@ export const updateSupportCountAc = (id) => {
             //告诉调用代码不需要等待
             return response.data;
         }).catch(error => {
-            console.log('searchArticleByIdAc error', error);
+            console.error('searchArticleByIdAc error', error);
         });
     };
 };

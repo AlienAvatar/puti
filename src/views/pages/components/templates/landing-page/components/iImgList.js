@@ -37,16 +37,15 @@ export default function ImgList(props) {
                 dataSource={data}
                 header={ <h3><Button type="text" style={{fontSize: 'medium'}} href={href}><ProfileOutlined /> 受用分享</Button></h3> }
                 style={{ backgroundColor: '#fff', borderRadius: 10, padding: 20 }}
-                renderItem={(item) => {
+                renderItem={(item, index) => {
                     const convertedHTML = <div 
                                             style={{
                                                     maxWidth: '53em',
-                                                    maxHeight: '10em',
+                                                    height: '8em',
                                                     overflow: 'hidden',
                                                     textOverflow: 'ellipsis',
                                                     display: 'flex',
                                                     flexWrap: 'wrap',
-                                                    
                                             }}
                                             dangerouslySetInnerHTML={createMarkup(item.content)}>
                                         </div>
@@ -66,9 +65,10 @@ export default function ImgList(props) {
                             src={item.cover_img}
                             />
                         }
+                        style={ index === 5 ? { borderBottom: '' } : { borderBottom: '1px solid #7c7c7c' } }
                         >
                         <List.Item.Meta
-                            title={<Button type="link" onClick={() => listClickHandle(item)}> {item.title} </Button>}
+                            title={<Button type="link" onClick={() => listClickHandle(item)}><Typography.Text> {item.title} </Typography.Text></Button>}
                         />
                             {/* 将html去标签 */}
                             {convertedHTML}

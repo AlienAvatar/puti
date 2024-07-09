@@ -13,6 +13,7 @@ import SignUp from './pages/components/templates/sign-up/SignUp';
 import ModelPage from './pages/routes/Model';
 import ListPage from './pages/components/templates/landing-page/ListPage';
 import DetailPage from './pages/components/templates/landing-page/DetailsPage';
+import OfficePage from './pages/components/templates/landing-page/OfficePage';
 class App extends Component{
   state = {
     data : ''
@@ -29,20 +30,20 @@ class App extends Component{
         <>
           <BrowserRouter>
             <Routes>
-              <Route path="/" exact element={<MainPage />}></Route>
-              <Route path="/home" exact element={<HomePage />}></Route>
-              <Route path="/login" element={<LoginPage dataHandle = {this.dataHandle}/>}></Route>
-              <Route path="/register" element={<RegisterPage />}></Route>
-              <Route path="/article" element={<ArticlePage />}></Route>
+              {/* <Route path="/" exact element={<MainPage />}></Route> */}
+              <Route path="/" exact element={<HomePage />}></Route>
+              {/* <Route path="/login" element={<LoginPage dataHandle = {this.dataHandle}/>}></Route> */}
+              {/* <Route path="/register" element={<RegisterPage />}></Route> */}
+              {/* <Route path="/article" element={<ArticlePage />}></Route> */}
               <Route path="/:id" element={<DetailPage />}></Route>
-              <Route path="/test" element={<LandingPage />}></Route>
+              {/* <Route path="/test" element={<LandingPage />}></Route> */}
               <Route path="/signin" element={<SignIn />}></Route>
               <Route path="/signup" element={<SignUp />}></Route>
               {/* <Route path="/model" element={<ModelPage />}></Route> */}
               <Route path="/buddha" element={<ListPage category="古佛降世"/>}></Route>
               <Route path="/buddha_dharma" element={<ListPage category="羌佛说法"/>}></Route>
-              <Route path="/office" element={<ListPage category="公告"/>}></Route>
-              <Route path="/recognition" element={<ListPage category="认证恭贺"/>}></Route>
+              <Route path="/office" element={<OfficePage category="公告"/>}></Route>
+              <Route path="/recognition" element={<ListPage category="认证恭祝"/>}></Route>
               <Route path="/holy_realization" element={<ListPage category="羌佛圣量"/>}></Route>
               <Route path="/holy_occurrences" element={<ListPage category="羌佛圣迹"/>}></Route>
               <Route path="/buddha_virtue" element={<ListPage category="圆满佛格"/>}></Route>

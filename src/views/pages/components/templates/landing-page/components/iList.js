@@ -62,7 +62,9 @@ export default function InteractiveList(props) {
                     const dateString = dateTimeString.split('T')[0];
                     return (
                     <List.Item>
-                        <Button type="text" onClick={() => listClickHandle(item)}><Typography.Text> {item.title}</Typography.Text></Button>
+                        <Button style={{ whiteSpace: "normal", textAlign: "left" }} type="text" onClick={() => listClickHandle(item)}>
+                          <Typography.Text> {item.title}</Typography.Text>
+                        </Button>
                         <div>{dateString}</div>
                     </List.Item>
                     )}  
@@ -80,7 +82,9 @@ export default function InteractiveList(props) {
                     const dateString = dateTimeString.split('T')[0];
                     return (
                     <List.Item>
-                         <Button type="text" onClick={() => listClickHandle(item)}><Typography.Text> {item.title}</Typography.Text></Button>
+                        <Button style={{ whiteSpace: "normal", textAlign: "left" }} type="text" onClick={() => listClickHandle(item)}>
+                          <Typography.Text> {item.title}</Typography.Text>
+                        </Button>
                         <div>{dateString}</div>
                     </List.Item>
                     )}  
