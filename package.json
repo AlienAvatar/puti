@@ -66,7 +66,7 @@
     "vite": "^4.0.4"
   },
   "scripts": {
-    "start": "set PORT=10002 && react-scripts start",
+    "start": "set PORT=10003 && react-scripts start",
     "build": "react-scripts build",
     "dev": "DEBUG=project-management-server:* nodemon ./bin/www",
     "test": "react-scripts test",

@@ -112,7 +112,7 @@ function AppAppBar({ mode, toggleColorMode }) {
           })}
         >
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
-            <Button onClick={() => titleClickHandle('home')} ><Sitemark /></Button>
+            <Button onClick={() => titleClickHandle('')} ><Sitemark /></Button>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <Button
                 variant="text"
