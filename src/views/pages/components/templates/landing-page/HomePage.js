@@ -26,9 +26,11 @@ import { useState, useEffect } from 'react';
 import InteractiveList from './components/iList';
 import ImgList from './components/iImgList';
 import FoShuList from './components/FoShu';
+import MobileFoShuList from './components/MobileFoShu'
 import BG_IMG from '../../../assets/main/bg_brick.jpg'
 import Announcement from './components/Announcement';
-
+import MobileImgList from './components/iMobileImgList';
+import { isMobile, isTablet } from 'react-device-detect';
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
     <Box
@@ -205,7 +207,12 @@ function HomePage(props) {
             />
 
         {/* 佛书法著 */}
-        <FoShuList data_list={foshu_data_list} href = "foshu"/>
+        { 
+          isMobile ? 
+          <MobileFoShuList data_list={foshu_data_list} href = "foshu" />
+          :
+          <FoShuList data_list={foshu_data_list} href = "foshu"/>
+        }
 
         <InteractiveList 
             left_list={true_dharma_news_data_list}
@@ -216,9 +223,16 @@ function HomePage(props) {
             right_href= "/positive"
             />
 
-        <ImgList
+        { 
+          isMobile ? 
+          <MobileImgList 
+              data_list={shared_data_list} href="shared"
+          /> : 
+          <ImgList
             data_list={shared_data_list} href="shared"
-        />
+          />  
+        }
+       
       </Box>
       {/* <Box sx={{ bgcolor: 'background.default' }}>
       

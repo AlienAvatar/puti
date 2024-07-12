@@ -46,7 +46,7 @@ export default function Announcement(props) {
                     return (
                         <List.Item
                             style={{display: 'flex', justifyContent:'space-between'}}
-                        ><Button type="text" onClick={() => listClickHandle(item)}><Typography.Text> {item.title}</Typography.Text></Button> <p>{dateString}</p></List.Item>
+                        ><Button style={{ whiteSpace: "normal", textAlign: "left" }} type="text" onClick={() => listClickHandle(item)}><Typography.Text> {item.title}</Typography.Text></Button> <p>{dateString}</p></List.Item>
                     )
                 }}
             />

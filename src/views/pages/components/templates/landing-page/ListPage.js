@@ -21,6 +21,7 @@ import DOMPurify from 'dompurify';
 import { Avatar, List, Space, Typography} from 'antd';
 import { LikeOutlined, MessageOutlined, StarOutlined, TeamOutlined } from '@ant-design/icons';
 import BG_IMG from '../../../assets/main/bg_brick.jpg'
+import { isMobile } from 'react-device-detect';
 
 const { Paragraph, Text } = Typography;
 
@@ -150,13 +151,6 @@ function ListPage(props) {
                           img_url = searchString + item.cover_img;
                         }
                         const convertedHTML = <div 
-                                                // style={{
-                                                //     maxWidth: '50em',
-                                                //     maxHeight: '10em',
-                                                //     overflow: 'hidden',
-                                                //     textOverflow: 'ellipsis',
-                                                //     whiteSpace: 'nowrap',
-                                                // }}
                                                 dangerouslySetInnerHTML={createMarkup(item.content)}>
                                             </div>
                     
@@ -170,14 +164,23 @@ function ListPage(props) {
                                 extra={
                                     <img
                                       width={272}
-                                      alt={img_url}
+                                      alt={"无法获取图片"}
                                       src={img_url}
                                     />
                                 }
-                                style={{
-                                    padding: '45px',
-                                    borderBottom: '1px solid #7c7c7c',
-                                }}
+                                style={
+                                    isMobile ?
+                                    {
+                                      display: 'flex',
+                                      flexDirection: 'column-reverse',
+                                      padding: '45px',
+                                      borderBottom: '1px solid #7c7c7c',
+                                    } :
+                                    {
+                                      padding: '45px',
+                                      borderBottom: '1px solid #7c7c7c',
+                                    }
+                                }
                             >
                                 <List.Item.Meta
                                     title={<a>{item.title}</a>}

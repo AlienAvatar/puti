@@ -24,6 +24,7 @@ import '../../../assets/css/detail.css'
 import { EyeOutlined, LikeOutlined, LikeFilled} from '@ant-design/icons';
 import { margin } from '@mui/system';
 import { Avatar, List, Skeleton } from 'antd';
+import { isMobile } from 'react-device-detect';
 
 const { Title, Text, Description  } = Typography;
 const { Meta } = Card;
@@ -115,7 +116,6 @@ function DetailPage(props) {
     const [commentValue, setCommentValue] = useState('');
     const [commentData, setCommentData] = useState([]);
     const [commentList, setCommentList] = useState([]);
-    const [article_id, setArticleId] = useState(null);
     const [initLoading, setInitLoading] = useState(true);
     const [loading, setLoading] = useState(false);
     const [comments_len, setCommentsLen] = useState(0);
@@ -312,6 +312,8 @@ function DetailPage(props) {
           { comments_len >= count ? <Button onClick={onLoadMore}>加载更多</Button> : <Divider plain>已读取所有评论</Divider>}
         </div>
       ) : null;
+
+    const spanNum = isMobile ? 24 : 16;
     return (
       <ThemeProvider theme={showCustomTheme ? LPtheme : defaultTheme}>
         <CssBaseline />
@@ -320,21 +322,24 @@ function DetailPage(props) {
         {/* 消息提示 */}
         {contextHolder}
         <Box sx={{ backgroundImage: `url(${BG_IMG})` }}>
-          <Row gutter={16}>
-            <Col span={4}>
-            </Col>
-            
-            <Col span={16}>
+          <Row>
+            { 
+              isMobile ? 
+              null : 
+              <Col span={4}>
+              </Col>
+            }
+            <Col span={spanNum}>
               <Container id="features" sx={{ py: { xs: 1, sm: 10 } }}>
-                  <Card title={title} bordered={false}
-                  // 点赞
+                  <Card title={title} bordered={false} 
+                  // 点赞 
                     actions={[
                       isSupport ? 
                       <LikeFilled style={{ fontSize: '24px', color: "#4876ee" }} key="support" disabled />
                        : <LikeOutlined style={{ fontSize: '24px', color: "#4876ee" }}  key="support" onClick={handleSupport}/>,
                     ]}
                   >
-                    <Typography className='single_content' style={{ backgroundColor: "#fff"}}>
+                    <Typography className='single_content' style={isMobile ? { padding: 0, backgroundColor: "#fff"} : {backgroundColor: "#fff", padding: 24}}>
                       {convertedHTML}
                     </Typography>
                   </Card>
@@ -408,11 +413,12 @@ function DetailPage(props) {
                     </Form>
                   </Card>
               </Container>
-
             </Col>
-            <Col span={4}>
-              
-            </Col>
+            { 
+              isMobile ? null : 
+              <Col span={4}>
+              </Col>
+            }
           </Row>
           
         </Box>
