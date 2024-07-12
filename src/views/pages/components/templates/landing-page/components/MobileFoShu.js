@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProfileOutlined } from '@ant-design/icons';
-import { Avatar, List, Space } from 'antd';
+import { List } from 'antd';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import { Card, Button, Typography } from 'antd';

@@ -1,6 +1,6 @@
 import React from 'react';
-import { LikeOutlined, MessageOutlined, StarOutlined, TeamOutlined, ProfileOutlined } from '@ant-design/icons';
-import { Avatar, List, Space, Button, Typography } from 'antd';
+import { LikeOutlined, TeamOutlined, ProfileOutlined } from '@ant-design/icons';
+import { List, Space, Button, Typography } from 'antd';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import DOMPurify from 'dompurify';

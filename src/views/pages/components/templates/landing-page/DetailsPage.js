@@ -14,7 +14,6 @@ import { connect } from 'react-redux';
 import { actionCreators as articleActionCreators } from '../../../../../store/article';
 import { actionCreators as commentActionCreators } from '../../../../../store/comment';
 import { useState, useEffect } from 'react';
-import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import BG_IMG from '../../../assets/main/bg_brick.jpg';
 import DOMPurify from 'dompurify';
@@ -22,11 +21,10 @@ import { Typography, Card, Divider } from "antd";
 import { Col, Row, message, Input, Form, Space, Button  } from 'antd';
 import '../../../assets/css/detail.css'
 import { EyeOutlined, LikeOutlined, LikeFilled} from '@ant-design/icons';
-import { margin } from '@mui/system';
 import { Avatar, List, Skeleton } from 'antd';
 import { isMobile } from 'react-device-detect';
 
-const { Title, Text, Description  } = Typography;
+const { Title, Text  } = Typography;
 const { Meta } = Card;
 const { TextArea } = Input;
 

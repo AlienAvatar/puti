@@ -10,13 +10,13 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import AppAppBar from './components/AppAppBar';
 import Hero from './components/Hero';
-import LogoCollection from './components/LogoCollection';
-import Highlights from './components/Highlights';
-import Pricing from './components/Pricing';
-import Features from './components/Features';
-import Office from './components/Office';
-import Testimonials from './components/Testimonials';
-import FAQ from './components/FAQ';
+// import LogoCollection from './components/LogoCollection';
+// import Highlights from './components/Highlights';
+// import Pricing from './components/Pricing';
+// import Features from './components/Features';
+// import Office from './components/Office';
+// import Testimonials from './components/Testimonials';
+// import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 import getLPTheme from './getLPTheme';
 import { bindActionCreators } from 'redux';
@@ -30,7 +30,7 @@ import MobileFoShuList from './components/MobileFoShu'
 import BG_IMG from '../../../assets/main/bg_brick.jpg'
 import Announcement from './components/Announcement';
 import MobileImgList from './components/iMobileImgList';
-import { isMobile, isTablet } from 'react-device-detect';
+import { isMobile } from 'react-device-detect';
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
     <Box

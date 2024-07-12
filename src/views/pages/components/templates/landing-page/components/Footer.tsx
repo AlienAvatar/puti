@@ -75,12 +75,12 @@ export default function Footer() {
                 fullWidth
                 aria-label="Enter your email address"
                 placeholder="Your email address"
-                slotProps={{
-                  htmlInput: {
-                    autoComplete: 'off',
-                    'aria-label': 'Enter your email address',
-                  },
-                }}
+                // slotProps={{
+                //   htmlInput: {
+                //     autoComplete: 'off',
+                //     'aria-label': 'Enter your email address',
+                //   },
+                // }}
               />
               <Button variant="contained" color="primary" sx={{ flexShrink: 0 }}>
                 Subscribe

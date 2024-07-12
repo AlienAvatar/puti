@@ -1,10 +1,9 @@
 import React from 'react';
 // import { makeStyles } from '@mui/styles';
-import { Divider, List, Typography, Avatar, Space, Button } from 'antd';
+import { List, Typography, Button } from 'antd';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import { LikeOutlined, MessageOutlined, StarOutlined, ProfileOutlined } from '@ant-design/icons';
-import BG_IMG from '../../../../assets/main/bg_brick.jpg'
+import { ProfileOutlined } from '@ant-design/icons';
 
 // const useStyles = makeStyles((theme) => ({
 //   root: {
@@ -34,8 +33,8 @@ const listClickHandle = (item) => {
 
 export default function InteractiveList(props) {
   //const classes = useStyles();
-  const [dense, setDense] = React.useState(false);
-  const [secondary, setSecondary] = React.useState(false);
+  // const [dense, setDense] = React.useState(false);
+  // const [secondary, setSecondary] = React.useState(false);
 
   if(props.left_list == null || props.left_list.length === 0 || props.right_list == null || props.right_list.length === 0){
     return;

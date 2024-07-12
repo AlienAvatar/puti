@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
@@ -18,12 +17,10 @@ import { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import DOMPurify from 'dompurify';
-import { Avatar, List, Space, Typography} from 'antd';
-import { LikeOutlined, MessageOutlined, StarOutlined, TeamOutlined } from '@ant-design/icons';
+import { List, Space, Typography} from 'antd';
+import { LikeOutlined, TeamOutlined } from '@ant-design/icons';
 import BG_IMG from '../../../assets/main/bg_brick.jpg'
 import { isMobile } from 'react-device-detect';
-
-const { Paragraph, Text } = Typography;
 
 function ToggleCustomTheme({ showCustomTheme, toggleCustomTheme }) {
   return (
@@ -87,8 +84,6 @@ function ListPage(props) {
     const LPtheme = createTheme(getLPTheme(mode));
     const defaultTheme = createTheme({ palette: { mode } });
     const [articledata, setArticledata] = useState([]);
-    const [position, setPosition] = useState('bottom');
-    const [align, setAlign] = useState('center');
     const category = props.category;
 
     const toggleColorMode = () => {
@@ -141,7 +136,7 @@ function ListPage(props) {
                     size="default"
                     dataSource={articledata}
                     loading={articledata.length === 0}
-                    pagination={{ position, align }}
+                    pagination={{ position:'bottom', align: 'center' }}
                     split={true}
                     style={{backgroundColor: '#fff', borderRadius: 10}}
                     renderItem={(item) => {
