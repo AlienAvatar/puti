@@ -1,6 +1,6 @@
-const SERVER_ADDR = 'http://localhost:10001/api/';
+// const SERVER_ADDR = 'http://localhost:10001/api/';
+const SERVER_ADDR = 'http://47.115.218.151:10001/api/';
 // const SERVER_ADDR = 'http://47.241.47.150:9527/puti';
-const LOGIN = '/login';
 const USER = 'user/'
 export const PATH_VALID_USER = SERVER_ADDR + USER + 'login/';
 export const PATH_USER_LIST = SERVER_ADDR + USER + 'list/';

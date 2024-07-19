@@ -142,10 +142,10 @@ function HomePage(props) {
             const office_announcement_list = response.data.filter(data => data.category === "羌佛文告");
             setOfficeAnnouncementDataList(office_announcement_list);
           }else{
-            console.log('error');
+            console.error('无法获取服务器数据');
           }
         } catch (error) {
-          console.error('Error fetching data:', error);
+          console.error('获取数据请求错误:', error);
         }
       }
 
@@ -156,7 +156,7 @@ function HomePage(props) {
   
   return (
     <ThemeProvider theme={showCustomTheme ? LPtheme : defaultTheme}>
-      <CssBaseline />
+      <CssBaseline enableColorScheme={false}/>
       {/* title */}
       <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
       

@@ -199,9 +199,9 @@ function SignUp(props) {
     }
     //注册
     const response = await props.userDataFn.signupAc(postParam);
-    if(response.status === "success"){
+    if(response && response.status === "success"){
       window.location.href = "/";
-    }else if(response.status === "fail"){
+    }else if(response && response.status === "fail"){
       setUsernameError(true);
       setUsernameErrorMessage("用户名重复")
     }else{

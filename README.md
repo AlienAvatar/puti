@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+## React
+1. React路由
+    BrowserRouter
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+分为四个部分
+- HomePage
+- ListPage
+- DetailPage
+- SignIn SignUp
 
-## Available Scripts
+### HomePage 主页
+作用：展示所有Category部分内容
 
-In the project directory, you can run:
+1. useEffect()访问后端数据
+2. React.Element
+    - <ThemeProvider> 切换主题
+    - <CssBaseline>提供颜色方案 Color Scheme
+    - <AppAppBar> 导航栏 
+    - <Box> 布局
+    - <Announcement> 自定义组件，主要是List
+    - <InteractiveList> 自定义组件，主要是List
+    - <Footer> 尾部
 
-### `npm start`
+### ListPage 列表页
+1. useEffect()根据category访问后端数据
+2. React.Element
+    - <ThemeProvider> 切换主题
+    - <CssBaseline>提供颜色方案 Color Scheme
+    - <AppAppBar> 导航栏
+    - <Container> 容器将内容水平居中。它是最基本的布局元素
+    - <Grid> 响应式布局网格，确保布局的一致性
+    - <List> 列表，采用antd
+        - 检查图片的链接，拼接图片![alt text](image-2.png)
+        - 标题
+        - 观看数，点赞数 ![alt text](image-1.png)
+        - 分页 List的属性
+        - 缩略 <Typography.Paragraph>中的ellipsis属性
+        ![alt text](image.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### DetailedPage 详情页
+1. useEffect()根据id访问后端数据
+2. React.Element
+    - <ThemeProvider> 切换主题
+    - <CssBaseline>提供颜色方案 Color Scheme
+    - <AppAppBar> 导航栏
+    - {contextHolder} 消息提示
+    - <Box> 布局
+    - <Row> Antd 布局组件
+    - <Container> 容器将内容水平居中。它是最基本的布局元素
+    - <Card> Antd 卡片组件
+    - <Typography> Antd 组件 import DOMPurify from 'dompurify'; 转换富文本编辑过的html
+    - <Divider> Antd 分割线
+    - <List> 展示评论
+    - <Form> 用于评论提交
+    - <Input> 输入用户名
+    - <Input.TextArea> 输入评论
+    - <Button> 提交按钮
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 登录注册页
+1. 使用原本的mui登录注册页进行更改
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+git commit -m "添加dockerfile，重写Readme.md, 说明了主要的项目功能"
+Redux
+- 负责数据流

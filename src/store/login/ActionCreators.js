@@ -58,6 +58,7 @@ export const logout = () => {
 
 export const signupAc = paramData => {
     return () => {
+        console.log('url', config.PATH_USER_CREATE);
         return axios.post(config.PATH_USER_CREATE, paramData)
             .then(response=>{
                 //告诉调用代码不需要等待
